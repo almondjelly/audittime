@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<!-- Stopwatch -->
+
+    <form id="form-stopwatch" action="/add_event" method="post">
+        i'm currently 
+        <input type="text" id="task" placeholder="watching Better Call Saul" required autofocus name="task">
+
+        (<input type="text" id="category" placeholder="tv" required autofocus name="category">)
+
+        <button type="button" id="startButton" name="startButton" value="start">start</button>
+
+        <button type="submit" id="stopButton" name="stopButton" value="stop">stop</button>
+    </form>
+
+    <div id="duration">
+    </div>
+
+{% endblock %}

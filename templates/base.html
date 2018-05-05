@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>AuditTime</title>
+<!--         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" type="text/css" href="static/css/signin.css">
+    </head>
+    <body>
+        {% for message in get_flashed_messages() %}
+            {{ message }}
+        {% endfor %}
+
+        <h1><a href="/">AuditTime</a></h1>
+        
+        <div id="userInfo">
+        {% if session.get('user') %}
+            
+
+        {% else %}
+
+        {% endif %}
+        </div>
+
+        
+        <div id="butter"></div>
+
+        <div id="login">
+        {% if session.get('user') %}
+            you're logged in as {{ session.get('user')}}
+            <form action='/logout' method="post">
+                <button type="submit">sign out</button>
+            </form>
+
+
+            <ul id="navbar">
+                <li><a href="/user">Home</a></li>
+            </ul>
+
+
+        {% else %}
+        <form class="form-signin" action="/signin" method="post">
+  
+            <label for="inputEmail">email address</label>
+            <input type="email" id="inputEmail" placeholder="email address" required autofocus name="email">
+            <label for="inputPassword" >password</label>
+            <input type="password" id="inputPassword" placeholder="password" required name="password">
+            <div>
+                <label>
+                <input type="checkbox" value="remember-me"> remember me
+                </label>
+            </div>
+            <button type="submit">sign in</button>
+
+        </form>
+        {% endif %}    
+
+        </div>
+
+        {% if session.get('user') %}
+        {% else %}
+        <div id="register">
+            <form class="form-register" action="/register" method="post">
+                <label for="registerName">name</label>
+                <input type="text" id="registerName" placeholder="name" required autofocus name="name">
+    
+                <label for="registerEmail">email address</label>
+                <input type="email" id="registerEmail" placeholder="email address" required autofocus name="email">
+    
+                <label for="registerPassword" >password</label>
+                <input type="password" id="registerPassword" placeholder="password" required name="password">
+    
+                <button type="submit">register</button>
+
+            </form>
+        {% endif %}
+
+
+        </div>
+
+
+
+
+
+
+        {% block body %}
+        {% endblock %}
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <script src="static/js/audittime.js"></script>
+    </body>
+</html>
