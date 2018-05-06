@@ -6,6 +6,9 @@ from flask import (Flask, render_template, redirect, request, flash, session,
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
                   GoalCategory
+from datetime import datetime
+from math import floor
+import json
 import pdb
 
 
@@ -77,23 +80,34 @@ def userhome():
     return render_template("userhome.html")
 
 
+@app.route('/start_stopwatch', methods=['POST'])
+def grab_start_time():
+    """Grabs start time."""
+
+    session['start_time'] = datetime.now()
+    session['task'] = request.form.get('task')
+    session['category'] = request.form.get('category')
+
+    return redirect('/user')
+
+
 @app.route('/add_event', methods=['POST'])
 def add_event():
     """Adds a new event to the database and returns its duration."""
 
-    start_time = request.form.get('start_time')
-    stop_time = request.form.get('stop_time')
+    start_time = session['start_time']
+    stop_time = datetime.now()
+    task_name = session['task']
+    category_name = session['category']
     user_id = User.query.filter_by(email=session['user']).one().user_id
-    task_name = request.form.get('task')
-    category_name = request.form.get('category')
 
-    # If the task already exists, find its id.
+    # # If the task already exists, find its id.
     if Task.query.filter_by(name=task_name).first():
         task_id = Task.query.filter_by(name=task_name).first().task_id
 
     else:
-        # Create a new task.
-        # If the category already exists, find its id.
+    #     # Create a new task.
+    #     # If the category already exists, find its id.
         if Category.query.filter_by(name=category_name).first():
             category_id = Category.query.filter_by(name=category_name) \
                 .first().category_id
@@ -107,8 +121,8 @@ def add_event():
             db.session.commit()
 
             # Find the newly created category's id.
-            # category_id = Category.query.filter_by(name=category_name) \
-            #     .first().category_id
+            category_id = Category.query.filter_by(name=category_name) \
+                .first().category_id
 
             category_id = new_category.category_id
 
@@ -119,18 +133,18 @@ def add_event():
         db.session.add(new_task)
         db.session.commit()
 
-        # Find the newly created task's id.
-        # task_id = Task.query.filter_by(name=task_name).first().task_id
+    #     # Find the newly created task's id.
+        task_id = Task.query.filter_by(name=task_name).first().task_id
         task_id = new_task.task_id
 
-    # With the task_id, we now have enough info to create the new event.
-    new_event = Event(start_time=start_time, stop_time=stop_time,
-                      user_id=user_id, task_id=task_id)
+    # # With the task_id, we now have enough info to create the new event.
+    # new_event = Event(start_time=start_time, stop_time=stop_time,
+    #                   user_id=user_id, task_id=task_id)
 
     db.session.add(new_event)
     db.session.commit()
 
-    return event.duration()
+    return redirect('/user')
 
 
 # @app.route('/')

@@ -1,34 +1,40 @@
 // START + STOP STOPWATCH, THEN DISPLAY DURATION.
 
-function displayDuration(result) {
-    $("#duration").html(result)
-}
+// function displayDuration(result) {
+//     // $("#duration").html(result)
+//     return 5
+// }
 
-function useStopwatch(evt) {
-    evt.preventDefault();
-    console.log("starting stopwatch...")
+// let startTime;
 
-    let startTime = Date.now();
-
-    $("#stopButton").on("click", function() {
-        evt.preventDefault();
-
-        let stopTime = Date.now();
-
-        let formInputs = {
-            "start_time": startTime,
-            "stop_time": stopTime,
-            "task": $("#task").val(),
-            "category": $("#category").val(),
-        };
-
-        $.post("/add_event", 
-               formInputs,
-               displayDuration);
-    });
+// function useStopwatch(evt) {
+//     evt.preventDefault();
+//     console.log("starting stopwatch...")
 
     
-}
+
+//     $("#stopButton").on("click", function() {
+//         evt.preventDefault();
+
+//         let formInputs = {
+//             // JavaScript's Date.now() uses milliseconds.
+//             // Python's datetime.now() uses seconds. Conver with /1000.
+//             "start_time": startTime/1000, 
+//             "task": $("#task").val(),
+//             "category": $("#category").val()
+//         };
+
+//         console.log(startTime, stopTime)
+
+//         $.post("/add_event", 
+//                formInputs,
+//                displayDuration);
+//     });
+
+    
+// }
+
+
 
 $("#startButton").on("click", useStopwatch);
 
