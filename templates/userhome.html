@@ -4,19 +4,15 @@
 
 <!-- Stopwatch -->
 
-<form action="/start_stopwatch" method="get">
-        <button type="submit" id="startButton" name="startButton" value="start">start</button>
-        </form>
-
-    <form id="form-stopwatch" action="/add_event" method="post">
+    <form id="form-stopwatch" method="post" action="/add_event">
         i'm currently 
         <input type="text" id="task" placeholder="watching Better Call Saul" required autofocus name="task">
 
         (<input type="text" id="category" placeholder="tv" required autofocus name="category">)
 
-        
-
-        <button type="submit" id="stopButton" name="stopButton" value="stop">stop</button>
+        <button id="startButton" name="startButton" type="button">start</button>
+       
+        <button type="button" id="stopButton" name="stopButton">stop</button>
     </form>
 
     <div id="duration">

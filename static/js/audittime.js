@@ -1,42 +1,37 @@
-// START + STOP STOPWATCH, THEN DISPLAY DURATION.
+// STOPWATCH
 
-// function displayDuration(result) {
-//     // $("#duration").html(result)
-//     return 5
-// }
+function displayDuration(result) {
+    // $("#butter").html("your account has been created.")
+    // $("#register").hide()
+    console.log('hallo moto')
+}
 
-// let startTime;
+function startStopwatch(event) {
+    event.preventDefault();
+    let startTime = Date.now();
+    console.log('Starting stopwatch...');
+    console.log(startTime);
 
-// function useStopwatch(evt) {
-//     evt.preventDefault();
-//     console.log("starting stopwatch...")
+    $("#stopButton").on("click", function() {
+        event.preventDefault();
+        let stopTime = Date.now();
 
-    
+        let formInputs = {
+            "task": $("#task").val(),
+            "category": $("#category").val(),
+            "startTime": startTime,
+            "stopTime": stopTime
+        };
 
-//     $("#stopButton").on("click", function() {
-//         evt.preventDefault();
+        console.log('i like to oat oat oat oples and banonos');
 
-//         let formInputs = {
-//             // JavaScript's Date.now() uses milliseconds.
-//             // Python's datetime.now() uses seconds. Conver with /1000.
-//             "start_time": startTime/1000, 
-//             "task": $("#task").val(),
-//             "category": $("#category").val()
-//         };
+        $.post("/add_event", 
+               formInputs,
+               displayDuration);
+    });
+}
 
-//         console.log(startTime, stopTime)
-
-//         $.post("/add_event", 
-//                formInputs,
-//                displayDuration);
-//     });
-
-    
-// }
-
-
-
-$("#startButton").on("click", useStopwatch);
+$("#startButton").on("click", startStopwatch);
 
 
 // REGISTRATION
