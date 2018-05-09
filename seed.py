@@ -146,6 +146,14 @@ def load_events():
     db.session.commit()
 
 
+class_list = [(User.user_id, 'user_id'),
+              (Goal.goal_id, 'goal_id'),
+              (Category.category_id, 'category_id'),
+              (GoalCategory.goal_category_id, 'goal_category_id'),
+              (Task.task_id, 'task_id'),
+              (Event.event_id, 'event_id')]
+
+
 def set_val_user_id():
     """Set value for the next user_id after seeding database"""
 
@@ -156,6 +164,55 @@ def set_val_user_id():
     # Set the value for the next user_id to be max_id + 1
     query = "SELECT setval('users_user_id_seq', :new_id)"
     db.session.execute(query, {'new_id': max_id + 1})
+
+    # Get the Max goal_id in the database
+    result = db.session.query(func.max(Goal.goal_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next goal_id to be max_id + 1
+    query = "SELECT setval('goals_goal_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+
+    # Get the Max category_id in the database
+    result = db.session.query(func.max(Category.category_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next category_id to be max_id + 1
+    query = "SELECT setval('categories_category_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+
+    # Get the Max goal_category_id in the database
+    result = db.session.query(func.max(GoalCategory.goal_category_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next goal_category_id to be max_id + 1
+    query = "SELECT setval('goals_categories_goal_category_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+
+    # Get the Max task_id in the database
+    result = db.session.query(func.max(Task.task_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next task_id to be max_id + 1
+    query = "SELECT setval('tasks_task_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+
+    # Get the Max event_id in the database
+    result = db.session.query(func.max(Event.event_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next event_id to be max_id + 1
+    query = "SELECT setval('events_event_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+
+
+
+
+
+
+
+
+
     db.session.commit()
 
 

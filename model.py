@@ -19,7 +19,8 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, autoincrement=True,
+                        primary_key=True)
     name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(64), nullable=False)
@@ -36,7 +37,8 @@ class Goal(db.Model):
 
     __tablename__ = "goals"
 
-    goal_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    goal_id = db.Column(db.Integer, autoincrement=True,
+                        primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
@@ -63,7 +65,8 @@ class Category(db.Model):
 
     __tablename__ = "categories"
 
-    category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    category_id = db.Column(db.Integer, autoincrement=True,
+                            primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
                         nullable=False)
@@ -86,7 +89,9 @@ class GoalCategory(db.Model):
 
     __tablename__ = 'goals_categories'
 
-    goal_category_id = db.Column(db.Integer, primary_key=True)
+    goal_category_id = db.Column(db.Integer,
+                                 autoincrement=True,
+                                 primary_key=True)
     goal_id = db.Column(db.Integer,
                         db.ForeignKey('goals.goal_id'),
                         nullable=False)
@@ -107,7 +112,8 @@ class Task(db.Model):
 
     __tablename__ = "tasks"
 
-    task_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    task_id = db.Column(db.Integer, autoincrement=True,
+                        primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     category_id = db.Column(db.Integer,
                             db.ForeignKey('categories.category_id'),
@@ -131,7 +137,8 @@ class Event(db.Model):
 
     __tablename__ = "events"
 
-    event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    event_id = db.Column(db.Integer, autoincrement=True,
+                         primary_key=True)
     start_time = db.Column(db.DateTime, nullable=False)
     stop_time = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),

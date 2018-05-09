@@ -37,7 +37,8 @@ $("#startButton").on("click", startStopwatch);
 // REGISTRATION
 
 function displayRegisterResults(result) {
-    $("#butter").html("your account has been created.")
+    $("#butter").html("your account has been created. you are now logged in.")
+    $("#login").hide()
     $("#register").hide()
 }
 

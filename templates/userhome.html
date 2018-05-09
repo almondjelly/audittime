@@ -2,8 +2,9 @@
 
 {% block body %}
 
-<!-- Stopwatch -->
 
+<!-- Stopwatch -->
+<div id="stopwatch">
     <form id="form-stopwatch" method="post" action="/add_event">
         i'm currently 
         <input type="text" id="task" placeholder="watching Better Call Saul" required autofocus name="task">
@@ -17,5 +18,44 @@
 
     <div id="duration">
     </div>
+</div>
+
+
+<!-- Manual entry -->
+
+<div id="manual">
+    <form id="form-manual" method="post" action="/add_event">
+    i'm currently 
+        <input type="text" id="m-task" placeholder="watching Better Call Saul" required autofocus name="task">
+
+        (<input type="text" id="m-category" placeholder="tv" required autofocus name="category">)
+
+        <input type="datetime-local" id="m-start" placeholder="watching Better Call Saul" required autofocus name="startTime">
+       
+        <input type="datetime-local" id="m-stop" placeholder="watching Better Call Saul" required autofocus name="stopTime">
+
+    <button type="submit" id="manualSubmit">submit</button>
+
+</div>
+
+
+<!-- Log -->
+
+<table>
+    <tr>
+        <th>task</th>
+        <th>category</th>
+        <th>duration</th>
+    </tr>
+
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    
+</table>
 
 {% endblock %}
