@@ -23,15 +23,17 @@
         </div>
 
         
-        <div id="butter"></div>
+        <div id="butter"><button type="button" id="signin-toggler">REGISTER</button></div>
+        
 
         <div id="login">
+            
         {% if session.get('user') %}
             you're logged in as {{ session.get('user')}}
             <form action='/logout' method="post">
                 <button type="submit">sign out</button>
             </form>
-
+    
 
             <ul id="navbar">
                 <li><a href="/user">Main</a></li>
@@ -42,16 +44,11 @@
 
         {% else %}
         <form class="form-signin" action="/signin" method="post">
-  
+            SIGN IN
             <label for="inputEmail">email address</label>
             <input type="email" id="inputEmail" placeholder="email address" required autofocus name="email">
             <label for="inputPassword" >password</label>
             <input type="password" id="inputPassword" placeholder="password" required name="password">
-            <div>
-                <label>
-                <input type="checkbox" value="remember-me"> remember me
-                </label>
-            </div>
             <button type="submit">sign in</button>
 
         </form>
@@ -62,7 +59,9 @@
         {% if session.get('user') %}
         {% else %}
         <div id="register">
+
             <form class="form-register" action="/register" method="post">
+                REGISTER
                 <label for="registerName">name</label>
                 <input type="text" id="registerName" placeholder="name" required autofocus name="name">
     

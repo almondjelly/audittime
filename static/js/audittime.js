@@ -1,7 +1,8 @@
 // HIDE MANUAL MODE BY DEFAULT
 
 $(document).ready(function() {
-    $("#form-manual").hide()
+    $(".form-manual").hide();
+    $(".form-register").hide();
 });
 
 
@@ -59,7 +60,20 @@ function startStopwatch(event) {
 
 $("#startButton").on("click", startStopwatch);
 
+// ENABLE TOGGLING BETWEEN LOGIN AND REGISTRATION FORMS
 
+$("#signin-toggler").on("click", function() {
+    $(".form-signin").toggle();
+    $(".form-register").toggle();
+
+    if ($("#signin-toggler").text() == "REGISTER") {
+        $("#signin-toggler").text("SIGN IN");
+    } else if ($("#signin-toggler").text() == "SIGN IN") {
+        $("#signin-toggler").text("REGISTER");
+    }
+
+
+});
 
 // REGISTRATION
 
