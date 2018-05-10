@@ -40,7 +40,7 @@
 
 
 <!-- Log -->
-
+<div id="event-log">
 <table>
     <tr>
         <th>task</th>
@@ -48,14 +48,15 @@
         <th>duration</th>
     </tr>
 
-
+<!-- add a for loop here for grabbing data from database -->
+    {% for event in events %}
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{ event.task.name }}</td>
+        <td>{{ event.task.category.name }}</td>
+        <td>{{ event.duration() }}</td>
     </tr>
-
-    
+    {% endfor %}
 </table>
+</div>
 
 {% endblock %}

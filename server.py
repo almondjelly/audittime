@@ -95,8 +95,14 @@ def add_goal():
 def userhome():
     """Display user's unique homepage: stopwatch, manual entry, task log."""
 
-    events = db.session.query(Task).filter_by(
-        user_id=session['user_id']).limit(50).all()
+    events = db.session.query(Event).filter_by(
+        user_id=session['user_id']).order_by(
+        'stop_time').all()
+
+    events.reverse()
+
+
+        # events = db.session.query(Event).filter_by(user_id=1).order_by('stop_time').limit(50).all()
 
     return render_template("userhome.html", events=events)
 
@@ -133,12 +139,13 @@ def add_event():
     else:
         # Create a new task.
         # If the category already exists, find its id.
-        if Category.query.filter_by(name=category_name).first().user_id \
-                == user_id:
-            category_id = Category.query.filter_by(name=category_name) \
-                .first().category_id
+        try:
+            if int(Category.query.filter_by(name=category_name).first().user_id) \
+                    == int(user_id):
+                category_id = Category.query.filter_by(name=category_name) \
+                    .first().category_id
 
-        else:
+        except:
             # Create a new category.
             new_category = Category(name=category_name,
                                     user_id=user_id)

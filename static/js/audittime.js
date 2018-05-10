@@ -1,9 +1,18 @@
+// MANUAL ENTRY
+
+$("#manualSubmit").on("click", function() {
+    $("#event-log").load("userhome.html #event-log");    
+})
+
+
 // STOPWATCH
 
-function displayDuration(result) {
-    // $("#butter").html("your account has been created.")
-    // $("#register").hide()
-    console.log('hallo moto')
+function addNewEvent(result) {    
+    $("#event-log").load("/user #event-log");
+    $('#task').removeAttr('value');
+    $('#category').removeAttr('value');
+    $('#form-stopwatch').trigger('reset');
+
 }
 
 function startStopwatch(event) {
@@ -27,11 +36,13 @@ function startStopwatch(event) {
 
         $.post("/add_event", 
                formInputs,
-               displayDuration);
+               addNewEvent);
+
     });
 }
 
 $("#startButton").on("click", startStopwatch);
+
 
 
 // REGISTRATION
