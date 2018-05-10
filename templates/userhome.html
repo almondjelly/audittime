@@ -3,6 +3,9 @@
 {% block body %}
 
 
+<!-- Toggle between stopwatch and manual entry. -->
+<button id="mode-toggler" type="button"> switch between manual/stopwatch modes </button>
+
 <!-- Stopwatch -->
 <div id="stopwatch">
     <form id="form-stopwatch" method="post" action="/add_event">
@@ -30,9 +33,9 @@
 
         (<input type="text" id="m-category" placeholder="tv" required autofocus name="category">)
 
-        <input type="datetime-local" id="m-start" placeholder="watching Better Call Saul" required autofocus name="startTime">
+        <input type="datetime-local" id="m-start" class="date-pick" placeholder="watching Better Call Saul" required autofocus name="startTime">
        
-        <input type="datetime-local" id="m-stop" placeholder="watching Better Call Saul" required autofocus name="stopTime">
+        <input type="datetime-local" id="m-stop" class="date-pick" placeholder="watching Better Call Saul" required autofocus name="stopTime">
 
     <button type="submit" id="manualSubmit">submit</button>
 
@@ -48,7 +51,6 @@
         <th>duration</th>
     </tr>
 
-<!-- add a for loop here for grabbing data from database -->
     {% for event in events %}
     <tr>
         <td>{{ event.task.name }}</td>
@@ -56,7 +58,11 @@
         <td>{{ event.duration() }}</td>
     </tr>
     {% endfor %}
+
 </table>
 </div>
+
+
+
 
 {% endblock %}

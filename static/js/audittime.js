@@ -1,8 +1,24 @@
+// HIDE MANUAL MODE BY DEFAULT
+
+$(document).ready(function() {
+    $("#form-manual").hide()
+});
+
+
+// ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
+
+$("#mode-toggler").on("click", function() {
+    $("#form-stopwatch").toggle();
+    $("#form-manual").toggle();
+});
+
+
+
 // MANUAL ENTRY
 
 $("#manualSubmit").on("click", function() {
     $("#event-log").load("userhome.html #event-log");    
-})
+});
 
 
 // STOPWATCH

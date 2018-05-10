@@ -1,1 +1,10 @@
 1|Gail Hernandez|arelaxingsaturdayafternoon@gmail.com|almondjelly
+2|Frankie Bergstein|frankie@bergstein.com|yamlube
+3|Nwabudike Bergstein|bud@bergstein.com|lawyersrule
+4|Robert Hanson|robert@hanson.com|ryangosling
+5|Grace Hanson|grace@hanson.com|poppedcollar
+6|Puff Daddy|puff@daddy.com|pdiddy
+7|Lauryn Hill|lauryn@hill.com|exfactor
+8|Coyote Bergstein|coyote@bergstein.com|mobilehome
+9|Mallory Hanson|mallory@hanson.com|2manykidz
+10|Brianna Hanson|brianna@hanson.com|badass
