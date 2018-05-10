@@ -6,7 +6,7 @@ from flask import (Flask, render_template, redirect, request, flash, session,
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
                   GoalCategory
-from datetime import datetime
+from datetime import datetime, timedelta
 from math import floor
 import json
 import pdb
@@ -81,12 +81,22 @@ def register():
 def add_goal():
     """Adds a goal to the goals table."""
 
-    goal_name = request.get.form('goalName')
-    goal_type = request.get.form('goalType')
-    hours = request.get.form('hours')
-    minutes = request.get.form('minutes')
-    start_date = request.get.form('startDate')
-    end_date = request.get.form('endDate')
+    goal_name = request.form.get('goalName')
+    goal_type = request.form.get('goalType')
+    hours = request.form.get('hours')
+    minutes = request.form.get('minutes')
+    duration_str = "{}h{}m".format(hours, minutes)
+    duration = datetime.strptime(duration_str, "$Hh$Mm")
+    duration = timedelta(hours=duration.hour, minutes=duration.minute)
+    start_time = request.form.get('startDate')
+    end_time = request.form.get('endDate')
+
+    new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
+                    goal_type=goal_type, duration=duration, status="Active",
+                    user_id=user_id)
+
+    db.session.add(new_goal)
+    db.session.commit()
 
     return redirect('/')
 
