@@ -77,14 +77,28 @@ def register():
     return redirect('/')
 
 
+@app.route('/add_goal', methods=['POST'])
+def add_goal():
+    """Adds a goal to the goals table."""
+
+    goal_name = request.get.form('goalName')
+    goal_type = request.get.form('goalType')
+    hours = request.get.form('hours')
+    minutes = request.get.form('minutes')
+    start_date = request.get.form('startDate')
+    end_date = request.get.form('endDate')
+
+    return redirect('/')
+
+
 @app.route('/user')
 def userhome():
     """Display user's unique homepage: stopwatch, manual entry, task log."""
 
-    tasks = Task.query.filter_by(user_id=session['user_id']).limit(50).all()
-    print tasks
+    events = db.session.query(Task).filter_by(
+        user_id=session['user_id']).limit(50).all()
 
-    return render_template("userhome.html")
+    return render_template("userhome.html", events=events)
 
 
 @app.route('/add_event', methods=['POST'])
