@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>your goals</h1>
+
+<!-- Add new goal -->
+<form method="post" action="add_goal" id="form-goal">
+    i want to <input type="text" name="goalName" placeholder="watch tv"> for 
+    <select name="goalType">
+        <option value="at_least">at least</option>
+        <option value="at_most">at most</option>
+    </select>
+    <input type="number" name="hours" placeholder="4"> hours 
+    <input type="number" name="minutes" placeholder="30"> minutes
+    from <input type="datetime-local" name="startDate"> 
+    to <input type="datetime-local" name="endDate">.
+    <button type="submit" id="#goalSubmit">save</button>
+</form>
+
+
+<!-- Goal Log -->
+<div id="goal-log">
+<table>
+    <tr>
+        <th>goal</th>
+        <th>type</th>
+        <th>duration</th>
+        <th>time range</th>
+        <th>categories</th>
+    </tr>
+
+    {% for goal in goals %}
+    <tr>
+        <td>{{ goal.name }}</td>
+        <td>{{ goal.goal_type }}</td>
+        <td>{{ goal.duration }}</td>
+        <td>{{ goal.start_time }} to {{ goal.end_time }}</td>
+        <td>{% for category in goal.category %}{{ category.name }}, {% endfor %}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+
+
+
+{% endblock %}

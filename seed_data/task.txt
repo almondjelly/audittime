@@ -1,1 +1,11 @@
-1|Nap|1|1
+1|nap|2|1
+2|watch Better Call Saul|10|1
+3|watch What Dreams May Come|11|1
+4|Amanda Palmer - The Bed Song|4|1
+5|sleep|1|1
+6|AuditTime - registration form|7|1
+7|JavaScript object orientation|8|1
+8|Rachael Yamagata - Saturday Morning|3|1
+9|is it a palindrome?|9|1
+10|journal|6|1
+11|blog - my favorite managers|6|1

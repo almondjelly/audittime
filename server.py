@@ -85,11 +85,12 @@ def add_goal():
     goal_type = request.form.get('goalType')
     hours = request.form.get('hours')
     minutes = request.form.get('minutes')
-    duration_str = "{}h{}m".format(hours, minutes)
-    duration = datetime.strptime(duration_str, "$Hh$Mm")
+    duration_str = "{}h{}m".format(hours.zfill(2), minutes.zfill(2))
+    duration = datetime.strptime(duration_str, "%Hh%Mm")
     duration = timedelta(hours=duration.hour, minutes=duration.minute)
     start_time = request.form.get('startDate')
     end_time = request.form.get('endDate')
+    user_id = session['user_id']
 
     new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
                     goal_type=goal_type, duration=duration, status="Active",
@@ -98,7 +99,18 @@ def add_goal():
     db.session.add(new_goal)
     db.session.commit()
 
-    return redirect('/')
+    return redirect('/goals')
+
+
+@app.route('/goals')
+def display_goals():
+    """Displays user's goals."""
+
+    goals = db.session.query(Goal).filter_by(
+        user_id=session['user_id']).order_by(
+        'end_time').all()
+
+    return render_template("goals.html", goals=goals)
 
 
 @app.route('/user')

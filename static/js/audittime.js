@@ -1,7 +1,7 @@
 // HIDE MANUAL MODE BY DEFAULT
 
 $(document).ready(function() {
-    $(".form-manual").hide();
+    $("#form-manual").hide();
     $(".form-register").hide();
 });
 
@@ -13,6 +13,12 @@ $("#mode-toggler").on("click", function() {
     $("#form-manual").toggle();
 });
 
+
+// UPDATE GOAL LOG UPON ADDING NEW GOAL
+
+$("#goalSubmit").on("click", function() {
+    $("#goal-log").load("goals.html #goal-log");
+});
 
 
 // MANUAL ENTRY
@@ -60,6 +66,7 @@ function startStopwatch(event) {
 
 $("#startButton").on("click", startStopwatch);
 
+
 // ENABLE TOGGLING BETWEEN LOGIN AND REGISTRATION FORMS
 
 $("#signin-toggler").on("click", function() {
@@ -71,8 +78,6 @@ $("#signin-toggler").on("click", function() {
     } else if ($("#signin-toggler").text() == "SIGN IN") {
         $("#signin-toggler").text("REGISTER");
     }
-
-
 });
 
 // REGISTRATION
