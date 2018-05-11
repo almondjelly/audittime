@@ -110,7 +110,12 @@ def display_goals():
         user_id=session['user_id']).order_by(
         'end_time').all()
 
-    return render_template("goals.html", goals=goals)
+    categories = db.session.query(Category).filter_by(
+        user_id=session['user_id']).order_by(
+        'name').all()
+
+    return render_template("goals.html", goals=goals,
+                           categories=categories)
 
 
 @app.route('/user')

@@ -44,5 +44,23 @@
 </div>
 
 
+<!-- Category Log -->
+<div id="goal-log">
+<table>
+    <tr>
+        <th>category</th>
+        <th>goals</th>
+    </tr>
+
+    {% for category in categories %}
+    <tr>
+        <td>{{ category.name }}</td>
+        <td>{% for goal in category.goal %}{{ goal.name }}, {% endfor %}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+
 
 {% endblock %}
