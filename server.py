@@ -102,6 +102,40 @@ def add_goal():
     return redirect('/goals')
 
 
+@app.route('/add_category', methods=['POST'])
+def add_category():
+    """Adds a category to the categories table."""
+
+    category_name = request.form.get('categoryName')
+    category_goals = request.form.getlist('categoryGoals')
+    user_id = session['user_id']
+
+    # Add new category to the categories table.
+    new_category = Category(name=category_name, user_id=user_id)
+    db.session.add(new_category)
+    db.session.commit()
+
+    # Add new goal associations to the goals_categories table.
+    category_id = Category.query.filter_by(name=category_name,
+                                           user_id=user_id).all()
+
+    print category_id
+    # for goal_name in category_goals:
+    #     print goal_name
+    #     print user_id
+    #     goal_id = Goal.query.filter_by(name=goal_name,
+    #                                    user_id=user_id).one()
+
+    #     new_goal_category = GoalCategory(goal_id=goal_id,
+    #                                      category_id=category_id)
+
+    #     db.session.add(new_goal_category)
+
+    # db.session.commit()
+
+    return redirect('/goals')
+
+
 @app.route('/goals')
 def display_goals():
     """Displays user's goals."""

@@ -21,6 +21,12 @@ $("#goalSubmit").on("click", function() {
 });
 
 
+// UPDATE CATEGORY LOG UPON ADDING NEW CATEGORY
+
+$("#categorySubmit").on("click", function() {
+    $("#category-log").load("goals.html #category-log");
+});
+
 // MANUAL ENTRY
 
 $("#manualSubmit").on("click", function() {
