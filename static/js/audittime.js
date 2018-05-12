@@ -1,11 +1,22 @@
+// CLICKING SAVE NEW TASK NAME PRINTS NEW NAME IN CONSOLE
+$("span.task-input").parents("form").children("span.event-edit-submit").on(
+    "click", function() {
+        let formInputs = {
+            "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
+            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
+        }
 
-// SHOW SAVE BUTTON WHEN EDITING EVENT TASK
-// HIDE SAVE BUTTON WHEN NOT EDITING EVENT TASK
+        $.post("/edit_task_name", formInputs);
+    });
+
+
+
+// SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING EVENT TASK
 $("span.task-input > span").on("click", function() {
-    $(this).parents("form").children("button").show();
-    $(this).on("focusout", function(event) {
-        $(this).parents("form").children("button").hide();
-    })
+    $(this).parents("form").children("span.event-edit-submit").show();
+    $(this).parents("form").on("focusout", function(event) {
+        $(this).parents("form").children("span.event-edit-submit").hide();
+    });
 });
 
 
@@ -64,6 +75,10 @@ function addNewEvent(result) {
     $('#task').removeAttr('value');
     $('#category').removeAttr('value');
     $('#form-stopwatch').trigger('reset');
+    $("#form-manual").hide();
+    $(".form-register").hide();
+    $(".category-dropdown").hide();
+    $(".event-edit-submit").hide();
 
 }
 

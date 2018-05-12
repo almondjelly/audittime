@@ -160,10 +160,8 @@ def userhome():
         user_id=session['user_id']).order_by(
         'stop_time').all()
 
+    # Display log in reverse chronological order.
     events.reverse()
-
-
-        # events = db.session.query(Event).filter_by(user_id=1).order_by('stop_time').limit(50).all()
 
     return render_template("userhome.html", events=events)
 
@@ -241,13 +239,38 @@ def add_event():
     return redirect('/user')
 
 
-@app.route('/event_id.json')
-def get_event_ids():
-    """Return event id as JSON."""
+@app.route('/edit_task_name', methods=['POST'])
+def edit_task_name():
+    """Updates new task name in the tasks table."""
 
-    event_id_info
+    event_id = request.form.get('eventId')
+    new_task_name = request.form.get('newTaskName')
+    category_id = Event.query.filter_by(event_id=event_id).one(
+        ).task.category_id
+    user_id = session['user_id']
 
-    return jsonify(event_id_info)
+    # If the new task already exists, find its id.
+    if Task.query.filter_by(name=new_task_name).first():
+        new_task_id = Task.query.filter_by(name=new_task_name).first().task_id
+
+    else:
+        # Create a new task.
+        new_task = Task(name=new_task_name, category_id=category_id,
+                        user_id=user_id)
+
+        db.session.add(new_task)
+        db.session.commit()
+
+        new_task_id = Task.query.filter_by(name=new_task_name).one().task_id
+
+    # Reassign event's task id to the new task id.
+    Event.query.filter_by(event_id=event_id).one().task_id = new_task_id
+
+    db.session.commit()
+
+    flash("task updated")
+
+    return redirect('/user')
 
 
 if __name__ == "__main__":

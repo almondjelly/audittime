@@ -28,6 +28,7 @@
 
 <div id="manual">
     <form id="form-manual" method="post" action="/add_event">
+
     i'm currently 
         <input type="text" id="m-task" placeholder="watching Better Call Saul" required autofocus name="task">
 
@@ -37,8 +38,9 @@
        
         <input type="datetime-local" id="m-stop" class="date-pick" placeholder="watching Better Call Saul" required autofocus name="stopTime">
 
-    <button type="submit" id="manualSubmit">submit</button>
+        <button type="submit" id="manualSubmit">submit</button>
     </form>
+
 </div>
 
 
@@ -52,7 +54,7 @@
             <!-- Task -->
             <span class="task-input">
                 <span class="event-{{ event.event_id}}">
-                    <input type="text" value="{{ event.task.name }}" name="event_id_{{ event.event_id }}">
+                    <input type="text" value="{{ event.task.name }}" name="{{ event.event_id }}" class="input-field">
                 </span>
             </span>
 
@@ -78,7 +80,7 @@
             <span>{{ event.duration() }}</span>
 
             <!-- Save -->
-            <button type="submit" class="event-edit-submit" name="{{ event.event_id }}Submit">save</button>
+            <span class="event-edit-submit {{ event.event_id }}Submit">save</span>
 
         </form>
     </li>
