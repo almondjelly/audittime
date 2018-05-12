@@ -1,8 +1,20 @@
-// HIDE MANUAL MODE BY DEFAULT
+
+// EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
+$("span.category-title > span").on("click", function(event) {
+    // $(".category-dropdown").toggle();
+    $(this).children().toggle();
+    
+
+})
+
+
+
+// HIDE MANUAL MODE, CATEGORY DROPDOWN BY DEFAULT
 
 $(document).ready(function() {
     $("#form-manual").hide();
     $(".form-register").hide();
+    $(".category-dropdown").hide();
 });
 
 

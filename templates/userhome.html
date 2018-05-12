@@ -42,8 +42,8 @@
 </div>
 
 
-<!-- Log -->
-<div id="event-log">
+<!-- Task Log -->
+<!-- <div id="event-log">
 <table>
     <tr>
         <th>task</th>
@@ -60,6 +60,44 @@
     {% endfor %}
 
 </table>
+</div> -->
+
+
+
+
+
+
+<!-- EXPERIMENTAL TASK LOG -->
+<div id="event-log">
+<ul>
+    {% for event in events %}    
+    <li>
+        <!-- 
+        MAKE IT SO THAT WHEN YOU CLICK THE INPUT:
+            IT DISPLAYS IT AS AN INPUT,
+            IT SHOWS A SAVE BUTTON,
+            ALLOWS USING ENTER TO SAVE THE INPUT
+         -->
+        <span><form><input type="text" value="{{ event.task.name }}" name="event_id_{{ event.event_id }}"></form></span>
+        <span class="category-title">
+            <span class="event-{{ event.event_id}}">{{ event.task.category.name }}
+            <div class="category-dropdown event-{{ event.event_id }}">
+                <!-- ADD THE ACTUAL OPTIONS FOR PICKING CATEGORIES OR SOMETHING -->
+                <ul>
+                    <li>asdf1</li>
+                    <li>asdf2</li>
+                    <li>asdf3</li>
+                </ul>
+            </div>
+            </span>
+        </span>
+
+        
+
+        <span>{{ event.duration() }}</span>
+    </li>
+    {% endfor %}
+</ul>
 </div>
 
 

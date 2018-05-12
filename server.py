@@ -241,6 +241,13 @@ def add_event():
     return redirect('/user')
 
 
+@app.route('/event_id.json')
+def get_event_ids():
+    """Return event id as JSON."""
+
+    event_id_info
+
+    return jsonify(event_id_info)
 
 
 if __name__ == "__main__":
