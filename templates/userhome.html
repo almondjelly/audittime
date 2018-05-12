@@ -38,63 +38,49 @@
         <input type="datetime-local" id="m-stop" class="date-pick" placeholder="watching Better Call Saul" required autofocus name="stopTime">
 
     <button type="submit" id="manualSubmit">submit</button>
-
+    </form>
 </div>
 
 
 <!-- Task Log -->
-<!-- <div id="event-log">
-<table>
-    <tr>
-        <th>task</th>
-        <th>category</th>
-        <th>duration</th>
-    </tr>
-
-    {% for event in events %}
-    <tr>
-        <td>{{ event.task.name }}</td>
-        <td>{{ event.task.category.name }}</td>
-        <td>{{ event.duration() }}</td>
-    </tr>
-    {% endfor %}
-
-</table>
-</div> -->
-
-
-
-
-
-
-<!-- EXPERIMENTAL TASK LOG -->
 <div id="event-log">
 <ul>
-    {% for event in events %}    
+    {% for event in events %}            
+            
     <li>
-        <!-- 
-        MAKE IT SO THAT WHEN YOU CLICK THE INPUT:
-            IT DISPLAYS IT AS AN INPUT,
-            IT SHOWS A SAVE BUTTON,
-            ALLOWS USING ENTER TO SAVE THE INPUT
-         -->
-        <span><form><input type="text" value="{{ event.task.name }}" name="event_id_{{ event.event_id }}"></form></span>
-        <span class="category-title">
-            <span class="event-{{ event.event_id}}">{{ event.task.category.name }}
-            <div class="category-dropdown event-{{ event.event_id }}">
-                <!-- ADD THE ACTUAL OPTIONS FOR PICKING CATEGORIES OR SOMETHING -->
-                <ul>
-                    <li>asdf1</li>
-                    <li>asdf2</li>
-                    <li>asdf3</li>
-                </ul>
-            </div>
+        <form>
+            <!-- Task -->
+            <span class="task-input">
+                <span class="event-{{ event.event_id}}">
+                    <input type="text" value="{{ event.task.name }}" name="event_id_{{ event.event_id }}">
+                </span>
             </span>
-        </span>
 
-        
+            <!-- Category -->
+            <span class="category-title">
+                <span class="event-{{ event.event_id}}">
+                    {{ event.task.category.name }}
+                    
+                    <!-- Dropdown for multiple selecting categories -->
+                    <div class="category-dropdown event-{{ event.event_id }}">
+                    
+                    <!-- ADD THE ACTUAL OPTIONS FOR PICKING CATEGORIES OR SOMETHING -->
+                        <ul>
+                            <li>asdf1</li>
+                            <li>asdf2</li>
+                            <li>asdf3</li>
+                        </ul>
+                    </div>
+                </span>
+            </span>
 
-        <span>{{ event.duration() }}</span>
+            <!-- Duration -->
+            <span>{{ event.duration() }}</span>
+
+            <!-- Save -->
+            <button type="submit" class="event-edit-submit" name="{{ event.event_id }}Submit">save</button>
+
+        </form>
     </li>
     {% endfor %}
 </ul>

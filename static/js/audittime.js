@@ -1,20 +1,31 @@
 
+// SHOW SAVE BUTTON WHEN EDITING EVENT TASK
+// HIDE SAVE BUTTON WHEN NOT EDITING EVENT TASK
+$("span.task-input > span").on("click", function() {
+    $(this).parents("form").children("button").show();
+    $(this).on("focusout", function(event) {
+        $(this).parents("form").children("button").hide();
+    })
+});
+
+
 // EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
-$("span.category-title > span").on("click", function(event) {
+$("span.category-title > span").on("click", function() {
     // $(".category-dropdown").toggle();
     $(this).children().toggle();
-    
-
-})
+});
 
 
-
-// HIDE MANUAL MODE, CATEGORY DROPDOWN BY DEFAULT
+// BY DEFAULT, WHEN PAGE IS LOADED, HIDE:
+    // MANUAL MODE, 
+    // CATEGORY DROPDOWN, 
+    // EVENT EDIT SUBMIT BUTTON 
 
 $(document).ready(function() {
     $("#form-manual").hide();
     $(".form-register").hide();
     $(".category-dropdown").hide();
+    $(".event-edit-submit").hide();
 });
 
 
