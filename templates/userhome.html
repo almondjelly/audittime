@@ -6,17 +6,29 @@
 <!-- Toggle between stopwatch and manual entry. -->
 <button id="mode-toggler" type="button"> switch between manual/stopwatch modes </button>
 
-<!-- Stopwatch -->
+<!-- Event Timer -->
 <div id="stopwatch">
     <form id="form-stopwatch" method="post" action="/add_event">
         i'm currently 
         <input type="text" id="task" placeholder="watching Better Call Saul" required autofocus name="task">
 
-        (<input type="text" id="category" placeholder="tv" required autofocus name="category">)
+        (<input type="text" id="category" placeholder="tv" required name="category">)
 
-        <button id="startButton" name="startButton" type="button">start</button>
-       
-        <button type="button" id="stopButton" name="stopButton">stop</button>
+        <span id="startStop">
+            <button id="startButton" name="startButton" type="button">start</button>
+            <button type="button" id="stopButton" name="stopButton">stop</button>
+        </span>
+
+        <span id="datePickers">
+            <input type="datetime-local" id="m-start" class="date-pick" required name="startTime">
+           
+            <input type="datetime-local" id="m-stop" class="date-pick" required name="stopTime">
+
+            <button type="button" id="manualSubmit">submit</button>
+
+        </span>
+
+
     </form>
 
     <div id="duration">
@@ -24,29 +36,9 @@
 </div>
 
 
-<!-- Manual entry -->
-
-<div id="manual">
-    <form id="form-manual" method="post" action="/add_event">
-
-    i'm currently 
-        <input type="text" id="m-task" placeholder="watching Better Call Saul" required autofocus name="task">
-
-        (<input type="text" id="m-category" placeholder="tv" required autofocus name="category">)
-
-        <input type="datetime-local" id="m-start" class="date-pick" placeholder="watching Better Call Saul" required autofocus name="startTime">
-       
-        <input type="datetime-local" id="m-stop" class="date-pick" placeholder="watching Better Call Saul" required autofocus name="stopTime">
-
-        <button type="submit" id="manualSubmit">submit</button>
-    </form>
-
-</div>
-
-
 <!-- Task Log -->
 <div id="event-log">
-<ul>
+<ul id="event-log-ul">
     {% for event in events %}            
             
     <li>
@@ -81,7 +73,6 @@
 
             <!-- Save -->
             <span class="event-edit-submit {{ event.event_id }}Submit">save</span>
-
         </form>
     </li>
     {% endfor %}

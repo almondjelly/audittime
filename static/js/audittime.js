@@ -1,4 +1,45 @@
-// CLICKING SAVE NEW TASK NAME PRINTS NEW NAME IN CONSOLE
+// BY DEFAULT, WHEN PAGE IS LOADED, HIDE:
+    // MANUAL MODE, 
+    // CATEGORY DROPDOWN, 
+    // EVENT EDIT SUBMIT BUTTON 
+
+function initialize() {
+    $(".form-register").hide();
+    $(".category-dropdown").hide();
+    $(".event-edit-submit").hide();
+}
+   
+
+function addEventListeners(){
+
+    // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING EVENT TASK
+    $("span.task-input > span").on("click", function() {
+        $(this).parents("form").children("span.event-edit-submit").show();
+
+        $(this).parents("form").children("span.task-input").children(
+            "span").children("input").on("focusout", function(event) {
+                $(this).parents("form").children("span.event-edit-submit").hide();
+        });
+    
+    });
+
+    console.log("save button event listener has been added");
+
+    // EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
+    $("span.category-title > span").on("click", function() {
+        $(this).children("div").toggle();
+    });
+
+    console.log("category dropdown event listener has been added");
+}
+
+$(document).ready(function() {
+   initialize(); 
+   $("#datePickers").hide();
+   addEventListeners();
+});
+
+// UPDATE TASK NAME AND SAVE
 $("span.task-input").parents("form").children("span.event-edit-submit").on(
     "click", function() {
         let formInputs = {
@@ -9,42 +50,11 @@ $("span.task-input").parents("form").children("span.event-edit-submit").on(
         $.post("/edit_task_name", formInputs);
     });
 
-
-
-// SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING EVENT TASK
-$("span.task-input > span").on("click", function() {
-    $(this).parents("form").children("span.event-edit-submit").show();
-    $(this).parents("form").on("focusout", function(event) {
-        $(this).parents("form").children("span.event-edit-submit").hide();
-    });
-});
-
-
-// EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
-$("span.category-title > span").on("click", function() {
-    // $(".category-dropdown").toggle();
-    $(this).children().toggle();
-});
-
-
-// BY DEFAULT, WHEN PAGE IS LOADED, HIDE:
-    // MANUAL MODE, 
-    // CATEGORY DROPDOWN, 
-    // EVENT EDIT SUBMIT BUTTON 
-
-$(document).ready(function() {
-    $("#form-manual").hide();
-    $(".form-register").hide();
-    $(".category-dropdown").hide();
-    $(".event-edit-submit").hide();
-});
-
-
 // ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
 
 $("#mode-toggler").on("click", function() {
-    $("#form-stopwatch").toggle();
-    $("#form-manual").toggle();
+    $("#startStop").toggle();
+    $("#datePickers").toggle();
 });
 
 
@@ -61,26 +71,50 @@ $("#categorySubmit").on("click", function() {
     $("#category-log").load("goals.html #category-log");
 });
 
-// MANUAL ENTRY
 
+// ADD NEW EVENT
+function addNewEvent(result) {   
+    $("#event-log-ul").prepend(result);
+    $("#task").removeAttr("value");
+    $("#category").removeAttr("value");
+    $("#m-start").removeAttr("value");
+    $("#m-stop").removeAttr("value");
+    $("#form-stopwatch").trigger("reset");
+    initialize();
+    $("#event-log-ul > li:first-child .category-title > span").on("click", function() {
+        $(this).children().toggle();    
+    });
+
+    $("#event-log-ul > li:first-child .task-input > span").on("click", function() {
+        $(this).parents("form").children("span.event-edit-submit").show();
+        $(this).parents("form").children("span.task-input").children(
+            "span").children("input").on("focusout", function(event) {
+                $(this).parents("form").children("span.event-edit-submit").hide();
+        });
+    
+    });
+
+    console.log(result)
+}
+
+// SUBMIT EVENT - MANUAL
 $("#manualSubmit").on("click", function() {
-    $("#event-log").load("userhome.html #event-log");    
+    event.preventDefault();
+        let stopTime = Date.now();
+
+        let formInputs = {
+            "task": $("#task").val(),
+            "category": $("#category").val(),
+            "startTime": $("#m-start").val(),
+            "stopTime": $("#m-stop").val()
+        };
+
+        $.post("/add_event", 
+               formInputs,
+               addNewEvent);
 });
 
-
-// STOPWATCH
-
-function addNewEvent(result) {    
-    $("#event-log").load("/user #event-log");
-    $('#task').removeAttr('value');
-    $('#category').removeAttr('value');
-    $('#form-stopwatch').trigger('reset');
-    $("#form-manual").hide();
-    $(".form-register").hide();
-    $(".category-dropdown").hide();
-    $(".event-edit-submit").hide();
-
-}
+// SUBMIT EVENT - STOPWATCH
 
 function startStopwatch(event) {
     event.preventDefault();
@@ -99,12 +133,9 @@ function startStopwatch(event) {
             "stopTime": stopTime
         };
 
-        console.log('i like to oat oat oat oples and banonos');
-
         $.post("/add_event", 
                formInputs,
                addNewEvent);
-
     });
 }
 
@@ -123,6 +154,7 @@ $("#signin-toggler").on("click", function() {
         $("#signin-toggler").text("REGISTER");
     }
 });
+
 
 // REGISTRATION
 
