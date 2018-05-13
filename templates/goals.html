@@ -56,8 +56,20 @@
                 </span>
             </span>
 
+
+<!--             days, hours, minutes = td.days, td.seconds // 3600, td.seconds // 60 % 60
+ -->
+
             <!-- Duration -->
-            <span>{{ goal.duration }}</span>
+            <span class="goal-duration">
+                <span class="goal-{{ goal.goal_id }}">
+                    <input class="goal-input-field duration" type="text" value="{{ goal.duration.days }}" name="days-{{ goal.goal_id }}"> days
+
+                    <input class="goal-input-field duration" type="text" value="{{ goal.duration.seconds // 3600 }}" name="hours-{{ goal.goal_id }}"> hours
+                    
+                    <input class="goal-input-field duration" type="text" value="{{ goal.duration.seconds // 60 % 60 }}" name="minutes-{{ goal.goal_id }}"> minutes
+                </span>
+            </span>
 
             <!-- Start and end dates -->
             <span>{{ goal.start_time }} to {{ goal.end_time }}</span>

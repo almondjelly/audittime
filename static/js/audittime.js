@@ -26,14 +26,18 @@ function addEventListeners(){
 
 
     // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING GOAL
-    $("span.goal-input > span").on("click", function() {
+    $(".goal-input-field").on("click", function() {
         $(this).parents("form").children("span.goal-edit-submit").show();
 
         $(this).parents("form").children("span.goal-input").children(
             "span").children("input").on("focusout", function() {
                 $(this).parents("form").children("span.goal-edit-submit").hide();
         });
-    
+
+        $(this).parents("form").children("span.goal-duration").on("focusout", function() {
+            $(this).parents("form").children("span.goal-edit-submit").hide();
+        });
+        
     });
 
 
