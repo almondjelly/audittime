@@ -18,30 +18,61 @@
     <button type="submit" id="#goalSubmit">save</button>
 </form>
 
-
 <!-- Goal Log -->
 <div id="goal-log">
-<table>
-    <tr>
-        <th>goal</th>
-        <th>type</th>
-        <th>duration</th>
-        <th>time range</th>
-        <th>categories</th>
-    </tr>
-
+<ul id="goal-log-ul">
     {% for goal in goals %}
-    <tr>
-        <td>{{ goal.name }}</td>
-        <td>{{ goal.goal_type }}</td>
-        <td>{{ goal.duration }}</td>
-        <td>{{ goal.start_time }} to {{ goal.end_time }}</td>
-        <td>{% for category in goal.category %}{{ category.name }}, {% endfor %}</td>
-    </tr>
-    {% endfor %}
 
-</table>
+    <li>
+        <form>
+            <!-- Goal -->
+            <span class="goal-input">
+                <span class="goal-{{ goal.goal_id }}">
+                    <input type="text" value="{{ goal.name }}" name="{{ goal.goal_id }}" class="goal-input-field">
+                </span>
+            </span>
+
+            <!-- Type -->
+            <span class="goal-type">
+                <span class="goal-{{ goal.goal_id }}">
+                    
+
+                    <!-- Dropdown for seleting goal type -->
+                    <span class="goal-type-dropdown goal-{{ goal.goal_id }}">
+                        <select>
+                            {% if goal.goal_type == "at_least" %}
+
+                                <option value="at_least" selected>at least</option>
+                                <option value="at_most">at most</option>
+
+                            {% else %}
+
+                                <option value="at_least">at least</option>
+                                <option value="at_most" selected>at most</option>
+
+                            {% endif %}
+                        </select>
+                    </span>
+                </span>
+            </span>
+
+            <!-- Duration -->
+            <span>{{ goal.duration }}</span>
+
+            <!-- Start and end dates -->
+            <span>{{ goal.start_time }} to {{ goal.end_time }}</span>
+
+            <!-- Categories -->
+            <span>{% for category in goal.category %}{{ category.name }}, {% endfor %}</span>
+
+            <!-- Save -->
+            <span class="goal-edit-submit {{ goal.goal_id }}Submit">save</span>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
 </div>
+
 
 
 <!-- Add new category -->

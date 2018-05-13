@@ -151,6 +151,39 @@ def display_goals():
     return render_template("goals.html", goals=goals,
                            categories=categories)
 
+@app.route('/edit_goal_name', methods=['POST'])
+def edit_goal_name():
+    """Updates new goal name in the goals table."""
+
+    event_id = request.form.get('eventId')
+    new_task_name = request.form.get('newTaskName')
+    category_id = Event.query.filter_by(event_id=event_id).one(
+        ).task.category_id
+    user_id = session['user_id']
+
+    # If the new task already exists, find its id.
+    if Task.query.filter_by(name=new_task_name).first():
+        new_task_id = Task.query.filter_by(name=new_task_name).first().task_id
+
+    else:
+        # Create a new task.
+        new_task = Task(name=new_task_name, category_id=category_id,
+                        user_id=user_id)
+
+        db.session.add(new_task)
+        db.session.commit()
+
+        new_task_id = Task.query.filter_by(name=new_task_name).one().task_id
+
+    # Reassign event's task id to the new task id.
+    Event.query.filter_by(event_id=event_id).one().task_id = new_task_id
+
+    db.session.commit()
+
+    flash("task updated ")
+
+    return redirect('/user')
+
 
 @app.route('/user')
 def userhome():
@@ -238,7 +271,6 @@ def add_event():
 
     event = Event.query.filter_by(task_id=task_id, stop_time=stop_time).one()
 
-
     form_html = "<li> \
         <form> \
             <!-- Task --> \
@@ -312,7 +344,7 @@ def edit_task_name():
 
     db.session.commit()
 
-    flash("task updated ")
+    flash("task updated")
 
     return redirect('/user')
 

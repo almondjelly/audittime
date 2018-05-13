@@ -6,6 +6,7 @@
 function initialize() {
     $(".form-register").hide();
     $(".category-dropdown").hide();
+    $(".goal-edit-submit").hide();
     $(".event-edit-submit").hide();
 }
    
@@ -17,20 +18,30 @@ function addEventListeners(){
         $(this).parents("form").children("span.event-edit-submit").show();
 
         $(this).parents("form").children("span.task-input").children(
-            "span").children("input").on("focusout", function(event) {
+            "span").children("input").on("focusout", function() {
                 $(this).parents("form").children("span.event-edit-submit").hide();
         });
     
     });
 
-    console.log("save button event listener has been added");
+
+    // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING GOAL
+    $("span.goal-input > span").on("click", function() {
+        $(this).parents("form").children("span.goal-edit-submit").show();
+
+        $(this).parents("form").children("span.goal-input").children(
+            "span").children("input").on("focusout", function() {
+                $(this).parents("form").children("span.goal-edit-submit").hide();
+        });
+    
+    });
+
 
     // EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
     $("span.category-title > span").on("click", function() {
         $(this).children("div").toggle();
     });
 
-    console.log("category dropdown event listener has been added");
 }
 
 $(document).ready(function() {
@@ -63,6 +74,21 @@ $("#mode-toggler").on("click", function() {
 $("#goalSubmit").on("click", function() {
     $("#goal-log").load("goals.html #goal-log");
 });
+
+
+// UPDATE GOAL NAME AND SAVE
+$("span.task-input").parents("form").children("span.event-edit-submit").on(
+    "click", function() {
+        let formInputs = {
+            "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
+            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
+        }
+
+        $.post("/edit_task_name", formInputs);
+    });
+
+
+
 
 
 // UPDATE CATEGORY LOG UPON ADDING NEW CATEGORY
