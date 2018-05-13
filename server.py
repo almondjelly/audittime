@@ -5,7 +5,7 @@ from flask import (Flask, render_template, redirect, request, flash, session,
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
-                  GoalCategory, TaskCategory
+                  GoalCategory
 from datetime import datetime, timedelta
 from math import floor
 import json

@@ -6,15 +6,15 @@
 
 <!-- Add new goal -->
 <form method="post" action="add_goal" id="form-goal">
-    i want to <input type="text" name="goalName" placeholder="watch tv"> for 
+    i want to <input type="text" name="goalName" placeholder="watch tv" required> for 
     <select name="goalType" class="goal-type-dropdown">
         <option value="at_least">at least</option>
         <option value="at_most">at most</option>
     </select>
-    <input type="number" name="hours" placeholder="4"> hours 
-    <input type="number" name="minutes" placeholder="30"> minutes
-    from <input type="datetime-local" name="startDate" class="date-time-picker"> 
-    to <input type="datetime-local" name="endDate" class="date-time-picker">.
+    <input type="number" name="hours" placeholder="0" required> hours 
+    <input type="number" name="minutes" placeholder="0" required> minutes
+    from <input type="datetime-local" name="startDate" class="date-time-picker" required> 
+    to <input type="datetime-local" name="endDate" class="date-time-picker" required>.
     <button type="submit" id="#goalSubmit">save</button>
 </form>
 
@@ -25,6 +25,11 @@
 
     <li class="list-group-item">
         <form>
+            <!-- Goal total time -->
+            <span>
+                {{ goal.total_time() }}
+            </span>
+
             <!-- Goal name -->
             <span class="goal-input">
                 <span class="goal-{{ goal.goal_id }}">

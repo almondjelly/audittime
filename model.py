@@ -28,8 +28,7 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<User user_id={} email={}>".format(self.user_id,
-                                                   self.email)
+        return "<User user_id={} email={}>".format(self.user_id, self.email)
 
 
 class Goal(db.Model):
@@ -52,6 +51,31 @@ class Goal(db.Model):
     user = db.relationship("User", backref=db.backref("goals"))
     category = db.relationship("Category", secondary="goals_categories",
                                backref="goals")
+
+    def total_time(self):
+        """Calculate total time spent on a goal."""
+
+        goal_tasks = []
+        for category in self.category:
+            goal_tasks.extend(Task.query.filter_by(
+                category_id=category.category_id))
+
+        goal_events = []
+        for task in goal_tasks:
+            goal_events.extend(Event.query.filter_by(
+                task_id=task.task_id).all())
+
+        total_time = timedelta(0)
+        for event in goal_events:
+            if event.start_time >= self.start_time or \
+               event.stop_time <= self.end_time:
+                    total_time += event.duration()
+
+        hours = total_time.seconds / 3600
+        minutes = (total_time.seconds - hours * 3600) / 60
+
+        total_time_str = "{}d {}h {}m".format(total_time.days, hours, minutes)
+        return total_time_str
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -130,29 +154,6 @@ class Task(db.Model):
 
         return "<Task task_id={} name={} user_id={}>".format(
             self.task_id, self.name, self.user_id)
-
-
-class TaskCategory(db.Model):
-    """Association table for Task and Category."""
-
-    __tablename__ = 'tasks_categories'
-
-    task_category_id = db.Column(db.Integer,
-                                 autoincrement=True,
-                                 primary_key=True)
-    task_id = db.Column(db.Integer,
-                        db.ForeignKey('tasks.task_id'),
-                        nullable=False)
-    category_id = db.Column(db.Integer,
-                            db.ForeignKey('categories.category_id'),
-                            nullable=False)
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return "<TaskCategory task_id={} category_id={}>".format(
-            self.task_id,
-            self.category_id)
 
 
 class Event(db.Model):

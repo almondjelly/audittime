@@ -91,7 +91,7 @@ $(".goal-type-dropdown").select2();
 // CUSTOMIZE DATEPICKERS WITH FLATPICKR
 flatpickr(".date-time-picker", {
     enableTime: true,
-    dateFormat: "m-d h:i K",
+    dateFormat: "Y-m-d h:i K",
     allowInput: true,
     altFormat: "F j, Y"
 });
