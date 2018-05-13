@@ -53,6 +53,7 @@
                             {% endif %}
                         </select>
                     </span>
+
                 </span>
             </span>
 
@@ -68,10 +69,43 @@
             </span>
 
             <!-- Start and end dates -->
-            <span>{{ goal.start_time }} to {{ goal.end_time }}</span>
+            <span>
+                from
+                <span class="goal-start-time time-text">
+                    {{ goal.start_time }}
+                </span>
+                <span class="goal-start-time time-input">
+                    <input type="datetime-local" name="startDate" class="date-time-picker"> 
+                </span>
+                
+                to
+                <span class="goal-end-time time-text">
+                    {{ goal.end_time }}
+                </span>
+                <span class="goal-end-time time-input">
+                    <input type="datetime-local" name="endDate" class="date-time-picker"> 
+                </span>
+            </span>
 
             <!-- Categories -->
-            <span>{% for category in goal.category %}{{ category.name }}, {% endfor %}</span>
+            <span class="goal-title">
+                <span class="goal-{{ goal.goal_id }}">
+                    
+                    <!-- Dropdown for multiple selecting goals -->
+                    <select multiple class="category-dropdown goal-{{ goal.goal_id }}">
+                    
+                        {% for category in categories %}
+                            {% if category in goal.category %}
+                                <option selected>{{ category.name }}</option>
+
+                            {% else %}
+                                <option>{{ category.name }}</option>
+
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </span>
+            </span>
 
             <!-- Save -->
             <span class="goal-edit-submit {{ goal.goal_id }}Submit" name="{{ goal.goal_id }}">

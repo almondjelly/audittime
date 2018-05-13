@@ -9,6 +9,7 @@ function initialize() {
     $(".goal-edit-submit").hide();
     $(".event-edit-submit").hide();
     $(".category-edit-submit").hide();
+    $(".time-input").hide();
 }
 
 function addEventListeners(){
@@ -27,27 +28,40 @@ function addEventListeners(){
     });
 
     // Goal
-    // When the mouse hovers over the list item, show the Save button.
-    $(".goal-input-field").parents("li").hover(function() {
-        $(this).children().children(".goal-edit-submit").show();
 
-    // When the mouse leaves the list item, hide the Save button.
-        $(this).mouseleave(function() {
-            $(this).children().children(".goal-edit-submit").hide();
+        // When the mouse hovers over the list item, show the Save button.
+        $(".goal-input-field").parents("li").hover(function() {
+            $(this).children().children(".goal-edit-submit").show();
+
+        // When the mouse leaves the list item, hide the Save button.
+            $(this).mouseleave(function() {
+                $(this).children().children(".goal-edit-submit").hide();
+            });
         });
-    });
+
+        // When the goal start time is clicked, show the datetime picker.
+        $(".time-text").click(function() {
+            $(this).parents().children(".time-text").hide()
+            $(this).parents("span").children(".time-input").show();
+
+
+            $(this).parents("li").mouseleave(function(){
+                $(this).children(".time-input").hide();
+                $(this).children(".time-text").show();
+            })
+        });
+
 
     // Category
     // When the mouse hovers over the list item, show the Save button.
     $(".category-input-field").parents("li").hover(function() {
-        console.log("mya")
         $(this).children().children(".category-edit-submit").show();
 
     // When the mouse leaves the list item, hide the Save button.
         $(this).mouseleave(function() {
             $(this).children().children(".category-edit-submit").hide();
         });
-    });
+    });    
 
 }
 
@@ -78,7 +92,7 @@ $(".goal-type-dropdown").select2();
 flatpickr(".date-time-picker", {
     enableTime: true,
     dateFormat: "m-d h:i K",
-    // altInput: true,
+    allowInput: true,
     altFormat: "F j, Y"
 });
 
