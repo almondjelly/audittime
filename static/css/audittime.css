@@ -11,3 +11,17 @@ input {
 .goal-input-field.duration {
     width: 20px;
 }
+
+input.event-input-field {
+    width: 500px !important;
+}
+
+.category-dropdown {
+    display: inline-block;
+    width: 300px;
+}
+
+#new_task {
+    width: 500px !important;
+}
+

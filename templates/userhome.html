@@ -10,9 +10,15 @@
 <div id="stopwatch">
     <form id="form-stopwatch" method="post" action="/add_event">
         i'm currently 
-        <input type="text" id="task" placeholder="watching Better Call Saul" required autofocus name="task">
+        <input type="text" id="new_task" placeholder="watching Better Call Saul" required autofocus name="task">
 
-        (<input type="text" id="category" placeholder="tv" required name="category">)
+        <select id="new_category" name="new_category">
+
+                {% for category in categories %}
+                <option>{{ category.name }}</option>
+                {% endfor %}
+                
+        </select>
 
         <span id="startStop">
             <button id="startButton" name="startButton" type="button">start</button>
@@ -38,10 +44,10 @@
 
 <!-- Task Log -->
 <div id="event-log">
-<ul id="event-log-ul">
+<ul class="list-group" id="event-log-ul">
     {% for event in events %}            
             
-    <li>
+    <li class="list-group-item">
         <form>
             <!-- Task -->
             <span class="task-input">
@@ -53,20 +59,26 @@
             <!-- Category -->
             <span class="category-title">
                 <span class="event-{{ event.event_id}}">
-                    {{ event.task.category.name }}
                     
                     <!-- Dropdown for multiple selecting categories -->
-                    <div class="category-dropdown event-{{ event.event_id }}">
+                    <select class="category-dropdown event-{{ event.event_id }}">
                     
-                    <!-- ADD THE ACTUAL OPTIONS FOR PICKING CATEGORIES OR SOMETHING -->
-                        <ul>
-                            <li>asdf1</li>
-                            <li>asdf2</li>
-                            <li>asdf3</li>
-                        </ul>
-                    </div>
+                            <option selected>{{ event.task.category.name }}</option>
+                    
+                            {% for category in categories %}
+                            <option>{{ category.name }}</option>
+                            {% endfor %}
+
+
+                    </select>
                 </span>
             </span>
+
+            <!-- Start Time -->
+            <span>{{ event.start_time }}</span>
+
+            <!-- Stop Time -->
+            <span>{{ event.stop_time }}</span>
 
             <!-- Duration -->
             <span>{{ event.duration() }}</span>

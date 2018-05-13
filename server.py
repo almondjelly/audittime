@@ -5,7 +5,7 @@ from flask import (Flask, render_template, redirect, request, flash, session,
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
-                  GoalCategory
+                  GoalCategory, TaskCategory
 from datetime import datetime, timedelta
 from math import floor
 import json
@@ -182,14 +182,17 @@ def edit_goal_info():
 def userhome():
     """Display user's unique homepage: stopwatch, manual entry, task log."""
 
+    categories = db.session.query(Category).filter_by(
+        user_id=session['user_id']).order_by('name').all()
+
     events = db.session.query(Event).filter_by(
-        user_id=session['user_id']).order_by(
-        'stop_time').all()
+        user_id=session['user_id']).order_by('stop_time').all()
 
     # Display log in reverse chronological order.
     events.reverse()
 
-    return render_template("userhome.html", events=events)
+    return render_template("userhome.html", events=events,
+                           categories=categories)
 
 
 @app.route('/add_event', methods=['POST'])

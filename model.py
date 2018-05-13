@@ -132,6 +132,29 @@ class Task(db.Model):
             self.task_id, self.name, self.user_id)
 
 
+class TaskCategory(db.Model):
+    """Association table for Task and Category."""
+
+    __tablename__ = 'tasks_categories'
+
+    task_category_id = db.Column(db.Integer,
+                                 autoincrement=True,
+                                 primary_key=True)
+    task_id = db.Column(db.Integer,
+                        db.ForeignKey('tasks.task_id'),
+                        nullable=False)
+    category_id = db.Column(db.Integer,
+                            db.ForeignKey('categories.category_id'),
+                            nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<TaskCategory task_id={} category_id={}>".format(
+            self.task_id,
+            self.category_id)
+
+
 class Event(db.Model):
     """Stopwatch events."""
 

@@ -9,7 +9,6 @@ function initialize() {
     $(".goal-edit-submit").hide();
     $(".event-edit-submit").hide();
 }
-   
 
 function addEventListeners(){
 
@@ -20,7 +19,6 @@ function addEventListeners(){
 
     // When the mouse leaves the list item, hide the Save button.
         $(this).mouseleave(function() {
-            console.log("don't get under him");
             $(this).children().children(".event-edit-submit").hide();
         });    
     });
@@ -28,19 +26,17 @@ function addEventListeners(){
     // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING GOAL
     // When the mouse hovers over the list item, show the Save button.
     $(".goal-input-field").parents("li").hover(function() {
-        console.log("what")
         $(this).children().children(".goal-edit-submit").show();
 
     // When the mouse leaves the list item, hide the Save button.
         $(this).mouseleave(function() {
-            console.log('beep')
             $(this).children().children(".goal-edit-submit").hide();
         });
     });
 
     // EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
     $("span.category-title > span").on("click", function() {
-        $(this).children("div").toggle();
+        $(this).children(".category-dropdown").toggle();
     });
 
 }
@@ -50,6 +46,33 @@ $(document).ready(function() {
    $("#datePickers").hide();
    addEventListeners();
 });
+
+
+// SHOW CATEGORY SELECT2 DROPDOWN SHEEMER SHEEMER
+$(".category-dropdown").select2({
+    placeholder: "select a category"
+});
+
+$("#new_category").select2({
+    placeholder: "tv"
+});
+
+
+// CUSTOMIZE DATEPICKERS WITH FLATPICKR
+flatpickr("#m-start", {
+    enableTime: true,
+    dateFormat: "m-d h:i K",
+    // altInput: true,
+    altFormat: "F j, Y"
+});
+
+flatpickr("#m-stop", {
+    enableTime: true,
+    // altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "m-d h:i K"
+});
+
 
 // UPDATE TASK NAME AND SAVE
 $("span.task-input").parents("form").children("span.event-edit-submit").on(
@@ -113,16 +136,16 @@ $("span.task-input").parents("form").children("span.event-edit-submit").on(
 
 // UPDATE CATEGORY LOG UPON ADDING NEW CATEGORY
 
-$("#categorySubmit").on("click", function() {
-    $("#category-log").load("goals.html #category-log");
+$("#new_categorySubmit").on("click", function() {
+    $("#new_category-log").load("goals.html #new_category-log");
 });
 
 
 // ADD NEW EVENT
 function addNewEvent(result) {   
     $("#event-log-ul").prepend(result);
-    $("#task").removeAttr("value");
-    $("#category").removeAttr("value");
+    $("#new_task").removeAttr("value");
+    $("#new_category").removeAttr("value");
     $("#m-start").removeAttr("value");
     $("#m-stop").removeAttr("value");
     $("#form-stopwatch").trigger("reset");
@@ -149,8 +172,8 @@ $("#manualSubmit").on("click", function() {
         let stopTime = Date.now();
 
         let formInputs = {
-            "task": $("#task").val(),
-            "category": $("#category").val(),
+            "task": $("#new_task").val(),
+            "category": $("#new_category").val(),
             "startTime": $("#m-start").val(),
             "stopTime": $("#m-stop").val()
         };
@@ -173,8 +196,8 @@ function startStopwatch(event) {
         let stopTime = Date.now();
 
         let formInputs = {
-            "task": $("#task").val(),
-            "category": $("#category").val(),
+            "task": $("#new_task").val(),
+            "category": $("#new_category").val(),
             "startTime": startTime,
             "stopTime": stopTime
         };
