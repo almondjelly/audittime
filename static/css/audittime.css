@@ -12,13 +12,24 @@ input {
     width: 20px;
 }
 
+.category-input-field {
+    width: 500px;
+}
+
 input.event-input-field {
     width: 500px !important;
 }
 
+
+
 .category-dropdown {
     display: inline-block;
     width: 300px;
+}
+
+.goal-dropdown {
+    display: inline-block;
+    width: 600px;
 }
 
 #new_task {

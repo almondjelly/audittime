@@ -8,11 +8,14 @@ function initialize() {
     $(".category-dropdown").hide();
     $(".goal-edit-submit").hide();
     $(".event-edit-submit").hide();
+    $(".category-edit-submit").hide();
 }
 
 function addEventListeners(){
 
-    // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING EVENT TASK
+    // SHOW/HIDE SAVE BUTTONS
+
+    // Task
     // When the mouse hovers over the list item, show the Save button.
     $(".event-input-field").parents("li").hover(function() {
         $(this).children().children(".event-edit-submit").show();
@@ -23,7 +26,7 @@ function addEventListeners(){
         });    
     });
 
-    // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING GOAL
+    // Goal
     // When the mouse hovers over the list item, show the Save button.
     $(".goal-input-field").parents("li").hover(function() {
         $(this).children().children(".goal-edit-submit").show();
@@ -34,9 +37,16 @@ function addEventListeners(){
         });
     });
 
-    // EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
-    $("span.category-title > span").on("click", function() {
-        $(this).children(".category-dropdown").toggle();
+    // Category
+    // When the mouse hovers over the list item, show the Save button.
+    $(".category-input-field").parents("li").hover(function() {
+        console.log("mya")
+        $(this).children().children(".category-edit-submit").show();
+
+    // When the mouse leaves the list item, hide the Save button.
+        $(this).mouseleave(function() {
+            $(this).children().children(".category-edit-submit").hide();
+        });
     });
 
 }
@@ -57,20 +67,19 @@ $("#new_category").select2({
     placeholder: "tv"
 });
 
+$(".goal-dropdown").select2();
+$("#category-goal-dropdown").select2({
+    placeholder: "goals"
+});
+$(".goal-type-dropdown").select2();
+
 
 // CUSTOMIZE DATEPICKERS WITH FLATPICKR
-flatpickr("#m-start", {
+flatpickr(".date-time-picker", {
     enableTime: true,
     dateFormat: "m-d h:i K",
     // altInput: true,
     altFormat: "F j, Y"
-});
-
-flatpickr("#m-stop", {
-    enableTime: true,
-    // altInput: true,
-    altFormat: "F j, Y",
-    dateFormat: "m-d h:i K"
 });
 
 

@@ -7,14 +7,14 @@
 <!-- Add new goal -->
 <form method="post" action="add_goal" id="form-goal">
     i want to <input type="text" name="goalName" placeholder="watch tv"> for 
-    <select name="goalType">
+    <select name="goalType" class="goal-type-dropdown">
         <option value="at_least">at least</option>
         <option value="at_most">at most</option>
     </select>
     <input type="number" name="hours" placeholder="4"> hours 
     <input type="number" name="minutes" placeholder="30"> minutes
-    from <input type="datetime-local" name="startDate"> 
-    to <input type="datetime-local" name="endDate">.
+    from <input type="datetime-local" name="startDate" class="date-time-picker"> 
+    to <input type="datetime-local" name="endDate" class="date-time-picker">.
     <button type="submit" id="#goalSubmit">save</button>
 </form>
 
@@ -83,12 +83,12 @@
 </ul>
 </div>
 
-
+<h1>your categories</h1>
 
 <!-- Add new category -->
 <form method="post" action="add_category" id="form-category">
     <input type="text" name="categoryName" placeholder="new category">
-    <select multiple name="categoryGoals">
+    <select multiple name="categoryGoals" id="category-goal-dropdown">
         {% for goal in goals %}
             <option value="{{ goal.name }}">{{ goal.name }}</option>
         {% endfor %}
@@ -100,21 +100,51 @@
 
 
 <!-- Category Log -->
-<div id="goal-log">
-<table>
-    <tr>
-        <th>category</th>
-        <th>goals</th>
-    </tr>
+<div id="category-log">
+<ul class="list-group">
 
     {% for category in categories %}
-    <tr>
-        <td>{{ category.name }}</td>
-        <td>{% for goal in category.goal %}{{ goal.name }}, {% endfor %}</td>
-    </tr>
+    <li class="list-group-item">
+
+    <form>
+
+        <!-- Category name -->
+        <span class="category-input">
+                <span class="category-{{ category.category_id }}">
+                    <input type="text" value="{{ category.name }}" name="{{ category.category_id }}" class="category-input-field category-name">
+                </span>
+        </span>
+
+        <!-- Goals -->
+        <span class="goal-title">
+            <span class="category-{{ category.category_id}}">
+                
+                <!-- Dropdown for multiple selecting goals -->
+                <select multiple class="goal-dropdown category-{{ category.category_id }}">
+                
+                    {% for goal in goals %}
+                        {% if goal in category.goal %}
+                            <option selected>{{ goal.name }}</option>
+
+                        {% else %}
+                            <option>{{ goal.name }}</option>
+
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </span>
+        </span>
+
+        <!-- Save -->
+        <span class="category-edit-submit {{ category.category_id }}Submit" name="{{ category.category_id }}">
+            <span>save</span>
+        </span>
+
+    </form>
+    </li>
     {% endfor %}
 
-</table>
+</ul>
 </div>
 
 

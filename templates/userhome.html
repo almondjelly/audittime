@@ -17,7 +17,7 @@
                 {% for category in categories %}
                 <option>{{ category.name }}</option>
                 {% endfor %}
-                
+
         </select>
 
         <span id="startStop">
@@ -26,9 +26,9 @@
         </span>
 
         <span id="datePickers">
-            <input type="datetime-local" id="m-start" class="date-pick" required name="startTime">
+            <input type="datetime-local" id="m-start" class="date-time-picker" required name="startTime">
            
-            <input type="datetime-local" id="m-stop" class="date-pick" required name="stopTime">
+            <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime">
 
             <button type="button" id="manualSubmit">submit</button>
 
@@ -68,7 +68,6 @@
                             {% for category in categories %}
                             <option>{{ category.name }}</option>
                             {% endfor %}
-
 
                     </select>
                 </span>
