@@ -5,11 +5,17 @@
 
 function initialize() {
     $(".form-register").hide();
-    $(".category-dropdown").hide();
     $(".goal-edit-submit").hide();
     $(".event-edit-submit").hide();
     $(".category-edit-submit").hide();
     $(".time-input").hide();
+
+    // Apply select2 to dropdowns
+    $(".category-dropdown").select2({placeholder: "select a category"});
+    $("#new_category").select2({placeholder: "tv"});
+    $(".goal-dropdown").select2();
+    $("#category-goal-dropdown").select2({placeholder: "goals"});
+    $(".goal-type-dropdown").select2();
 }
 
 function addEventListeners(){
@@ -72,21 +78,6 @@ $(document).ready(function() {
 });
 
 
-// SHOW CATEGORY SELECT2 DROPDOWN SHEEMER SHEEMER
-$(".category-dropdown").select2({
-    placeholder: "select a category"
-});
-
-$("#new_category").select2({
-    placeholder: "tv"
-});
-
-$(".goal-dropdown").select2();
-$("#category-goal-dropdown").select2({
-    placeholder: "goals"
-});
-$(".goal-type-dropdown").select2();
-
 
 // CUSTOMIZE DATEPICKERS WITH FLATPICKR
 flatpickr(".date-time-picker", {
@@ -101,7 +92,6 @@ flatpickr(".date-time-picker", {
 $("span.task-input").parents("form").children("span.event-edit-submit").on(
     "click", function() {
 
-        console.log("updatedlikewhoa")
         let formInputs = {
             "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
             "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
@@ -111,22 +101,14 @@ $("span.task-input").parents("form").children("span.event-edit-submit").on(
     });
 
 // ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
-
 $("#mode-toggler").on("click", function() {
     $("#startStop").toggle();
     $("#datePickers").toggle();
 });
 
 
-// UPDATE GOAL LOG UPON ADDING NEW GOAL
-
-$("#goalSubmit").on("click", function() {
-    // fix this -- just add one new bullet instead of reloading the whole sheemer sheemer
-    $("#goal-log").load("goals.html #goal-log");
-});
-
 // UPDATE GOAL INFO AND SAVE
-$(".goal-input").parents("form").children("span.goal-edit-submit").on(
+$(".goal-input").parents("form").children(".goal-edit-submit").on(
     "click", function() {
         console.log("saving goal")
         let formInputs = {
@@ -154,13 +136,41 @@ $("span.task-input").parents("form").children("span.event-edit-submit").on(
     });
 
 
-
-
-
 // UPDATE CATEGORY LOG UPON ADDING NEW CATEGORY
 
 $("#new_categorySubmit").on("click", function() {
+        // fix this -- just add one new bullet instead of reloading the whole sheemer sheemer
+
     $("#new_category-log").load("goals.html #new_category-log");
+});
+
+
+// ADD NEW GOAL
+function addNewGoal(result){
+    $("#goal-log-ul").prepend(result);
+
+    $("#goalName").removeAttr("value");
+    $("#hours").removeAttr("value");
+    $("#minutes").removeAttr("value");
+    $("#startDate").removeAttr("value");
+    $("#endDate").removeAttr("value");
+    initialize();
+
+}
+
+$("#goalSubmit").on("click", function() {
+    event.preventDefault();
+    
+    let formInputs = {
+        "goalName": $("#goalName").val(),
+        "goalType": $("#goalType").val(),
+        "hours": $("#hours").val(),
+        "minutes": $("#minutes").val(),
+        "startDate": $("#startDate").val(),
+        "endDate": $("#endDate").val()
+    };
+
+    $.post("/add_goal", formInputs, addNewGoal);
 });
 
 

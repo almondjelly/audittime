@@ -6,16 +6,16 @@
 
 <!-- Add new goal -->
 <form method="post" action="add_goal" id="form-goal">
-    i want to <input type="text" name="goalName" placeholder="watch tv" required> for 
-    <select name="goalType" class="goal-type-dropdown">
+    i want to <input type="text" name="goalName" placeholder="watch tv" required id="goalName"> for 
+    <select name="goalType" id="goalType" class="goal-type-dropdown">
         <option value="at_least">at least</option>
         <option value="at_most">at most</option>
     </select>
-    <input type="number" name="hours" placeholder="0" required> hours 
-    <input type="number" name="minutes" placeholder="0" required> minutes
-    from <input type="datetime-local" name="startDate" class="date-time-picker" required> 
-    to <input type="datetime-local" name="endDate" class="date-time-picker" required>.
-    <button type="submit" id="#goalSubmit">save</button>
+    <input id="hours" type="number" name="hours" placeholder="0" required> hours 
+    <input type="number" id="minutes" name="minutes" placeholder="0" required> minutes
+    from <input type="datetime-local" id="startDate" name="startDate" class="date-time-picker" required> 
+    to <input type="datetime-local" name="endDate" id="endDate" class="date-time-picker" required>.
+    <button type="button" id="goalSubmit">save</button>
 </form>
 
 <!-- Goal Log -->

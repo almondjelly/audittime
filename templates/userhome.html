@@ -63,11 +63,11 @@
                     <!-- Dropdown for multiple selecting categories -->
                     <select class="category-dropdown event-{{ event.event_id }}">
                     
-                            <option selected>{{ event.task.category.name }}</option>
-                    
-                            {% for category in categories %}
+                        <option selected>{{ event.task.category.name }}</option>
+                
+                        {% for category in categories %}
                             <option>{{ category.name }}</option>
-                            {% endfor %}
+                        {% endfor %}
 
                     </select>
                 </span>

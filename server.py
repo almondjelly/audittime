@@ -7,6 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
                   GoalCategory
 from datetime import datetime, timedelta
+from addNew import goal_generate_html
 from math import floor
 import json
 import pdb
@@ -81,7 +82,7 @@ def register():
 def add_goal():
     """Adds a goal to the goals table."""
 
-    goal_name = request.form.get('goalName')
+    goal_name = str(request.form.get('goalName'))
     goal_type = request.form.get('goalType')
     hours = int(request.form.get('hours'))
     minutes = int(request.form.get('minutes'))
@@ -97,7 +98,26 @@ def add_goal():
     db.session.add(new_goal)
     db.session.commit()
 
-    return redirect('/goals')
+    goal = Goal.query.filter_by(name=goal_name, end_time=end_time,
+                                user_id=user_id).one()
+
+    goal_id = str(goal.goal_id)
+    goal_category = goal.category
+    total_time = goal.total_time()
+
+    categories = Category.query.filter_by(user_id=user_id).all()
+
+    print type(goal_id)
+    print type(goal_category)
+    print type(goal_name)
+
+    new_goal_html = goal_generate_html(total_time, goal_id, goal_name,
+                                       goal_type,
+                                       duration.days, str(hours), str(minutes),
+                                       start_time, end_time, categories,
+                                       goal_category)
+
+    return new_goal_html
 
 
 @app.route('/add_category', methods=['POST'])
@@ -116,20 +136,6 @@ def add_category():
     # Add new goal associations to the goals_categories table.
     category_id = Category.query.filter_by(name=category_name,
                                            user_id=user_id).all()
-
-    print category_id
-    # for goal_name in category_goals:
-    #     print goal_name
-    #     print user_id
-    #     goal_id = Goal.query.filter_by(name=goal_name,
-    #                                    user_id=user_id).one()
-
-    #     new_goal_category = GoalCategory(goal_id=goal_id,
-    #                                      category_id=category_id)
-
-    #     db.session.add(new_goal_category)
-
-    # db.session.commit()
 
     return redirect('/goals')
 
