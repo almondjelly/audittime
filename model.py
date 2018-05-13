@@ -1,7 +1,7 @@
 """Auditime model and database functions."""
 
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import desc, asc
 
 # This is the connection to the PostgreSQL database; we're getting this through

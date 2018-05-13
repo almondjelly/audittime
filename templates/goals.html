@@ -25,14 +25,14 @@
 
     <li>
         <form>
-            <!-- Goal -->
+            <!-- Goal name -->
             <span class="goal-input">
                 <span class="goal-{{ goal.goal_id }}">
-                    <input type="text" value="{{ goal.name }}" name="{{ goal.goal_id }}" class="goal-input-field">
+                    <input type="text" value="{{ goal.name }}" name="{{ goal.goal_id }}" class="goal-input-field goal-name">
                 </span>
             </span>
 
-            <!-- Type -->
+            <!-- Goal type -->
             <span class="goal-type">
                 <span class="goal-{{ goal.goal_id }}">
                     
@@ -56,18 +56,14 @@
                 </span>
             </span>
 
-
-<!--             days, hours, minutes = td.days, td.seconds // 3600, td.seconds // 60 % 60
- -->
-
             <!-- Duration -->
-            <span class="goal-duration">
+            <span class="goal-input duration">
                 <span class="goal-{{ goal.goal_id }}">
-                    <input class="goal-input-field duration" type="text" value="{{ goal.duration.days }}" name="days-{{ goal.goal_id }}"> days
+                    <input class="goal-input-field duration days" type="text" value="{{ goal.duration.days }}" name="days-{{ goal.goal_id }}"> days
 
-                    <input class="goal-input-field duration" type="text" value="{{ goal.duration.seconds // 3600 }}" name="hours-{{ goal.goal_id }}"> hours
-                    
-                    <input class="goal-input-field duration" type="text" value="{{ goal.duration.seconds // 60 % 60 }}" name="minutes-{{ goal.goal_id }}"> minutes
+                    <input class="goal-input-field duration hours" type="text" value="{{ goal.duration.seconds // 3600 }}" name="hours-{{ goal.goal_id }}"> hours
+
+                    <input class="goal-input-field duration minutes" type="text" value="{{ goal.duration.seconds // 60 % 60 }}" name="minutes-{{ goal.goal_id }}"> minutes
                 </span>
             </span>
 
@@ -78,7 +74,9 @@
             <span>{% for category in goal.category %}{{ category.name }}, {% endfor %}</span>
 
             <!-- Save -->
-            <span class="goal-edit-submit {{ goal.goal_id }}Submit">save</span>
+            <span class="goal-edit-submit {{ goal.goal_id }}Submit" name="{{ goal.goal_id }}">
+                <span>save</span>
+            </span>
         </form>
     </li>
     {% endfor %}

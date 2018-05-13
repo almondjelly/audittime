@@ -83,11 +83,9 @@ def add_goal():
 
     goal_name = request.form.get('goalName')
     goal_type = request.form.get('goalType')
-    hours = request.form.get('hours')
-    minutes = request.form.get('minutes')
-    duration_str = "{}h{}m".format(hours.zfill(2), minutes.zfill(2))
-    duration = datetime.strptime(duration_str, "%Hh%Mm")
-    duration = timedelta(hours=duration.hour, minutes=duration.minute)
+    hours = int(request.form.get('hours'))
+    minutes = int(request.form.get('minutes'))
+    duration = timedelta(hours=hours, minutes=minutes)
     start_time = request.form.get('startDate')
     end_time = request.form.get('endDate')
     user_id = session['user_id']
@@ -151,36 +149,31 @@ def display_goals():
     return render_template("goals.html", goals=goals,
                            categories=categories)
 
-@app.route('/edit_goal_name', methods=['POST'])
-def edit_goal_name():
-    """Updates new goal name in the goals table."""
 
-    event_id = request.form.get('eventId')
-    new_task_name = request.form.get('newTaskName')
-    category_id = Event.query.filter_by(event_id=event_id).one(
-        ).task.category_id
-    user_id = session['user_id']
+@app.route('/edit_goal_info', methods=['POST'])
+def edit_goal_info():
+    """Updates new goal info in the goals table."""
 
-    # If the new task already exists, find its id.
-    if Task.query.filter_by(name=new_task_name).first():
-        new_task_id = Task.query.filter_by(name=new_task_name).first().task_id
+    goal_id = request.form.get('goalId')
+    new_goal_name = request.form.get('newGoalName')
+    new_days = int(request.form.get('newDays'))
+    new_hours = int(request.form.get('newHours'))
+    print new_hours, "new hours"
+    new_minutes = int(request.form.get('newMinutes'))
+    new_duration = timedelta(days=new_days, hours=new_hours, minutes=new_minutes)
 
-    else:
-        # Create a new task.
-        new_task = Task(name=new_task_name, category_id=category_id,
-                        user_id=user_id)
+    # Find the existing goal.
+    goal = Goal.query.filter_by(goal_id=goal_id).one()
 
-        db.session.add(new_task)
-        db.session.commit()
-
-        new_task_id = Task.query.filter_by(name=new_task_name).one().task_id
-
-    # Reassign event's task id to the new task id.
-    Event.query.filter_by(event_id=event_id).one().task_id = new_task_id
+    # Update name and duration.
+    goal.name = new_goal_name
+    goal.duration = new_duration
 
     db.session.commit()
 
-    flash("task updated ")
+    flash("goal updated ")
+
+    print goal
 
     return redirect('/user')
 

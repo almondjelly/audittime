@@ -14,32 +14,29 @@ function initialize() {
 function addEventListeners(){
 
     // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING EVENT TASK
-    $("span.task-input > span").on("click", function() {
-        $(this).parents("form").children("span.event-edit-submit").show();
+    // When the mouse hovers over the list item, show the Save button.
+    $(".event-input-field").parents("li").hover(function() {
+        $(this).children().children(".event-edit-submit").show();
 
-        $(this).parents("form").children("span.task-input").children(
-            "span").children("input").on("focusout", function() {
-                $(this).parents("form").children("span.event-edit-submit").hide();
-        });
-    
+    // When the mouse leaves the list item, hide the Save button.
+        $(this).mouseleave(function() {
+            console.log("don't get under him");
+            $(this).children().children(".event-edit-submit").hide();
+        });    
     });
-
 
     // SHOW/HIDE SAVE BUTTON WHEN EDITING/NOT EDITING GOAL
-    $(".goal-input-field").on("click", function() {
-        $(this).parents("form").children("span.goal-edit-submit").show();
+    // When the mouse hovers over the list item, show the Save button.
+    $(".goal-input-field").parents("li").hover(function() {
+        console.log("what")
+        $(this).children().children(".goal-edit-submit").show();
 
-        $(this).parents("form").children("span.goal-input").children(
-            "span").children("input").on("focusout", function() {
-                $(this).parents("form").children("span.goal-edit-submit").hide();
+    // When the mouse leaves the list item, hide the Save button.
+        $(this).mouseleave(function() {
+            console.log('beep')
+            $(this).children().children(".goal-edit-submit").hide();
         });
-
-        $(this).parents("form").children("span.goal-duration").on("focusout", function() {
-            $(this).parents("form").children("span.goal-edit-submit").hide();
-        });
-        
     });
-
 
     // EXPAND CATEGORY DROPDOWN WHEN CATEGORY IS CLICKED ON TASK LOG
     $("span.category-title > span").on("click", function() {
@@ -57,6 +54,8 @@ $(document).ready(function() {
 // UPDATE TASK NAME AND SAVE
 $("span.task-input").parents("form").children("span.event-edit-submit").on(
     "click", function() {
+
+        console.log("updatedlikewhoa")
         let formInputs = {
             "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
             "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
@@ -76,11 +75,28 @@ $("#mode-toggler").on("click", function() {
 // UPDATE GOAL LOG UPON ADDING NEW GOAL
 
 $("#goalSubmit").on("click", function() {
+    // fix this -- just add one new bullet instead of reloading the whole sheemer sheemer
     $("#goal-log").load("goals.html #goal-log");
 });
 
+// UPDATE GOAL INFO AND SAVE
+$(".goal-input").parents("form").children("span.goal-edit-submit").on(
+    "click", function() {
+        console.log("saving goal")
+        let formInputs = {
+            "goalId": $(this).attr("name"),
+            "newGoalName": $(this).parents("form").children("span.goal-input").children("span").children(".goal-name").val(),
+            "newDays": $(this).parents("form").children("span.goal-input").children("span").children(".days").val(),
+            "newHours":$(this).parents("form").children("span.goal-input").children("span").children(".hours").val(),
+            "newMinutes":$(this).parents("form").children("span.goal-input").children("span").children(".minutes").val()
+        }
 
-// UPDATE GOAL NAME AND SAVE
+        $.post("/edit_goal_info", formInputs);
+    });
+
+
+
+// UPDATE TASK NAME AND SAVE
 $("span.task-input").parents("form").children("span.event-edit-submit").on(
     "click", function() {
         let formInputs = {
