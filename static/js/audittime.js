@@ -107,37 +107,15 @@ $("#mode-toggler").on("click", function() {
 });
 
 
-// UPDATE GOAL INFO AND SAVE
-$(".goal-input").parents("form").children(".goal-edit-submit").on(
-    "click", function() {
-        console.log("saving goal")
-        let formInputs = {
-            "goalId": $(this).attr("name"),
-            "newGoalName": $(this).parents("form").children("span.goal-input").children("span").children(".goal-name").val(),
-            "newDays": $(this).parents("form").children("span.goal-input").children("span").children(".days").val(),
-            "newHours":$(this).parents("form").children("span.goal-input").children("span").children(".hours").val(),
-            "newMinutes":$(this).parents("form").children("span.goal-input").children("span").children(".minutes").val()
-        }
-
-        $.post("/edit_goal_info", formInputs);
-    });
-
-
-
-
-
-
 // ADD NEW GOAL
 function addNewGoal(result){
     $("#goal-log-ul").prepend(result);
-
     $("#goalName").removeAttr("value");
     $("#hours").removeAttr("value");
     $("#minutes").removeAttr("value");
     $("#startDate").removeAttr("value");
     $("#endDate").removeAttr("value");
     initialize();
-
 }
 
 $("#goalSubmit").on("click", function() {
@@ -156,13 +134,28 @@ $("#goalSubmit").on("click", function() {
 });
 
 
+// EDIT GOAL INFO AND SAVE
+$(".goal-input").parents("form").children(".goal-edit-submit").on(
+    "click", function() {
+        console.log("saving goal")
+        let formInputs = {
+            "goalId": $(this).attr("name"),
+            "newGoalName": $(this).parents("form").children("span.goal-input").children("span").children(".goal-name").val(),
+            "newDays": $(this).parents("form").children("span.goal-input").children("span").children(".days").val(),
+            "newHours":$(this).parents("form").children("span.goal-input").children("span").children(".hours").val(),
+            "newMinutes":$(this).parents("form").children("span.goal-input").children("span").children(".minutes").val()
+        }
+
+        $.post("/edit_goal_info", formInputs);
+    });
+
+
 // ADD NEW CATEGORY
 function addNewCategory(result){
     $("#category-log-ul").prepend(result);
     $("#categoryName").removeAttr("value");
     $("#categoryGoals").removeAttr("value");
     initialize();
-
 }
 
 $("#categorySubmit").on("click", function() {
@@ -175,6 +168,28 @@ $("#categorySubmit").on("click", function() {
 
     $.post("/add_category", formInputs, addNewCategory);
 });
+
+
+// EDIT CATEGORY INFO AND SAVE
+
+$(".category-input").parents("form").children(".category-edit-submit").on(
+    "click", function() {
+        let newCategoryGoals = '';
+
+        $(this).parents("form").children(".category-goal-title").children("span").children("select").change(function() {
+            $(this).children("option:selected").each(function() {
+                newCategoryGoals += $(this).text() + '|';
+            });
+        }).trigger("change");
+        console.log("saving category");
+        let formInputs = {
+            "categoryId": $(this).attr("name"),
+            "newcategoryName": $(this).parents("form").children(".category-input").children("span").children(".category-name").val(),
+            "newCategoryGoals": newCategoryGoals
+        };
+
+        $.post("/edit_category_info", formInputs);
+    });
 
 
 // ADD NEW EVENT

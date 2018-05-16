@@ -156,6 +156,44 @@ def add_category():
     return new_category_html
 
 
+@app.route('/edit_category_info', methods=['POST'])
+def edit_category_info():
+    """Updates new category info in the categories table."""
+
+    # Grab data from form via JavaScript.
+    category_id = request.form.get('categoryId')
+    new_category_name = request.form.get('newcategoryName')
+    new_category_goals = request.form.get('newCategoryGoals')
+    new_category_goals = new_category_goals.split('|')[:-1]
+    user_id = session['user_id']
+
+    # Find the existing category.
+    category = Category.query.filter_by(category_id=category_id).one()
+
+    print "ID", category_id
+    print "Name", new_category_name
+    print "Goals", new_category_goals
+    print "Category", category
+
+    # Update name and goals.
+    category.name = new_category_name
+    category.goal = []
+
+    for goal_name in new_category_goals:
+        goal_id = Goal.query.filter_by(name=goal_name, user_id=user_id).one(
+            ).goal_id
+
+        new_goal_category = GoalCategory(goal_id=goal_id,
+                                         category_id=category_id)
+        db.session.add(new_goal_category)
+
+    db.session.commit()
+
+    flash("category updated ")
+
+    return redirect('/goals')
+
+
 @app.route('/goals')
 def display_goals():
     """Displays user's goals."""
@@ -197,7 +235,7 @@ def edit_goal_info():
 
     print goal
 
-    return redirect('/user')
+    return redirect('/goals')
 
 
 @app.route('/user')
