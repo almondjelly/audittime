@@ -7,7 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
                   GoalCategory
 from datetime import datetime, timedelta
-from addNew import goal_generate_html
+from addNew import goal_generate_html, category_generate_html
 from math import floor
 import json
 import pdb
@@ -41,7 +41,8 @@ def signin():
     try:
         if User.query.filter_by(email=email).one().password == password:
             session['user'] = email
-            session['user_id'] = User.query.filter_by(email=email).one().user_id
+            session['user_id'] = User.query.filter_by(
+                email=email).one().user_id
 
         return "success"
 
@@ -107,10 +108,6 @@ def add_goal():
 
     categories = Category.query.filter_by(user_id=user_id).all()
 
-    print type(goal_id)
-    print type(goal_category)
-    print type(goal_name)
-
     new_goal_html = goal_generate_html(total_time, goal_id, goal_name,
                                        goal_type,
                                        duration.days, str(hours), str(minutes),
@@ -124,6 +121,7 @@ def add_goal():
 def add_category():
     """Adds a category to the categories table."""
 
+    # Grab data from form via JavaScript
     category_name = request.form.get('categoryName')
     category_goals = request.form.getlist('categoryGoals')
     user_id = session['user_id']
@@ -133,11 +131,29 @@ def add_category():
     db.session.add(new_category)
     db.session.commit()
 
-    # Add new goal associations to the goals_categories table.
+    # # Add new goal associations to the goals_categories table.
     category_id = Category.query.filter_by(name=category_name,
-                                           user_id=user_id).all()
+                                           user_id=user_id).one().category_id
 
-    return redirect('/goals')
+    for goal_name in category_goals:
+        goal_id = Goal.query.filter_by(name=goal_name, user_id=user_id).one(
+            ).goal_id
+
+        new_goal_category = GoalCategory(goal_id=goal_id,
+                                         category_id=category_id)
+        db.session.add(new_goal_category)
+
+    db.session.commit()
+
+    # Grab data required for generating relevant html.
+    all_goals = Goal.query.all()
+    category_goal = Category.query.filter_by(category_id=category_id).one(
+        ).goal
+
+    new_category_html = category_generate_html(category_id, category_name,
+                                               all_goals, category_goal)
+
+    return new_category_html
 
 
 @app.route('/goals')

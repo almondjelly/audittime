@@ -137,10 +137,9 @@
 </form>
 
 
-
 <!-- Category Log -->
 <div id="category-log">
-<ul class="list-group">
+<ul class="list-group" id="category-log-ul">
 
     {% for category in categories %}
     <li class="list-group-item">
@@ -154,7 +153,7 @@
                 </span>
         </span>
 
-        <!-- Goals -->
+        <!-- Cateogry goals -->
         <span class="goal-title">
             <span class="category-{{ category.category_id}}">
                 

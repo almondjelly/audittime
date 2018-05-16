@@ -1,3 +1,5 @@
+from model import Category
+
 def goal_generate_html(total_time, goal_id, goal_name, goal_type, days, hours,
                        minutes, start_time, end_time, all_categories,
                        goal_category):
@@ -24,7 +26,8 @@ def goal_generate_html(total_time, goal_id, goal_name, goal_type, days, hours,
  \
                 <!-- Dropdown for seleting goal type --> \
                 <span class=\"goal-type-dropdown goal-{id}\"> \
-                    <select>".format(total_time=total_time, id=goal_id, name=goal_name)
+                    <select>".format(
+                        total_time=total_time, id=goal_id, name=goal_name)
 
     if goal_type == "at_least":
         html2 = "<option value=\"at_least\" selected>at least</option> \
@@ -111,3 +114,52 @@ def goal_generate_html(total_time, goal_id, goal_name, goal_type, days, hours,
     new_goal_html = html1 + html2 + html3 + html4 + html5 + html6 + html7
 
     return new_goal_html
+
+
+def category_generate_html(category_id, category_name, all_goals, category_goal):
+    """Generates html for adding a new category."""
+
+    html1 = "<li class=\"list-group-item\">  \
+         \
+            <form> \
+         \
+                <!-- Category name --> \
+                <span class=\"category-input\"> \
+                        <span class=\"category-{category_id}\"> \
+                            <input type=\"text\" value=\"{category_name}\" name=\"{category_id}\" class=\"category-input-field category-name\"> \
+                        </span> \
+                </span> \
+         \
+                <!-- Cateogry goals --> \
+                <span class=\"goal-title\"> \
+                    <span class=\"category-{category_id}\"> \
+         \
+                        <!-- Dropdown for multiple selecting goals --> \
+                        <select multiple class=\"goal-dropdown category-{category_id}\">".format(category_id=category_id, category_name=category_name)
+
+    html2 = ""
+
+    for goal in all_goals:
+        if goal in category_goal:
+            html2 += "<option selected>{goal_name}</option>".format(
+                goal_name=goal.name)
+
+        else:
+            html2 += "<option>{goal_name}</option>".format(goal_name=goal.name)
+
+    html3 = "</select> \
+            </span> \
+        </span> \
+ \
+        <!-- Save --> \
+        <span class=\"category-edit-submit {category_id}Submit\" \
+        name=\"{category_id}\"> \
+            <span>save</span> \
+        </span> \
+ \
+    </form> \
+    </li>".format(category_id=category_id)
+
+    new_category_html = html1 + html2 + html3
+
+    return new_category_html

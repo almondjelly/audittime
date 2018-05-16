@@ -124,25 +124,7 @@ $(".goal-input").parents("form").children(".goal-edit-submit").on(
 
 
 
-// UPDATE TASK NAME AND SAVE
-$("span.task-input").parents("form").children("span.event-edit-submit").on(
-    "click", function() {
-        let formInputs = {
-            "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
-            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
-        }
 
-        $.post("/edit_task_name", formInputs);
-    });
-
-
-// UPDATE CATEGORY LOG UPON ADDING NEW CATEGORY
-
-$("#new_categorySubmit").on("click", function() {
-        // fix this -- just add one new bullet instead of reloading the whole sheemer sheemer
-
-    $("#new_category-log").load("goals.html #new_category-log");
-});
 
 
 // ADD NEW GOAL
@@ -171,6 +153,27 @@ $("#goalSubmit").on("click", function() {
     };
 
     $.post("/add_goal", formInputs, addNewGoal);
+});
+
+
+// ADD NEW CATEGORY
+function addNewCategory(result){
+    $("#category-log-ul").prepend(result);
+    $("#categoryName").removeAttr("value");
+    $("#categoryGoals").removeAttr("value");
+    initialize();
+
+}
+
+$("#categorySubmit").on("click", function() {
+    event.preventDefault();
+    
+    let formInputs = {
+        "categoryName": $("#categoryName").val(),
+        "categoryGoals": $("#category-goal-dropdown").val()
+    };
+
+    $.post("/add_category", formInputs, addNewCategory);
 });
 
 
@@ -242,6 +245,18 @@ function startStopwatch(event) {
 }
 
 $("#startButton").on("click", startStopwatch);
+
+
+// UPDATE TASK (EVENT) NAME AND SAVE
+$("span.task-input").parents("form").children("span.event-edit-submit").on(
+    "click", function() {
+        let formInputs = {
+            "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
+            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
+        }
+
+        $.post("/edit_task_name", formInputs);
+    });
 
 
 // ENABLE TOGGLING BETWEEN LOGIN AND REGISTRATION FORMS
