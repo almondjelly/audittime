@@ -88,18 +88,6 @@ flatpickr(".date-time-picker", {
 });
 
 
-// UPDATE TASK NAME AND SAVE
-$("span.task-input").parents("form").children("span.event-edit-submit").on(
-    "click", function() {
-
-        let formInputs = {
-            "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
-            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
-        }
-
-        $.post("/edit_task_name", formInputs);
-    });
-
 // ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
 $("#mode-toggler").on("click", function() {
     $("#startStop").toggle();
@@ -267,10 +255,12 @@ $("span.task-input").parents("form").children("span.event-edit-submit").on(
     "click", function() {
         let formInputs = {
             "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
-            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val()
+            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val(),
+            "newStartTime": $(this).parents("form").children(".start-end-times").children(".task-start-time").children("input").val(),
+            "newStopTime": $(this).parents("form").children(".start-end-times").children(".task-end-time").children("input").val()
         }
 
-        $.post("/edit_task_name", formInputs);
+        $.post("/edit_task", formInputs);
     });
 
 

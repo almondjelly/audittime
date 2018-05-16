@@ -72,12 +72,26 @@
                     </select>
                 </span>
             </span>
+            
 
-            <!-- Start Time -->
-            <span>{{ event.start_time }}</span>
+            <!-- Start and end times -->
+            <span class="start-end-times">
+                <span class="task-start-time time-text">
+                    {{ event.start_time }}
+                </span>
+                <span class="task-start-time time-input">
+                    <input type="datetime-local" name="startTime" class="date-time-picker"> 
+                </span>
 
-            <!-- Stop Time -->
-            <span>{{ event.stop_time }}</span>
+                <span class="task-end-time time-text">
+                    {{ event.stop_time }}
+                </span>
+                <span class="task-end-time time-input">
+                    <input type="datetime-local" name="stopTime" class="date-time-picker"> 
+                </span>
+
+
+            </span>
 
             <!-- Duration -->
             <span>{{ event.duration() }}</span>

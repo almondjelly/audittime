@@ -371,12 +371,15 @@ def add_event():
     return form_html
 
 
-@app.route('/edit_task_name', methods=['POST'])
+@app.route('/edit_task', methods=['POST'])
 def edit_task_name():
     """Updates new task name in the tasks table."""
 
     event_id = request.form.get('eventId')
     new_task_name = request.form.get('newTaskName')
+    newStartTime = request.form.get('newStartTime')
+    newStopTime = request.form.get('newStopTime')
+
     category_id = Event.query.filter_by(event_id=event_id).one(
         ).task.category_id
     user_id = session['user_id']
@@ -396,7 +399,15 @@ def edit_task_name():
         new_task_id = Task.query.filter_by(name=new_task_name).one().task_id
 
     # Reassign event's task id to the new task id.
-    Event.query.filter_by(event_id=event_id).one().task_id = new_task_id
+    event = Event.query.filter_by(event_id=event_id).one()
+    event.task_id = new_task_id
+
+    # If the start/stop times were edited, save them.
+    if newStartTime:
+        event.start_time = newStartTime
+
+    if newStopTime:
+        event.stop_time = newStopTime
 
     db.session.commit()
 
