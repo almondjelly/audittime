@@ -18,8 +18,10 @@
     {% for event in gcal_events %}
     <li>
         <form>
-        
-        {{ event['title'] }} {{ event['start'] }} {{ event['end'] }} 
+            <input type="hidden" value="{{ event.gcal_event_id }}" class="gcal-event-id">
+
+
+        {{ event.title }} {{ event.start_time }} {{ event.stop_time }}
 
         <!-- Categories -->
         <span class="goal-title">
@@ -41,7 +43,7 @@
         </span>
 
         <!-- Delete -->
-        <span class="g" name="">
+        <span class="{{ event.gcal_event_id }} delete-gcal">
             <span>delete</span>
         </span>        
 

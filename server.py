@@ -5,11 +5,11 @@ from flask import (Flask, render_template, redirect, request, flash, session,
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
-                  GoalCategory
+                  GoalCategory, GoogleCalendar
 from datetime import datetime, timedelta
 from addNew import goal_generate_html, category_generate_html
 from math import floor
-from gcal import get_last_7_days
+from gcal import get_last_7_days, update_db
 import json
 import pdb
 
@@ -421,13 +421,31 @@ def edit_task_name():
 def account_settings():
     """Displays account information for a user."""
 
-    gcal_events = get_last_7_days()
+    # Grab last 7 days of Google Calendar events and update the database.
+    update_db(session['user_id'])
 
     categories = db.session.query(Category).filter_by(
         user_id=session['user_id']).order_by('name').all()
 
+    gcal_events = GoogleCalendar.query.filter_by(status='pending').all()
+
     return render_template("account.html", gcal_events=gcal_events,
                            categories=categories)
+
+
+@app.route('/delete_gcal_event', methods=['POST'])
+def delete_gcal_event():
+    """When user imports Google Calendar events and deletes ones, update
+    gcal_events table status as 'deleted'."""
+
+    gcal_event_id = request.form.get('gcalEventId')
+
+    event = GoogleCalendar.query.filter_by(gcal_event_id=gcal_event_id).one()
+    event.status = 'deleted'
+
+    db.session.commit()
+
+    return redirect('/')
 
 
 if __name__ == "__main__":

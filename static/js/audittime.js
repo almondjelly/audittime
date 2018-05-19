@@ -4,7 +4,6 @@
     // EVENT EDIT SUBMIT BUTTON 
 
 function initialize() {
-    toastr.info('Are you the 6 fingered man?');
     $(".form-register").hide();
     $(".goal-edit-submit").hide();
     $(".event-edit-submit").hide();
@@ -17,6 +16,25 @@ function initialize() {
     $(".goal-dropdown").select2();
     $("#category-goal-dropdown").select2({placeholder: "goals"});
     $(".goal-type-dropdown").select2();
+
+    // Set toastr options
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
 }
 
 function addEventListeners(){
@@ -258,6 +276,32 @@ $("span.task-input").parents("form").children("span.event-edit-submit").on(
 
         $.post("/edit_task", formInputs);
     });
+
+
+// GOOGLE CALENDAR EVENT - DELETE PENDING EVENT
+$("span.delete-gcal").click(function() {
+    let formInputs = {
+        gcalEventId: $(this).parents("form").children(".gcal-event-id").val()
+    };
+
+    toastr.success('task deleted');
+
+    $(this).parents("li").hide();
+
+    $.post("/delete_gcal_event", formInputs)
+});
+
+
+// GOOGLE CALENDAR EVENT - DELETE PENDING EVENT
+$("span.save-gcal").click(function() {
+    let formInputs = {
+        gcalEventId: $(this).parents("form").children(".gcal-event-id").val()
+    };
+
+    toastr.success('task saved');
+
+    $.post("/save_gcal_event", formInputs)
+});
 
 
 // ENABLE TOGGLING BETWEEN LOGIN AND REGISTRATION FORMS
