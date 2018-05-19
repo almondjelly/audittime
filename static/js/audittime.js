@@ -23,15 +23,16 @@ function addEventListeners(){
     // SHOW/HIDE SAVE BUTTONS
 
     // Task
-    // When the mouse hovers over the list item, show the Save button.
-    $(".event-input-field").parents("li").hover(function() {
-        $(this).children().children(".event-edit-submit").show();
 
-    // When the mouse leaves the list item, hide the Save button.
-        $(this).mouseleave(function() {
-            $(this).children().children(".event-edit-submit").hide();
-        });    
-    });
+        // When the mouse hovers over the list item, show the Save button.
+        $(".event-input-field").parents("li").hover(function() {
+            $(this).children().children(".event-edit-submit").show();
+
+        // When the mouse leaves the list item, hide the Save button.
+            $(this).mouseleave(function() {
+                $(this).children().children(".event-edit-submit").hide();
+            });    
+        });
 
     // Goal
 
@@ -45,30 +46,24 @@ function addEventListeners(){
             });
         });
 
-        // When the goal start time is clicked, show the datetime picker.
+        // When the goal/task time is clicked, show the datetime picker.
         $(".time-text").click(function() {
-            $(this).parents().children(".time-text").hide()
+            $(this).parents().children(".time-text").hide();
             $(this).parents("span").children(".time-input").show();
-
-
-            $(this).parents("li").mouseleave(function(){
-                $(this).children(".time-input").hide();
-                $(this).children(".time-text").show();
-            })
         });
 
 
     // Category
-    // When the mouse hovers over the list item, show the Save button.
-    $(".category-input-field").parents("li").hover(function() {
-        $(this).children().children(".category-edit-submit").show();
 
-    // When the mouse leaves the list item, hide the Save button.
-        $(this).mouseleave(function() {
-            $(this).children().children(".category-edit-submit").hide();
-        });
-    });    
+        // When the mouse hovers over the list item, show the Save button.
+        $(".category-input-field").parents("li").hover(function() {
+            $(this).children().children(".category-edit-submit").show();
 
+        // When the mouse leaves the list item, hide the Save button.
+            $(this).mouseleave(function() {
+                $(this).children().children(".category-edit-submit").hide();
+            });
+        });    
 }
 
 $(document).ready(function() {

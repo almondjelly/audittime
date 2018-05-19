@@ -46,7 +46,7 @@ def signin():
 
         return "success"
 
-    except:
+    except():
         return "fail"
 
 
@@ -231,7 +231,7 @@ def edit_goal_info():
 
     db.session.commit()
 
-    flash("goal updated ")
+    flash('goal updated')
 
     print goal
 
@@ -288,12 +288,12 @@ def add_event():
         # Create a new task.
         # If the category already exists, find its id.
         try:
-            if int(Category.query.filter_by(name=category_name).first().user_id) \
-                    == int(user_id):
+            if int(Category.query.filter_by(name=category_name).first(
+                   ).user_id) == int(user_id):
                 category_id = Category.query.filter_by(name=category_name) \
                     .first().category_id
 
-        except:
+        except():
             # Create a new category.
             new_category = Category(name=category_name,
                                     user_id=user_id)
