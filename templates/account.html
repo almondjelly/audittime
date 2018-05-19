@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>Integrations</h2>
+
+<ul>
+    <li>
+        <input type="checkbox"> Toggl
+    </li>
+    <li>
+        <input type="checkbox"> Google Calendar
+    </li>
+</ul>
+
+
+<ul>
+    {% for event in gcal_events %}
+    <li>
+        <form>
+        
+        {{ event['title'] }} {{ event['start'] }} {{ event['end'] }} 
+
+        <!-- Categories -->
+        <span class="goal-title">
+            <span class="goal-">
+                
+                <!-- Dropdown for multiple selecting categories -->
+                <select multiple class="category-dropdown goal-">
+                
+                    {% for category in categories %}
+                        <option>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </span>
+        </span>
+
+        <!-- Save -->
+        <span class="g" name="">
+            <span>save</span>
+        </span>
+
+        <!-- Delete -->
+        <span class="g" name="">
+            <span>delete</span>
+        </span>        
+
+
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -9,6 +9,7 @@ from model import connect_to_db, db, User, Category, Event, Task, Goal, \
 from datetime import datetime, timedelta
 from addNew import goal_generate_html, category_generate_html
 from math import floor
+from gcal import get_last_7_days
 import json
 import pdb
 
@@ -414,6 +415,19 @@ def edit_task_name():
     flash("task updated")
 
     return redirect('/user')
+
+
+@app.route('/account')
+def account_settings():
+    """Displays account information for a user."""
+
+    gcal_events = get_last_7_days()
+
+    categories = db.session.query(Category).filter_by(
+        user_id=session['user_id']).order_by('name').all()
+
+    return render_template("account.html", gcal_events=gcal_events,
+                           categories=categories)
 
 
 if __name__ == "__main__":

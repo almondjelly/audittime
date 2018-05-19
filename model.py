@@ -2,7 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, asc, func
 
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
@@ -161,8 +161,7 @@ class Event(db.Model):
 
     __tablename__ = "events"
 
-    event_id = db.Column(db.Integer, autoincrement=True,
-                         primary_key=True)
+    event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     start_time = db.Column(db.DateTime, nullable=False)
     stop_time = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
@@ -170,7 +169,7 @@ class Event(db.Model):
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.task_id'),
                         nullable=False)
 
-    # Define relationship to Task, Category, User
+    # Define relationship to Task, User
     task = db.relationship("Task", backref=db.backref("events"))
     user = db.relationship("User", backref=db.backref("events"))
 
@@ -184,6 +183,26 @@ class Event(db.Model):
 
         return "<Event event_id={} task_id={} user_id={}>".format(
             self.event_id, self.task_id, self.user_id)
+
+
+class GoogleCalendar(db.Model):
+    """Events imported from Google Calendar."""
+
+    __tablename__= "gcal_events"
+
+    gcal_event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
+                        nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'),
+                         nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False)
+    stop_time = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.String(64), nullable=False)
+    import_time = db.Column(db.DateTime, server_default=func.now(),
+                            nullable=False)
+
+    # Define relationship to User
+    user = db.relationship("User", backref=db.backref("gcal_events"))
 
 
 ##############################################################################

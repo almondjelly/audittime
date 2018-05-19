@@ -4,6 +4,7 @@
     // EVENT EDIT SUBMIT BUTTON 
 
 function initialize() {
+    toastr.info('Are you the 6 fingered man?');
     $(".form-register").hide();
     $(".goal-edit-submit").hide();
     $(".event-edit-submit").hide();
