@@ -25,6 +25,7 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
+# ------------------------------ AUTHENTICATION ------------------------------
 @app.route('/')
 def display_index():
     """Display homepage."""
@@ -94,6 +95,22 @@ def logout():
     return redirect('/')
 
 
+# ----------------------------------- GOALS -----------------------------------
+@app.route('/goals')
+def display_goals():
+    """Display goals page."""
+
+    goals = db.session.query(Goal).filter_by(
+        user_id=session['user_id']).order_by(
+        'end_time').all()
+
+    categories = db.session.query(Category).filter_by(
+        user_id=session['user_id']).order_by(
+        'name').all()
+
+    return render_template("goals.html", goals=goals, categories=categories)
+
+
 @app.route('/add_goal', methods=['POST'])
 def add_goal():
     """Adds a goal to the goals table."""
@@ -132,6 +149,35 @@ def add_goal():
     return new_goal_html
 
 
+@app.route('/edit_goal_info', methods=['POST'])
+def edit_goal_info():
+    """Updates new goal info in the goals table."""
+
+    goal_id = request.form.get('goalId')
+    new_goal_name = request.form.get('newGoalName')
+    new_days = int(request.form.get('newDays'))
+    new_hours = int(request.form.get('newHours'))
+    print new_hours, "new hours"
+    new_minutes = int(request.form.get('newMinutes'))
+    new_duration = timedelta(days=new_days, hours=new_hours, minutes=new_minutes)
+
+    # Find the existing goal.
+    goal = Goal.query.filter_by(goal_id=goal_id).one()
+
+    # Update name and duration.
+    goal.name = new_goal_name
+    goal.duration = new_duration
+
+    db.session.commit()
+
+    flash('goal updated')
+
+    print goal
+
+    return redirect('/goals')
+
+
+# -------------------------------- CATEGORIES --------------------------------
 @app.route('/add_category', methods=['POST'])
 def add_category():
     """Adds a category to the categories table."""
@@ -209,53 +255,15 @@ def edit_category_info():
     return redirect('/goals')
 
 
-@app.route('/goals')
-def display_goals():
-    """Displays user's goals."""
-
-    goals = db.session.query(Goal).filter_by(
-        user_id=session['user_id']).order_by(
-        'end_time').all()
-
-    categories = db.session.query(Category).filter_by(
-        user_id=session['user_id']).order_by(
-        'name').all()
-
-    return render_template("goals.html", goals=goals,
-                           categories=categories)
 
 
-@app.route('/edit_goal_info', methods=['POST'])
-def edit_goal_info():
-    """Updates new goal info in the goals table."""
 
-    goal_id = request.form.get('goalId')
-    new_goal_name = request.form.get('newGoalName')
-    new_days = int(request.form.get('newDays'))
-    new_hours = int(request.form.get('newHours'))
-    print new_hours, "new hours"
-    new_minutes = int(request.form.get('newMinutes'))
-    new_duration = timedelta(days=new_days, hours=new_hours, minutes=new_minutes)
 
-    # Find the existing goal.
-    goal = Goal.query.filter_by(goal_id=goal_id).one()
-
-    # Update name and duration.
-    goal.name = new_goal_name
-    goal.duration = new_duration
-
-    db.session.commit()
-
-    flash('goal updated')
-
-    print goal
-
-    return redirect('/goals')
 
 
 @app.route('/tasks')
-def userhome():
-    """Display user's unique homepage: stopwatch, manual entry, task log."""
+def display_tasks():
+    """Display tasks page."""
 
     categories = db.session.query(Category).filter_by(
         user_id=session['user_id']).order_by('name').all()
@@ -266,7 +274,7 @@ def userhome():
     # Display log in reverse chronological order.
     events.reverse()
 
-    return render_template("userhome.html", events=events,
+    return render_template("tasks.html", events=events,
                            categories=categories)
 
 

@@ -5,7 +5,8 @@
 
 function initialize() {
     $(".form-register").hide();
-    $(".goal-edit-submit").hide();
+    $(".span-goal-edit").hide();
+    $(".span-goal-archive").hide();
     $(".event-edit-submit").hide();
     $(".category-edit-submit").hide();
     $(".time-input").hide();
@@ -16,7 +17,6 @@ function initialize() {
     $(".goal-dropdown").select2();
     $(".categoryGoals").select2({placeholder: "goals"});
     $(".gcal-categories").select2({placeholder: "category"});
-    $(".goal-type-dropdown").select2();
 
     // Set toastr options
     toastr.options = {
@@ -75,13 +75,16 @@ function addEventListeners(){
 
     // Category
 
-        // When the mouse hovers over the list item, show the Save button.
-        $(".category-input-field").parents("li").hover(function() {
-            $(this).children().children(".category-edit-submit").show();
+        // When the mouse hovers over the list item, show the Edit button.
+        $(".tr-goal").hover(function() {
+            console.log("i wolke up")
+            $(this).children(".td-goal-edit").children("span").show();
+            $(this).children(".td-goal-archive").children("span").show();
 
         // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
-                $(this).children().children(".category-edit-submit").hide();
+                $(this).children(".td-goal-edit").children("span").hide();
+                $(this).children(".td-goal-archive").children("span").hide();
             });
         });    
 }
@@ -97,7 +100,7 @@ $(document).ready(function() {
 // CUSTOMIZE DATEPICKERS WITH FLATPICKR
 flatpickr(".date-time-picker", {
     enableTime: true,
-    dateFormat: "Y-m-d h:i K",
+    dateFormat: "M j \\at h:i K",
     allowInput: true,
     altFormat: "F j, Y"
 });
@@ -121,7 +124,7 @@ function addNewGoal(result){
     initialize();
 }
 
-$("#goalSubmit").on("click", function() {
+$("#goal-submit").on("click", function() {
     event.preventDefault();
     
     let formInputs = {
@@ -138,18 +141,21 @@ $("#goalSubmit").on("click", function() {
 
 
 // EDIT GOAL INFO AND SAVE
-$(".goal-input").parents("form").children(".goal-edit-submit").on(
-    "click", function() {
-        console.log("saving goal")
-        let formInputs = {
-            "goalId": $(this).attr("name"),
-            "newGoalName": $(this).parents("form").children("span.goal-input").children("span").children(".goal-name").val(),
-            "newDays": $(this).parents("form").children("span.goal-input").children("span").children(".days").val(),
-            "newHours":$(this).parents("form").children("span.goal-input").children("span").children(".hours").val(),
-            "newMinutes":$(this).parents("form").children("span.goal-input").children("span").children(".minutes").val()
-        }
+$(".goal-edit-save").click(function() {
+    console.log("saving goal")
+    let formInputs = {
+        "goalId": $(this).parents(".form-goal-id").children(".input-goal-id").val(),
+        "newGoalName": $(this).parents(".modal-form").children(".td-goal-type").val(),
+        "newType": $(this).parents(".modal-form").children(".goal-input-type").val(),
+        "newDays": $(this).parents(".modal-form").children(".days").val(),
+        "newHours": $(this).parents(".modal-form").children(".hours").val(),
+        "newMinutes": $(this).parents(".modal-form").children(".minutes").val(),
+        "newStartTime": $(this).parents(".modal-form").children(".input-goal-start-time").val(),
+        "newEndTime": $(this).parents(".modal-form").children(".input-goal-end-time").val(),
+        "newCategoryGoals": $(this).parents(".modal-form").children(".input-goal-start-time").val()
+    }
 
-        $.post("/edit_goal_info", formInputs);
+    $.post("/edit_goal_info", formInputs);
     });
 
 
@@ -368,7 +374,6 @@ function displayLogInResults(result) {
 }
 
 function logIn() {
-    
     let formInputs = {
         "email": $("#inputEmail").val(),
         "password": $("#inputPassword").val()

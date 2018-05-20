@@ -71,10 +71,14 @@ class Goal(db.Model):
                event.stop_time <= self.end_time:
                     total_time += event.duration()
 
+        days = total_time.days
         hours = total_time.seconds / 3600
         minutes = (total_time.seconds - hours * 3600) / 60
 
-        total_time_str = "{}d {}h {}m".format(total_time.days, hours, minutes)
+        total_time_str = "{}h {}min".format(hours, minutes)
+
+        if total_time.days > 0:
+            total_time_str = "{} days ".format(days) + total_time_str
         return total_time_str
 
     def __repr__(self):

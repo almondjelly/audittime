@@ -1,37 +1,86 @@
 body {
     font-family: 'Roboto', sans-serif;
-    line-height: 32px;
 }
 
 input {
     font-family: 'Roboto', sans-serif;
     font-size: 11pt;
+    border: 0;
 }
 
-.goal-input-field.duration {
-    width: 20px;
-}
+/* ------------------------ GOALS ------------------------ */
 
-.category-input-field {
-    width: 500px;
-}
+/* ADD GOAL */
 
-input.event-input-field {
-    width: 500px !important;
-}
+    #goal-new {
+        padding: 100px 100px 100px 100px;
+        font-size: 40pt;
+    }
 
+    .goal-duration {
+        width: 100px;
+        text-align: right;
+    }
 
+    .date-time-picker {
+        width: 450px;
+    }
 
-.category-dropdown {
-    display: inline-block;
-    width: 300px;
-}
+    .goal-type-dropdown {
+        border: 0;
+        color: #666;
+        background-color: white;
+    }
 
-.goal-dropdown {
-    display: inline-block;
-    width: 600px;
-}
+    #goal-save-div {
+        text-align: center;
+    }
 
-#new_task {
-    width: 500px !important;
-}
+    #goal-submit {
+        width: 100%;
+        height: 60px;
+        font-size: 24pt;
+    }
+
+/* GOAL LOG */
+
+    .tr-goal {
+        height: 65px;
+    }
+
+    .td-goal-total-time {
+        padding: 0;
+    }
+
+    .td-goal-name {
+        width: 30%;
+        padding-right: 0;
+    }
+
+    .td-goal-name > input {
+        width: 100%;
+    }
+
+    .td-goal-type {
+        padding-right: 1%;
+        border: 0;
+        background-color: white;
+    }
+
+    input.td-goal-duration {
+        width: 25px;
+        padding: 0;
+        text-align: right;
+    }
+
+    .td-goal-categories {
+        width: 70%;
+    }
+
+    .td-goal-edit {
+        width: 70px;
+    }
+
+    .td-goal-archive {
+        width: 70px;
+    }
