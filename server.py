@@ -427,10 +427,14 @@ def account_settings():
     categories = db.session.query(Category).filter_by(
         user_id=session['user_id']).order_by('name').all()
 
+    goals = db.session.query(Goal).filter_by(
+        user_id=session['user_id']).order_by(
+        'end_time').all()
+
     gcal_events = GoogleCalendar.query.filter_by(status='pending').all()
 
     return render_template("account.html", gcal_events=gcal_events,
-                           categories=categories)
+                           categories=categories, goals=goals)
 
 
 @app.route('/delete_gcal_event', methods=['POST'])
@@ -445,7 +449,46 @@ def delete_gcal_event():
 
     db.session.commit()
 
-    return redirect('/')
+    return redirect('/account')
+
+
+@app.route('/save_gcal_event', methods=['POST'])
+def save_gcal_event():
+    """When user imports Google Calendar events and saves ones, update
+    gcal_events table status as 'saved', create a new task and new event."""
+
+    gcal_event_id = request.form.get('gcalEventId')
+    category_name = request.form.get('categoryName')
+    user_id = session['user_id']
+    category_id = Category.query.filter_by(name=category_name,
+                                           user_id=user_id).one().category_id
+
+    # Update status in gcal_events table to 'saved'
+    gcal_event = GoogleCalendar.query.filter_by(
+        gcal_event_id=gcal_event_id).one()
+
+    gcal_event.status = 'saved'
+
+    # Create new task and add to database
+    new_task = Task(name=gcal_event.title,
+                    category_id=category_id,
+                    user_id=user_id)
+
+    db.session.add(new_task)
+    db.session.commit()
+
+    # Create new event and add to database
+    task_id = new_task.task_id
+
+    new_event = Event(start_time=gcal_event.start_time,
+                      stop_time=gcal_event.stop_time,
+                      user_id=user_id,
+                      task_id=task_id)
+
+    db.session.add(new_event)
+    db.session.commit()
+
+    return redirect('/account')
 
 
 if __name__ == "__main__":

@@ -136,8 +136,7 @@ class Task(db.Model):
 
     __tablename__ = "tasks"
 
-    task_id = db.Column(db.Integer, autoincrement=True,
-                        primary_key=True)
+    task_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     category_id = db.Column(db.Integer,
                             db.ForeignKey('categories.category_id'),

@@ -4,19 +4,34 @@
 
 <h2>Integrations</h2>
 
-<ul>
-    <li>
+<!-- Add new category -->
+<form method="post" class="form-category">
+    <input type="text" class="categoryName" placeholder="new category">
+    <select multiple class="categoryGoals" id="category-goal-dropdown">
+        {% for goal in goals %}
+            <option value="{{ goal.name }}">{{ goal.name }}</option>
+        {% endfor %}
+    </select> 
+    
+    <span class="categorySubmit">save</span>
+</form>
+
+
+
+
+<ul class="list-group">
+    <li class="list-group-item">
         <input type="checkbox"> Toggl
     </li>
-    <li>
+    <li class="list-group-item">
         <input type="checkbox"> Google Calendar
     </li>
 </ul>
 
 
-<ul>
+<ul class="list-group" id="gcal-events">
     {% for event in gcal_events %}
-    <li>
+    <li class="list-group-item">
         <form>
             <input type="hidden" value="{{ event.gcal_event_id }}" class="gcal-event-id">
 
@@ -24,21 +39,18 @@
         {{ event.title }} {{ event.start_time }} {{ event.stop_time }}
 
         <!-- Categories -->
-        <span class="goal-title">
-            <span class="goal-">
-                
-                <!-- Dropdown for multiple selecting categories -->
-                <select multiple class="category-dropdown goal-">
-                
-                    {% for category in categories %}
-                        <option>{{ category.name }}</option>
-                    {% endfor %}
-                </select>
-            </span>
+        <span class="gcal-event-categories">
+            
+            <!-- Dropdown for multiple selecting categories -->
+            <select class="gcal-categories">
+                {% for category in categories %}
+                    <option>{{ category.name }}</option>
+                {% endfor %}
+            </select>
         </span>
 
         <!-- Save -->
-        <span class="g" name="">
+        <span class="{{ event.gcal_event_id }} save-gcal">
             <span>save</span>
         </span>
 

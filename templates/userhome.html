@@ -97,7 +97,14 @@
             <span>{{ event.duration() }}</span>
 
             <!-- Save -->
-            <span class="event-edit-submit {{ event.event_id }}Submit">save</span>
+            <span class="event-edit-submit {{ event.event_id }}Submit">
+                <i class="material-icons">done</i>
+            </span>
+
+            <!-- Delete -->
+            <span class="{{ event.event_id }} delete-gcal">
+                <i class="material-icons">clear</i>
+            </span>    
         </form>
     </li>
     {% endfor %}

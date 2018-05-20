@@ -14,7 +14,8 @@ function initialize() {
     $(".category-dropdown").select2({placeholder: "select a category"});
     $("#new_category").select2({placeholder: "tv"});
     $(".goal-dropdown").select2();
-    $("#category-goal-dropdown").select2({placeholder: "goals"});
+    $(".categoryGoals").select2({placeholder: "goals"});
+    $(".gcal-categories").select2({placeholder: "category"});
     $(".goal-type-dropdown").select2();
 
     // Set toastr options
@@ -153,22 +154,25 @@ $(".goal-input").parents("form").children(".goal-edit-submit").on(
 
 
 // ADD NEW CATEGORY
-function addNewCategory(result){
+function addNewCategory(result) {
     $("#category-log-ul").prepend(result);
-    $("#categoryName").removeAttr("value");
-    $("#categoryGoals").removeAttr("value");
+    $(".form-category").trigger('reset');
     initialize();
+
+    toastr.success("New Category Added");
 }
 
-$("#categorySubmit").on("click", function() {
-    event.preventDefault();
-    
+$(".categorySubmit").on("click", function() {    
     let formInputs = {
-        "categoryName": $("#categoryName").val(),
+        "categoryName": $(".categoryName").val(),
         "categoryGoals": $("#category-goal-dropdown").val()
     };
 
     $.post("/add_category", formInputs, addNewCategory);
+
+    $(".gcal-categories").prepend(new Option($(".categoryName").val(),
+        $(".categoryName").val()));
+
 });
 
 
@@ -234,6 +238,8 @@ $("#manualSubmit").on("click", function() {
         $.post("/add_event", 
                formInputs,
                addNewEvent);
+
+
 });
 
 // SUBMIT EVENT - STOPWATCH
@@ -284,7 +290,7 @@ $("span.delete-gcal").click(function() {
         gcalEventId: $(this).parents("form").children(".gcal-event-id").val()
     };
 
-    toastr.success('task deleted');
+    toastr.success('Google Calendar Task Deleted');
 
     $(this).parents("li").hide();
 
@@ -292,13 +298,17 @@ $("span.delete-gcal").click(function() {
 });
 
 
-// GOOGLE CALENDAR EVENT - DELETE PENDING EVENT
+// GOOGLE CALENDAR EVENT - SAVE PENDING EVENT
 $("span.save-gcal").click(function() {
+
     let formInputs = {
-        gcalEventId: $(this).parents("form").children(".gcal-event-id").val()
+        gcalEventId: $(this).parents("form").children(".gcal-event-id").val(),
+        categoryName: $(this).parents('form').children(".gcal-event-categories").children("span").children(".selection").children("span").children(".select2-selection__rendered").attr("title")
     };
 
-    toastr.success('task saved');
+    toastr.success('Task Saved');
+
+    $(this).parents("li").hide();
 
     $.post("/save_gcal_event", formInputs)
 });
