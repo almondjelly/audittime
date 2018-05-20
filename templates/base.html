@@ -30,83 +30,63 @@
 
     <body>
 
-        <h1><a href="/">AuditTime</a></h1>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
 
-        <ul>{% for message in get_flashed_messages() %}
-
-            <li>{{ message }}</li>
-
-        {% endfor %}
-        </ul>
-        
-        <div id="userInfo">
-        {% if session.get('user') %}
+            <!-- AuditTime -->
+            <a class="navbar-brand" href="/">AuditTime</a>
             
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        {% else %}
-
-        {% endif %}
-        </div>
-
-        
-        <div id="butter"><button type="button" id="signin-toggler">REGISTER</button></div>
-        
-
-        <div id="login">
-            
-        {% if session.get('user') %}
-            you're logged in as {{ session.get('user')}}
-            <form action='/logout' method="post">
-                <button type="submit">sign out</button>
-            </form>
-    
-
-            <ul id="navbar">
-                <li><a href="/user">tasks</a></li>
-                <li><a href="/goals">goals + categories</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-        {% else %}
-        <form class="form-signin" action="/signin" method="post">
-            SIGN IN
-            <label for="inputEmail">email address</label>
-            <input type="email" id="inputEmail" placeholder="email address" required autofocus name="email">
-            <label for="inputPassword" >password</label>
-            <input type="password" id="inputPassword" placeholder="password" required name="password">
-            <button type="submit">sign in</button>
+                <!-- User info -->
+                {% if session.get('user') %}
+                    <ul class="navbar-nav mr-auto">
 
-        </form>
-        {% endif %}    
+                        <!-- Goals -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/goals">Goals</a>
+                        </li>
 
-        </div>
+                        <!-- Categories -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/categories">Categories</a>
+                        </li>
 
-        {% if session.get('user') %}
-        {% else %}
-        <div id="register">
+                        <!-- Tasks -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tasks">Tasks</a>
+                        </li>
 
-            <form class="form-register" action="/register" method="post">
-                REGISTER
-                <label for="registerName">name</label>
-                <input type="text" id="registerName" placeholder="name" required autofocus name="name">
-    
-                <label for="registerEmail">email address</label>
-                <input type="email" id="registerEmail" placeholder="email address" required autofocus name="email">
-    
-                <label for="registerPassword" >password</label>
-                <input type="password" id="registerPassword" placeholder="password" required name="password">
-    
-                <button type="submit">register</button>
-
-            </form>
-        {% endif %}
+                    </ul>
 
 
-        </div>
+                    {{ session.get('user')}}
+                    <a class="nav-link" href="/logout">Log out</a>
+
+                {% else %}
+                    <ul class="navbar-nav mr-auto">
+
+                            <!-- Log in -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Log in</a>
+                            </li>
+                    
+                            <!-- Sign up -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            
+                    </ul>
 
 
+                {% endif %}
 
-
+            </div>
+        </nav>
 
 
         {% block body %}

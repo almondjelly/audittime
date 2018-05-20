@@ -26,48 +26,19 @@ app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
-def display_index():
+def index():
     """Display homepage."""
+    try:
+        if session['user_id']:
+            return redirect('/tasks')
 
-    return render_template('index.html')
-
-
-@app.route('/signup')
-def display_signup():
-    """Display signup form."""
-
-    return render_template('signup.html')
+    except():
+        return render_template('index.html')
 
 
-@app.route('/signup_submit', methods=['POST'])
-def submit_signup():
-    """Collect login information and log user in."""
-
-    name = request.form.get('name')
-    email = request.form.get('email')
-    password = request.form.get('password')
-
-    new_user = User(name=name, email=email, password=password)
-
-    db.session.add(new_user)
-    db.session.commit()
-
-    session['user'] = email
-    session['user_id'] = new_user.user_id
-
-    return 'success'
-
-
-@app.route('/login')
-def display_login():
-    """Display login form."""
-
-    return render_template('login.html')
-
-
-@app.route('/login_submit', methods=['POST'])
-def submit_login():
-    """Collect login information and log user in."""
+@app.route('/signin', methods=['POST'])
+def signin():
+    """Collect login information."""
 
     email = request.form.get('email')
     password = request.form.get('password')
@@ -80,16 +51,35 @@ def submit_login():
 
         return "success"
 
-    except:
+    except():
         return "fail"
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
     """Log user out of session."""
 
     session.pop('user')
     session.pop('user_id')
+
+    return redirect('/')
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    """Registers user and adds them to the users table."""
+
+    name = request.form.get('name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    new_user = User(name=name, email=email, password=password)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    session['user'] = email
+    session['user_id'] = User.query.filter_by(email=email).one().user_id
 
     return redirect('/')
 

@@ -330,15 +330,12 @@ $("#signin-toggler").on("click", function() {
 
 // REGISTRATION
 
-function displayRegisterResults(result) {
-    $("#butter").html("your account has been created. you are now logged in.")
-    $("#login").hide()
-    $("#register").hide()
+function redirectToTasks(result) {
+    toastr.success("You've successfully created your account.")
+    window.location = "/tasks";
 }
 
-function register(evt) {
-    evt.preventDefault();
-    console.log('hes')
+function signUp() {
 
     let formInputs = {
         "name": $("#registerName").val(),
@@ -346,44 +343,44 @@ function register(evt) {
         "password": $("#registerPassword").val()
     };
 
-    $.post("/register", 
+    $.post("/signup_submit", 
            formInputs,
-           displayRegisterResults);
+           redirectToTasks);
 }
 
-$(".form-register").on("submit", register);
+$(".form-signup").click(function() {
+    signUp();
+});
 
 
-// SIGN IN FLOW
+// LOG IN FLOW
 
-function displaySignInResults(result) {
+function displayLogInResults(result) {
     if (result === "success") {
-        $("#butter").html("you've successfully signed in.")
-        $("#login").hide()
-        $("#register").hide()
+        toastr.success("You've successfully logged in.");
+        window.location = "/tasks";
     }
     
     else {
-        $('form :input').val('');
-        $("#butter").html("wrong email or password. try again.")
+        toastr.warning("Wrong email or password. Try again.")
     }
 
 }
 
-function signIn(evt) {
-    evt.preventDefault();
-    console.log('heasdfasfsafs')
-
-    var formInputs = {
+function logIn() {
+    
+    let formInputs = {
         "email": $("#inputEmail").val(),
         "password": $("#inputPassword").val()
     };
 
     console.log(formInputs)
 
-    $.post("/signin", 
+    $.post("/login_submit", 
            formInputs,
-           displaySignInResults);
+           displayLogInResults);
 }
 
-$(".form-signin").on("submit", signIn);
+$("#login-button").click(function() {
+    logIn();
+});

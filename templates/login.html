@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form class="form-login form-group" method="post">
+    <label for="inputEmail">Email Address</label>
+    <input class="form-control" type="email" id="inputEmail" required autofocus name="email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+    <label for="inputPassword">Password</label>
+    <input class="form-control" type="password" id="inputPassword"  required name="password">
+    <button type="button" class="btn btn-primary" id="login-button">Log in</button>
+</form>
+
+{% endblock %}
