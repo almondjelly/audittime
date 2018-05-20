@@ -10,12 +10,14 @@ function initialize() {
     $(".event-edit-submit").hide();
     $(".category-edit-submit").hide();
     $(".time-input").hide();
+    $(".span-category-save").hide();
+    $(".span-category-archive").hide();
 
     // Apply select2 to dropdowns
     $(".category-dropdown").select2({placeholder: "select a category"});
     $("#new_category").select2({placeholder: "tv"});
     $(".goal-dropdown").select2();
-    $(".categoryGoals").select2({placeholder: "goals"});
+    $(".td-input-category-goals").select2({placeholder: "goals"});
     $(".gcal-categories").select2({placeholder: "category"});
 
     // Set toastr options
@@ -56,11 +58,11 @@ function addEventListeners(){
 
     // Goal
 
-        // When the mouse hovers over the list item, show the Save button.
+        // When the mouse hovers over the list item, show the Edit button.
         $(".goal-input-field").parents("li").hover(function() {
             $(this).children().children(".goal-edit-submit").show();
 
-        // When the mouse leaves the list item, hide the Save button.
+        // When the mouse leaves the list item, hide the Edit button.
             $(this).mouseleave(function() {
                 $(this).children().children(".goal-edit-submit").hide();
             });
@@ -75,16 +77,16 @@ function addEventListeners(){
 
     // Category
 
-        // When the mouse hovers over the list item, show the Edit button.
-        $(".tr-goal").hover(function() {
-            console.log("i wolke up")
-            $(this).children(".td-goal-edit").children("span").show();
-            $(this).children(".td-goal-archive").children("span").show();
+        // When the mouse hovers over the list item, show the Save button.
+        $(".tr-category").hover(function() {
+            console.log("i wolke up");
+            $(this).children(".td-category-save").children("span").show();
+            $(this).children(".td-category-archive").children("span").show();
 
         // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
-                $(this).children(".td-goal-edit").children("span").hide();
-                $(this).children(".td-goal-archive").children("span").hide();
+                $(this).children(".td-category-save").children("span").hide();
+                $(this).children(".td-category-archive").children("span").hide();
             });
         });    
 }

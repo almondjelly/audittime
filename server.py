@@ -30,7 +30,12 @@ app.jinja_env.undefined = StrictUndefined
 def display_index():
     """Display homepage."""
 
-    return render_template('index.html')
+    try:
+        if session['user']:
+            return redirect('/tasks')
+
+    except:
+        return redirect('/login')
 
 
 @app.route('/signup')
@@ -178,6 +183,22 @@ def edit_goal_info():
 
 
 # -------------------------------- CATEGORIES --------------------------------
+@app.route('/categories')
+def display_categories():
+    """Display goals page."""
+
+    goals = db.session.query(Goal).filter_by(
+        user_id=session['user_id']).order_by(
+        'end_time').all()
+
+    categories = db.session.query(Category).filter_by(
+        user_id=session['user_id']).order_by(
+        'name').all()
+
+    return render_template("categories.html", goals=goals,
+                           categories=categories)
+
+
 @app.route('/add_category', methods=['POST'])
 def add_category():
     """Adds a category to the categories table."""
@@ -255,11 +276,7 @@ def edit_category_info():
     return redirect('/goals')
 
 
-
-
-
-
-
+# ---------------------------------- TASKS ---------------------------------
 
 @app.route('/tasks')
 def display_tasks():

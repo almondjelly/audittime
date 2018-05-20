@@ -84,3 +84,33 @@ input {
     .td-goal-archive {
         width: 70px;
     }
+
+/* CATEGORY LOG */
+
+    .tr-category {
+        height: 70px;
+    }
+
+    .td-category {
+        width: 30%;
+    }
+
+    .td-input-category {
+        width: 100%;
+    }
+
+    .td-category-goals {
+        width: 55%;
+    }
+
+    .td-input-category-goals {
+        width: 100%;
+    }
+
+    .td-category-save {
+        width: 70px;
+    }
+
+    .td-category-archive {
+        width: 70px;
+    }
