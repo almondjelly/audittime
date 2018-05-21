@@ -5,24 +5,28 @@
 
 
 <!-- Add new category -->
-<h1>add a new category</h1>
 
-<form method="post" id="form-category">
-    <input type="text" name="categoryName" placeholder="new category">
-    <select multiple name="categoryGoals" id="category-goal-dropdown">
-        {% for goal in goals %}
-            <option value="{{ goal.name }}">{{ goal.name }}</option>
-        {% endfor %}
-    </select> 
+<div id="category-new">
+    <form method="post" id="form-category">
+        <input type="text" class="input-category-new" placeholder="new category name">
+   
+        <select multiple name="categoryGoals" id="category-goal-dropdown">
+            {% for goal in goals %}
+                <option value="{{ goal.name }}">{{ goal.name }}</option>
+            {% endfor %}
+        </select> 
     
-    <span class="categorySubmit">save</span>
-</form>
+        <button type="button" class="btn btn-primary" id="category-submit">add</button>
+            
+    </form>
+</div>
 
 
 <!-- Category Log -->
-<h1>your categories</h1>
 
 <div id="category-log">
+
+<h1>your categories</h1>
 <table class="table table-hover" id="category-log">
     <thead>
     <tr>

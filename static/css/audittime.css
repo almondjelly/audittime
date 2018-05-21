@@ -85,6 +85,32 @@ input {
         width: 70px;
     }
 
+
+/* ------------------------------ CATEGORIES ------------------------------ */
+
+/* ADD CATEGORY */
+
+    #category-new {
+        padding: 100px 100px 100px 100px;
+    }
+
+    .input-category-new {
+        width: 100%;
+        font-size: 40pt;
+        margin-bottom: 20px;
+    }
+
+    #category-goal-dropdown {
+        width: 100%;
+    }
+
+    #category-submit {
+        width: 100%;
+        height: 60px;
+        margin-top: 10px;
+        font-size: 24pt;
+    }
+
 /* CATEGORY LOG */
 
     .tr-category {

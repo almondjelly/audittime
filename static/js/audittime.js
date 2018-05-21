@@ -17,6 +17,7 @@ function initialize() {
     $(".category-dropdown").select2({placeholder: "select a category"});
     $("#new_category").select2({placeholder: "tv"});
     $(".goal-dropdown").select2();
+    $("#category-goal-dropdown").select2({placeholder: "goals"});
     $(".td-input-category-goals").select2({placeholder: "goals"});
     $(".gcal-categories").select2({placeholder: "category"});
 
@@ -73,7 +74,6 @@ function addEventListeners(){
             $(this).parents().children(".time-text").hide();
             $(this).parents("span").children(".time-input").show();
         });
-
 
     // Category
 
@@ -167,16 +167,26 @@ $(".goal-edit-save").click(function() {
 // ADD NEW CATEGORY
 function addNewCategory(result) {
     $("#category-log-ul").prepend(result);
-    $(".form-category").trigger('reset');
+    $("#form-category").trigger('reset');
     initialize();
 
     toastr.success("New Category Added");
 }
 
-$(".categorySubmit").on("click", function() {    
+$("#category-submit").on("click", function() {    
+
+    let categoryGoals = '';
+
+    $(this).parents("form").children("select").change(function() {
+        $(this).children("option:selected").each(function() {
+            categoryGoals += $(this).text() + '|';
+        });
+    }).trigger("change");
+
+
     let formInputs = {
-        "categoryName": $(".categoryName").val(),
-        "categoryGoals": $("#category-goal-dropdown").val()
+        "categoryName": $(".input-category-new").val(),
+        "categoryGoals": categoryGoals
     };
 
     $.post("/add_category", formInputs, addNewCategory);

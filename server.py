@@ -110,8 +110,7 @@ def display_goals():
         'end_time').all()
 
     categories = db.session.query(Category).filter_by(
-        user_id=session['user_id'],
-        status='current').order_by('name').all()
+        user_id=session['user_id'], status='current').order_by('name').all()
 
     return render_template("goals.html", goals=goals, categories=categories)
 
@@ -162,7 +161,6 @@ def edit_goal_info():
     new_goal_name = request.form.get('newGoalName')
     new_days = int(request.form.get('newDays'))
     new_hours = int(request.form.get('newHours'))
-    print new_hours, "new hours"
     new_minutes = int(request.form.get('newMinutes'))
     new_duration = timedelta(days=new_days, hours=new_hours,
                              minutes=new_minutes)
@@ -207,17 +205,20 @@ def add_category():
 
     # Grab data from form via JavaScript
     category_name = request.form.get('categoryName')
-    category_goals = request.form.getlist('categoryGoals')
+    category_goals = request.form.get('categoryGoals')
+    category_goals = category_goals.split('|')[:-1]
     user_id = session['user_id']
 
+    print category_goals, "HELLOOOOOOOOOOOOOOOO"
+
     # Add new category to the categories table.
-    new_category = Category(name=category_name, user_id=user_id)
+    new_category = Category(name=category_name, user_id=user_id,
+                            status='current')
     db.session.add(new_category)
     db.session.commit()
 
-    # # Add new goal associations to the goals_categories table.
-    category_id = Category.query.filter_by(name=category_name,
-                                           user_id=user_id).one().category_id
+    # Add new goal associations to the goals_categories table.
+    category_id = new_category.category_id
 
     for goal_name in category_goals:
         goal_id = Goal.query.filter_by(name=goal_name, user_id=user_id).one(
@@ -229,15 +230,7 @@ def add_category():
 
     db.session.commit()
 
-    # Grab data required for generating relevant html.
-    all_goals = Goal.query.all()
-    category_goal = Category.query.filter_by(category_id=category_id).one(
-        ).goal
-
-    new_category_html = category_generate_html(category_id, category_name,
-                                               all_goals, category_goal)
-
-    return new_category_html
+    return redirect('/categories')
 
 
 @app.route('/edit_category_info', methods=['POST'])
