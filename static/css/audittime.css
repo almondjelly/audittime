@@ -1,35 +1,227 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Dosis', sans-serif;
 }
 
 input {
-    font-family: 'Roboto', sans-serif;
-    font-size: 11pt;
+    font-family: 'Dosis', sans-serif;
+    font-size: 12pt;
+    border: 0;
+    border-radius: 0;
+}
+
+.title {
+    padding-top: 80px;
+    font-family: 'Sacramento';
+    text-align: center;
+    font-size: 140pt;
+    line-height: 100pt;
+}
+
+.subtitle {
+    font-family: 'Dosis';
+    font-size: 30pt;
+    text-align: center;
+    color: #9b9b9b;
+}
+
+
+/* -------------------------------- LOG IN -------------------------------- */
+
+.form-login {
+    text-transform: uppercase;
     border: 0;
 }
 
-/* ------------------------ GOALS ------------------------ */
+.div-login-email {
+    margin: 10px;
+    font-size: 15pt;
+}
+
+label {
+    line-height: 4px;
+}
+
+#input-email {
+    border-radius: 0;
+}
+
+#input-password {
+    border-radius: 0;
+}
+
+div > small {
+    font-size: 11pt;
+    color: white !important;
+    text-transform: lowercase;
+    font-style: italic;
+    text-align: right;
+}
+
+.div-login-password {
+    margin: 10px;
+    font-size: 15pt;
+}
+
+#div-login {
+    padding: 40px;
+    margin: 60px 240px 0 240px;
+    border: 2px solid #f34d4c;
+    background-color: #f34d4c;
+    border-radius: 10px;
+    color: white;
+}
+
+.div-login-button {
+    margin: 60px 10px 0px 10px;
+}
+
+#login-button {
+    margin: 10px 0;
+    width: 100%;
+    background-color: white;
+    color: #f34d4c;
+    font-family: 'Dosis', sans-serif;
+    text-transform: uppercase;
+    font-size: 18pt;
+    border: 0;
+    border-radius: 0;
+}
+
+
+/* -------------------------------- SIGNUP -------------------------------- */
+
+.form-signup {
+    text-transform: uppercase;
+    border: 0;
+}
+
+.div-signup-name {
+    margin: 10px;
+    font-size: 15pt;
+}
+
+.div-signup-email {
+    margin: 10px;
+    font-size: 15pt;
+}
+
+.div-signup-password {
+    margin: 10px;
+    font-size: 15pt;
+}
+
+label {
+    line-height: 4px;
+}
+
+#register-email {
+    border-radius: 0;
+}
+
+#register-name {
+    border-radius: 0;
+}
+
+#register-password {
+    border-radius: 0;
+}
+
+#div-signup {
+    padding: 40px;
+    margin: 60px 240px 0 240px;
+    border: 2px solid #00DEAC;
+    background-color: #00DEAC;
+    border-radius: 10px;
+    color: white;
+}
+
+.div-signup-button {
+    margin: 60px 10px 0px 10px;
+}
+
+#signup-button {
+    margin: 10px 0;
+    width: 100%;
+    background-color: white;
+    color: #00DEAC;
+    font-family: 'Dosis', sans-serif;
+    text-transform: uppercase;
+    font-size: 18pt;
+    border: 0;
+    border-radius: 0;
+}
+
+
+/* --------------------------------- GOALS --------------------------------- */
 
 /* ADD GOAL */
 
     #goal-new {
-        padding: 100px 100px 100px 100px;
-        font-size: 40pt;
+        border-radius: 10px;
+        padding: 40px;
+        margin: 60px 180px;
+        font-size: 30pt;
+        font-family: 'Dosis';
+        background-color: #f34d4c;
+        color: white;
+        text-transform: uppercase;
     }
 
-    .goal-duration {
-        width: 100px;
+    #goal-new input {
+        line-height: 0;
+        font-size: 24pt;
+        padding: 5px 10px 0px 10px;
+    }
+
+    #goal-name {
+        width: 506px;
+        padding: 0 10px !important;
+    }
+
+    #hours {
+        width: 70px;
+        text-align: right;
+        font-size: 24pt;
+    }
+
+    #minutes {
+        width: 70px;
         text-align: right;
     }
 
+    #goal-type {
+        line-height: 0;
+        font-size: 24pt;
+   }
+
     .date-time-picker {
         width: 450px;
+        font-size: 24pt;
     }
 
-    .goal-type-dropdown {
+    #start-date {
+        width: 258px;
+        padding: 0 10px !important;
+    }
+
+    #end-date {
+        width: 258px;
+        padding: 0 10px !important;
+    }
+
+    .goal-duration {
+        width: 80px;
+        padding: 0 !important;
+        font-size: 24pt;
+    }
+
+    #goal-type {
         border: 0;
         color: #666;
+        width: 170px;
+        border-radius: 0 !important;
         background-color: white;
+        padding: 0 !important;
     }
 
     #goal-save-div {
@@ -37,9 +229,15 @@ input {
     }
 
     #goal-submit {
+        margin: 40px 0 10px 0;
         width: 100%;
-        height: 60px;
-        font-size: 24pt;
+        background-color: white;
+        color: #f34d4c;
+        font-family: 'Dosis', sans-serif;
+        text-transform: uppercase;
+        font-size: 18pt;
+        border: 0;
+        border-radius: 0;
     }
 
 /* GOAL LOG */

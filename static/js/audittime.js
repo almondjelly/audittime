@@ -115,28 +115,30 @@ $("#mode-toggler").on("click", function() {
 
 // ADD NEW GOAL
 function addNewGoal(result){
-    $("#goal-log-ul").prepend(result);
-    $("#goalName").removeAttr("value");
-    $("#hours").removeAttr("value");
-    $("#minutes").removeAttr("value");
-    $("#startDate").removeAttr("value");
-    $("#endDate").removeAttr("value");
+    $("tbody").prepend(result);
+    $("#form-goal").trigger('reset');
+
+    // $("#goal-name").removeAttr("value");
+    // $("#hours").removeAttr("value");
+    // $("#minutes").removeAttr("value");
+    // $("#start-date").removeAttr("value");
+    // $("#end-date").removeAttr("value");
     initialize();
 }
 
 $("#goal-submit").on("click", function() {
-    event.preventDefault();
-    
     let formInputs = {
-        "goalName": $("#goalName").val(),
-        "goalType": $("#goalType").val(),
+        "goalName": $("#goal-name").val(),
+        "goalType": $("#goal-type").val(),
         "hours": $("#hours").val(),
         "minutes": $("#minutes").val(),
-        "startDate": $("#startDate").val(),
-        "endDate": $("#endDate").val()
+        "startDate": $("#start-date").val(),
+        "endDate": $("#end-date").val()
     };
 
     $.post("/add_goal", formInputs, addNewGoal);
+
+    toastr.success("New Goal Added")
 });
 
 
@@ -380,9 +382,9 @@ function redirectToTasks(result) {
 function signUp() {
 
     let formInputs = {
-        "name": $("#registerName").val(),
-        "email": $("#registerEmail").val(),
-        "password": $("#registerPassword").val()
+        "name": $("#register-name").val(),
+        "email": $("#register-email").val(),
+        "password": $("#register-password").val()
     };
 
     $.post("/signup_submit", 
@@ -411,8 +413,8 @@ function displayLogInResults(result) {
 
 function logIn() {
     let formInputs = {
-        "email": $("#inputEmail").val(),
-        "password": $("#inputPassword").val()
+        "email": $("#input-email").val(),
+        "password": $("#input-password").val()
     };
 
     console.log(formInputs)

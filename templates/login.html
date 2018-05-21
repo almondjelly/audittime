@@ -2,14 +2,28 @@
 
 {% block body %}
 
-<form class="form-login form-group" method="post">
-    <label for="inputEmail">Email Address</label>
-    <input class="form-control" type="email" id="inputEmail" required autofocus name="email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+<p class="title">AuditTime</p>
 
-    <label for="inputPassword">Password</label>
-    <input class="form-control" type="password" id="inputPassword"  required name="password">
-    <button type="button" class="btn btn-primary" id="login-button">Log in</button>
+<div class="subtitle">isn't it time you quit wastin' time?</div>
+
+<div id="div-login">
+<form class="form-login form-group" method="post">
+    <div class="div-login-email">
+        <label for="input-email">Email Address</label>
+        <input class="form-control" type="email" id="input-email" required autofocus name="email">
+        <small id="email-help">We promise we won't share your email with anyone</small>
+    </div>
+
+    <div class="div-login-password">
+        <label for="inputPassword">Password</label>
+        <input class="form-control" type="password" id="input-password"  required name="password">
+    </div>
+
+    <div class="div-login-button">
+        <button type="button" class="btn btn-primary" id="login-button">Log in</button>
+    </div>
+
 </form>
+</div>
 
 {% endblock %}

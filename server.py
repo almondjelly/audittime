@@ -7,6 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
                   GoalCategory, GoogleCalendar
 from datetime import datetime, timedelta
+from dateutil.parser import parse
 from addNew import goal_generate_html, category_generate_html
 from math import floor
 from gcal import get_last_7_days, update_db
@@ -127,6 +128,10 @@ def add_goal():
     start_time = request.form.get('startDate')
     end_time = request.form.get('endDate')
     user_id = session['user_id']
+
+    # Convert start and end times to correct format
+    start_time = parse(start_time)
+    end_time = parse(end_time)
 
     new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
                     goal_type=goal_type, duration=duration, status="Active",

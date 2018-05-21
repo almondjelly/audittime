@@ -2,17 +2,32 @@
 
 {% block body %}
 
+<p class="title">AuditTime</p>
+
+<div class="subtitle">isn't it time you quit wastin' time?</div>
+
+<div id="div-signup">
 <form class="form-signup form-group" method="post">
-    <label for="registerName">Name</label>
-    <input class="form-control" type="text" id="registerName" required autofocus name="name">
 
-    <label for="registerEmail">Email Address</label>
-    <input class="form-control" type="email" id="registerEmail" required autofocus name="email">
+    <div class="div-signup-name">
+        <label for="registerName">Name</label>
+        <input class="form-control" type="text" id="register-name" required autofocus name="name">
+    </div>
 
-    <label for="registerPassword">Set your password</label>
-    <input class="form-control" type="password" id="registerPassword" required name="password">
+    <div class="div-signup-email">
+        <label for="registerEmail">Email Address</label>
+        <input class="form-control" type="email" id="register-email" required autofocus name="email">
+    </div>
 
-    <button type="button" class="btn btn-primary" id="signup-button">Sign up</button>
+    <div class="div-signup-password">
+        <label for="registerPassword">Set your password</label>
+        <input class="form-control" type="password" id="register-password" required name="password">
+    </div>
+    
+    <div class="div-signup-button">
+        <button type="button" class="btn btn-primary" id="signup-button">Sign up</button>
+    </div>
 </form>
+</div>
 
 {% endblock %}
