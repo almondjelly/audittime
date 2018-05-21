@@ -59,21 +59,18 @@ function addEventListeners(){
 
     // Goal
 
-        // When the mouse hovers over the list item, show the Edit button.
-        $(".goal-input-field").parents("li").hover(function() {
-            $(this).children().children(".goal-edit-submit").show();
+        // When the mouse hovers over the list item, show the Save button.
+        $(".tr-goal").hover(function() {
+            console.log("i wolke up");
+            $(this).children(".td-goal-edit").children("span").show();
+            $(this).children(".td-goal-archive").children("span").show();
 
-        // When the mouse leaves the list item, hide the Edit button.
+        // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
-                $(this).children().children(".goal-edit-submit").hide();
+                $(this).children(".td-goal-edit").children("span").hide();
+                $(this).children(".td-goal-archive").children("span").hide();
             });
-        });
-
-        // When the goal/task time is clicked, show the datetime picker.
-        $(".time-text").click(function() {
-            $(this).parents().children(".time-text").hide();
-            $(this).parents("span").children(".time-input").show();
-        });
+        });  
 
     // Category
 
