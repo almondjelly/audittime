@@ -98,7 +98,6 @@ $(document).ready(function() {
 });
 
 
-
 // CUSTOMIZE DATEPICKERS WITH FLATPICKR
 flatpickr(".date-time-picker", {
     enableTime: true,
@@ -114,6 +113,8 @@ $("#mode-toggler").on("click", function() {
     $("#datePickers").toggle();
 });
 
+
+// ---------------------------------- GOALS ----------------------------------
 
 // ADD NEW GOAL
 function addNewGoal(result){
@@ -161,6 +162,8 @@ $(".goal-edit-save").click(function() {
     });
 
 
+// -------------------------------- CATEGORIES --------------------------------
+
 // ADD NEW CATEGORY
 function addNewCategory(result) {
     $("#category-log-ul").prepend(result);
@@ -204,6 +207,20 @@ $(".category-input").parents("form").children(".category-edit-submit").on(
 
         $.post("/edit_category_info", formInputs);
     });
+
+
+// ARCHIVE CATEGORY
+
+    $(".btn-category-archive").click(function() {
+        let formInputs = {
+            "categoryId": $(this).parents("tr").children(".input-category-id").val()
+        };
+
+        $.post("archive_category", formInputs);
+
+        // $(this).parents("tr").hide();
+    });
+
 
 
 // ADD NEW EVENT

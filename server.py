@@ -110,8 +110,8 @@ def display_goals():
         'end_time').all()
 
     categories = db.session.query(Category).filter_by(
-        user_id=session['user_id']).order_by(
-        'name').all()
+        user_id=session['user_id'],
+        status='current').order_by('name').all()
 
     return render_template("goals.html", goals=goals, categories=categories)
 
@@ -164,7 +164,8 @@ def edit_goal_info():
     new_hours = int(request.form.get('newHours'))
     print new_hours, "new hours"
     new_minutes = int(request.form.get('newMinutes'))
-    new_duration = timedelta(days=new_days, hours=new_hours, minutes=new_minutes)
+    new_duration = timedelta(days=new_days, hours=new_hours,
+                             minutes=new_minutes)
 
     # Find the existing goal.
     goal = Goal.query.filter_by(goal_id=goal_id).one()
@@ -183,6 +184,7 @@ def edit_goal_info():
 
 
 # -------------------------------- CATEGORIES --------------------------------
+
 @app.route('/categories')
 def display_categories():
     """Display goals page."""
@@ -192,8 +194,8 @@ def display_categories():
         'end_time').all()
 
     categories = db.session.query(Category).filter_by(
-        user_id=session['user_id']).order_by(
-        'name').all()
+        user_id=session['user_id'],
+        status='current').order_by('name').all()
 
     return render_template("categories.html", goals=goals,
                            categories=categories)
@@ -242,14 +244,14 @@ def add_category():
 def edit_category_info():
     """Updates new category info in the categories table."""
 
-    # Grab data from form via JavaScript.
+    # Grab data from form via JavaScript
     category_id = request.form.get('categoryId')
     new_category_name = request.form.get('newcategoryName')
     new_category_goals = request.form.get('newCategoryGoals')
     new_category_goals = new_category_goals.split('|')[:-1]
     user_id = session['user_id']
 
-    # Find the existing category.
+    # Find the existing category
     category = Category.query.filter_by(category_id=category_id).one()
 
     print "ID", category_id
@@ -257,7 +259,7 @@ def edit_category_info():
     print "Goals", new_category_goals
     print "Category", category
 
-    # Update name and goals.
+    # Update name and goals
     category.name = new_category_name
     category.goal = []
 
@@ -274,6 +276,23 @@ def edit_category_info():
     flash("category updated ")
 
     return redirect('/goals')
+
+
+@app.route('/archive_category', methods=['POST'])
+def archive_category():
+    """Archive a category."""
+
+    # Grab data from form via JavaScript
+    category_id = request.form.get('categoryId')
+
+    # Find the existing category
+    category = Category.query.filter_by(category_id=category_id).one()
+
+    # Set status to 'archived'
+    category.status = 'archived'
+    db.session.commit() 
+
+    return redirect("/categories")
 
 
 # ---------------------------------- TASKS ---------------------------------

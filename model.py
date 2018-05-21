@@ -98,6 +98,7 @@ class Category(db.Model):
     name = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
                         nullable=False)
+    status = db.Column(db.String(64), nullable=True)
 
     # Define relationship to User, GoalCategory
     user = db.relationship("User", backref=db.backref("categories"))

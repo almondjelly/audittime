@@ -125,7 +125,7 @@
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
                     <i class="material-icons">edit</i>
                 </button>
-            </span>
+                </span>
 
             <!-- Edit modal -->
             <div class="modal fade" id="{{ goal.goal_id }}-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -230,8 +230,6 @@
                     </td>
                 </tr>
 
-
-
                 </table>
                 </div>
 
@@ -264,68 +262,7 @@
 
 
 
-<h1>your categories</h1>
 
-<!-- Add new category -->
-<form method="post" id="form-category">
-    <input type="text" name="categoryName" placeholder="new category">
-    <select multiple name="categoryGoals" id="category-goal-dropdown">
-        {% for goal in goals %}
-            <option value="{{ goal.name }}">{{ goal.name }}</option>
-        {% endfor %}
-    </select> 
-    
-    <span class="categorySubmit">save</span>
-</form>
-
-
-<!-- Category Log -->
-<div id="category-log">
-<ul class="list-group" id="category-log-ul">
-
-    {% for category in categories %}
-    <li class="list-group-item">
-
-    <form>
-
-        <!-- Category name -->
-        <span class="category-input">
-            <span class="category-{{ category.category_id }}">
-                <input type="text" value="{{ category.name }}" name="{{ category.category_id }}" class="category-input-field category-name">
-            </span>
-        </span>
-
-        <!-- Category goals -->
-        <span class="category-goal-title">
-            <span class="category-{{ category.category_id}}">
-                
-                <!-- Dropdown for multiple selecting goals -->
-                <select multiple class="goal-dropdown category-{{ category.category_id }}">
-                
-                    {% for goal in goals %}
-                        {% if goal in category.goal %}
-                            <option selected>{{ goal.name }}</option>
-
-                        {% else %}
-                            <option>{{ goal.name }}</option>
-
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </span>
-        </span>
-
-        <!-- Save -->
-        <span class="category-edit-submit {{ category.category_id }}Submit" name="{{ category.category_id }}">
-            <span>save</span>
-        </span>
-
-    </form>
-    </li>
-    {% endfor %}
-
-</ul>
-</div>
 
 
 {% endblock %}

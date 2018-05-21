@@ -37,9 +37,9 @@
     {% for category in categories %}
     <tr class="tr-category">
 
-    <form>
+    <form class="form-category-id">
         <!-- Category id -->
-        <form class="form-category-id"><input type="hidden" class="input-category-id" value="{{ category.category_id }}"></form>
+        <input type="hidden" class="input-category-id" value="{{ category.category_id }}">
 
 
         <!-- Category name -->
@@ -73,7 +73,7 @@
         <!-- Archive -->
         <td class="td-category-archive">
         <span class="span-category-archive">
-            <button class="btn btn-primary"><i class="material-icons">clear</i></button>
+            <button class="btn btn-primary btn-category-archive"><i class="material-icons">clear</i></button>
         </span>
         </td>
 

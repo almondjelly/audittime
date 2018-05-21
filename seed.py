@@ -65,10 +65,10 @@ def load_categories():
     # Read u.user file and insert data
     for row in open("seed_data/category.txt"):
         row = row.rstrip()
-        category_id, name, user_id = row.split("|")
+        category_id, name, user_id, status = row.split("|")
 
         category = Category(category_id=category_id,
-                            name=name,
+                            name=name, status=status,
                             user_id=user_id)
 
         db.session.add(category)
