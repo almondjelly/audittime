@@ -116,49 +116,47 @@ def goal_generate_html(total_time, goal_id, goal_name, goal_type, days, hours,
     return new_goal_html
 
 
-def category_generate_html(category_id, category_name, all_goals, category_goal):
+def category_generate_html(category_id, category_name, all_goals,
+                           category_goal):
     """Generates html for adding a new category."""
 
-    html1 = "<li class=\"list-group-item\">  \
-         \
-            <form> \
-         \
-                <!-- Category name --> \
-                <span class=\"category-input\"> \
-                        <span class=\"category-{category_id}\"> \
-                            <input type=\"text\" value=\"{category_name}\" name=\"{category_id}\" class=\"category-input-field category-name\"> \
-                        </span> \
-                </span> \
-         \
-                <!-- Cateogry goals --> \
-                <span class=\"goal-title\"> \
-                    <span class=\"category-{category_id}\"> \
-         \
-                        <!-- Dropdown for multiple selecting goals --> \
-                        <select multiple class=\"goal-dropdown category-{category_id}\">".format(category_id=category_id, category_name=category_name)
+    html1 = "<tr class=\"tr-category\"> \
+    <form class=\"form-category-id\"> \
+        <!-- Category id --> \
+        <input type=\"hidden\" class=\"input-category-id\" value=\"{category_id}\"> \
+        <!-- Category name --> \
+        <td class=\"td-category\"> \
+            <input type=\"text\" value=\"{category_name}\" name=\"{category_id}\" class=\"td-input-category\"> \
+        </td> \
+        <!-- Category goals --> \
+        <td class=\"td-category-goals\"> \
+            <select multiple class=\"td-input-category-goals\">".format(
+                category_name=category_name, category_id=category_id)
 
-    html2 = ""
+    html2 = ''.format()
 
     for goal in all_goals:
         if goal in category_goal:
-            html2 += "<option selected>{goal_name}</option>".format(
-                goal_name=goal.name)
-
+            html2 += "<option selected>{}</option>".format(goal.name)
         else:
-            html2 += "<option>{goal_name}</option>".format(goal_name=goal.name)
+            html2 += "<option>{}</option>".format(goal.name)
 
     html3 = "</select> \
-            </span> \
-        </span> \
- \
+        </td> \
         <!-- Save --> \
-        <span class=\"category-edit-submit {category_id}Submit\" \
-        name=\"{category_id}\"> \
-            <span>save</span> \
+        <td class=\"td-category-save\"> \
+        <span class=\"span-category-save\"> \
+            <button class=\"btn btn-primary\"><i class=\"material-icons\">save</i></button> \
         </span> \
- \
+        </td> \
+        <!-- Archive --> \
+        <td class=\"td-category-archive\"> \
+        <span class=\"span-category-archive\"> \
+            <button class=\"btn btn-primary btn-category-archive\"><i class=\"material-icons\">clear</i></button> \
+        </span> \
+        </td> \
     </form> \
-    </li>".format(category_id=category_id)
+    </tr>"
 
     new_category_html = html1 + html2 + html3
 

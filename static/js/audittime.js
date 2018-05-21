@@ -159,42 +159,43 @@ $(".goal-edit-save").click(function() {
     }
 
     $.post("/edit_goal_info", formInputs);
-    });
+
+    toastr.success("Goal Saved")
+
+});
 
 
 // -------------------------------- CATEGORIES --------------------------------
 
 // ADD NEW CATEGORY
-function addNewCategory(result) {
-    $("#category-log-ul").prepend(result);
-    $("#form-category").trigger('reset');
-    initialize();
 
-    toastr.success("New Category Added");
-}
+    function addNewCategory(result) {
+        $("tbody").prepend(result);
+        $("#form-category").trigger('reset');
+        initialize();
 
-$("#category-submit").on("click", function() {    
+        toastr.success("New Category Added");
+    }
 
-    let categoryGoals = '';
+    $("#category-submit").on("click", function() {    
 
-    $(this).parents("form").children("select").change(function() {
-        $(this).children("option:selected").each(function() {
-            categoryGoals += $(this).text() + '|';
-        });
-    }).trigger("change");
+        let categoryGoals = '';
+
+        $(this).parents("form").children("select").change(function() {
+            $(this).children("option:selected").each(function() {
+                categoryGoals += $(this).text() + '|';
+            });
+        }).trigger("change");
 
 
-    let formInputs = {
-        "categoryName": $(".input-category-new").val(),
-        "categoryGoals": categoryGoals
-    };
+        let formInputs = {
+            "categoryName": $(".input-category-new").val(),
+            "categoryGoals": categoryGoals
+        };
 
-    $.post("/add_category", formInputs, addNewCategory);
+        $.post("/add_category", formInputs, addNewCategory);
 
-    $(".gcal-categories").prepend(new Option($(".categoryName").val(),
-        $(".categoryName").val()));
-
-});
+    });
 
 
 // EDIT CATEGORY INFO AND SAVE
@@ -216,47 +217,56 @@ $(".category-input").parents("form").children(".category-edit-submit").on(
         };
 
         $.post("/edit_category_info", formInputs);
+
+        toastr.success("Category Saved")
+
     });
 
 
 // ARCHIVE CATEGORY
+
+    function displayArchiveCategoryResults(result) {
+        console.log(result);
+    }
 
     $(".btn-category-archive").click(function() {
         let formInputs = {
             "categoryId": $(this).parents("tr").children(".input-category-id").val()
         };
 
-        $.post("archive_category", formInputs);
+        toastr.success("Category Archived");
 
-        // $(this).parents("tr").hide();
+        $.post("archive_category", formInputs, displayArchiveCategoryResults);
+        $(this).parents("tr").hide();
     });
 
 
+// ------------------------------ TASKS + EVENTS ------------------------------
 
 // ADD NEW EVENT
-function addNewEvent(result) {   
-    $("#event-log-ul").prepend(result);
-    $("#new_task").removeAttr("value");
-    $("#new_category").removeAttr("value");
-    $("#m-start").removeAttr("value");
-    $("#m-stop").removeAttr("value");
-    $("#form-stopwatch").trigger("reset");
-    initialize();
-    $("#event-log-ul > li:first-child .category-title > span").on("click", function() {
-        $(this).children().toggle();    
-    });
-
-    $("#event-log-ul > li:first-child .task-input > span").on("click", function() {
-        $(this).parents("form").children("span.event-edit-submit").show();
-        $(this).parents("form").children("span.task-input").children(
-            "span").children("input").on("focusout", function(event) {
-                $(this).parents("form").children("span.event-edit-submit").hide();
+    function addNewEvent(result) {   
+        $("#event-log-ul").prepend(result);
+        $("#new_task").removeAttr("value");
+        $("#new_category").removeAttr("value");
+        $("#m-start").removeAttr("value");
+        $("#m-stop").removeAttr("value");
+        $("#form-stopwatch").trigger("reset");
+        initialize();
+        $("#event-log-ul > li:first-child .category-title > span").on("click", function() {
+            $(this).children().toggle();    
         });
-    
-    });
 
-    console.log(result)
-}
+        $("#event-log-ul > li:first-child .task-input > span").on("click", function() {
+            $(this).parents("form").children("span.event-edit-submit").show();
+            $(this).parents("form").children("span.task-input").children(
+                "span").children("input").on("focusout", function(event) {
+                    $(this).parents("form").children("span.event-edit-submit").hide();
+            });
+        
+        });
+
+        console.log(result)
+    }
 
 // SUBMIT EVENT - MANUAL
 $("#manualSubmit").on("click", function() {

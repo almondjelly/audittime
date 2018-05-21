@@ -230,7 +230,12 @@ def add_category():
 
     db.session.commit()
 
-    return redirect('/categories')
+    all_goals = Goal.query.all()
+
+    category_html = category_generate_html(category_id, category_name,
+                                           all_goals, category_goals)
+
+    return category_html
 
 
 @app.route('/edit_category_info', methods=['POST'])
@@ -283,9 +288,9 @@ def archive_category():
 
     # Set status to 'archived'
     category.status = 'archived'
-    db.session.commit() 
+    db.session.commit()
 
-    return redirect("/categories")
+    return "category archived"
 
 
 # ---------------------------------- TASKS ---------------------------------
