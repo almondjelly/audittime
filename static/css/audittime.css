@@ -289,24 +289,95 @@ label {
 /* ADD CATEGORY */
 
     #category-new {
-        padding: 100px 100px 100px 100px;
+        border-radius: 10px;
+        padding: 40px;
+        margin: 60px 180px;
+        font-family: 'Dosis';
+        background-color: #f34d4c;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    #category-new input {
+        line-height: 0;
+        font-size: 24pt;
+        width: 100%;
+        padding: 5px 10px 0px 10px;
+    }
+
+    #category-new option {
+        color: #666 !important;
     }
 
     .input-category-new {
+        padding: 0 5px !important;
+        margin-bottom: 10px;
+    }
+
+    #hours {
+        width: 70px;
+        text-align: right;
+        font-size: 24pt;
+    }
+
+    #minutes {
+        width: 70px;
+        text-align: right;
+    }
+
+    #category-type {
+        line-height: 0;
+        font-size: 24pt;
+   }
+
+    .date-time-picker {
+        width: 450px;
+        font-size: 24pt;
+    }
+
+    #start-date {
+        width: 258px;
+        padding: 0 10px !important;
+    }
+
+    #end-date {
+        width: 258px;
+        padding: 0 10px !important;
+    }
+
+    .category-duration {
+        width: 80px;
+        padding: 0 !important;
+        font-size: 24pt;
+    }
+
+    #category-type {
+        border: 0;
+        color: #666;
+        width: 170px;
+        border-radius: 0 !important;
+        background-color: white;
+        padding: 0 !important;
+    }
+
+    #category-save-div {
+        text-align: center;
+    }
+
+    #category-submit {
+        margin: 40px 0 10px 0;
         width: 100%;
-        font-size: 40pt;
-        margin-bottom: 20px;
+        background-color: white;
+        color: #f34d4c;
+        font-family: 'Dosis', sans-serif;
+        text-transform: uppercase;
+        font-size: 18pt;
+        border: 0;
+        border-radius: 0;
     }
 
     #category-goal-dropdown {
         width: 100%;
-    }
-
-    #category-submit {
-        width: 100%;
-        height: 60px;
-        margin-top: 10px;
-        font-size: 24pt;
     }
 
 /* CATEGORY LOG */
