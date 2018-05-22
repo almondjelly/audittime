@@ -43,73 +43,81 @@
 
 
 <!-- Task Log -->
-<div id="event-log">
-<ul class="list-group" id="event-log-ul">
+<table class="table table-hover" id="event-log">
+    <thead>
+    <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Category</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Duration</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead> 
+
+    <tbody>
     {% for event in events %}            
-            
-    <li class="list-group-item">
-        <form>
-            <!-- Task -->
-            <span class="task-input">
-                <span class="event-{{ event.event_id }}">
-                    <input type="text" value="{{ event.task.name }}" name="{{ event.event_id }}" class="event-input-field">
-                </span>
-            </span>
 
-            <!-- Category -->
-            <span class="category-title">
-                <span class="event-{{ event.event_id}}">
-                    
-                    <!-- Dropdown for multiple selecting categories -->
-                    <select class="category-dropdown event-{{ event.event_id }}">
-                    
-                        <option selected>{{ event.task.category.name }}</option>
-                
-                        {% for category in categories %}
-                            <option>{{ category.name }}</option>
-                        {% endfor %}
+    <!-- Event id, task id -->
+    <form class="form-event-id">
+        <input type="hidden" class="input-event-id" value="{{ event.event_id }}">
+        <input type="hidden" class="input-task-id" value="{{ event.task.task_id }}">
+    </form>
 
-                    </select>
-                </span>
-            </span>
-            
+    <tr class="tr-event-task">
 
-            <!-- Start and end times -->
-            <span class="start-end-times">
-                <span class="task-start-time time-text">
-                    {{ event.start_time }}
-                </span>
-                <span class="task-start-time time-input">
-                    <input type="datetime-local" name="startTime" class="date-time-picker"> 
-                </span>
+        <!-- Task name -->
+        <td class="td-event-task">
+            <input type="text" value="{{ event.task.name }}" class="td-input-event-task">
+        </td>
+        
+        <!-- Category dropdown -->
+        <td class="td-event-task-categories">
+            <select class="td-input-event-task-categories">
+                <option selected>{{ event.task.category.name }}</option>   
+                {% for category in categories %}
+                    <option>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </td>
 
-                <span class="task-end-time time-text">
-                    {{ event.stop_time }}
-                </span>
-                <span class="task-end-time time-input">
-                    <input type="datetime-local" name="stopTime" class="date-time-picker"> 
-                </span>
+        <!-- Start and end times -->
+        <td class="td-event-start-time">
+            {{ event.start_time.strftime('%m/%d at %I:%M %p') }}
+            <input type="datetime-local"  class="input-task-date-time-picker"> 
+        </td>
 
+        <td class="td-event-end-time">
+            {{ event.stop_time.strftime('%m/%d at %I:%M %p') }}
+            <input type="datetime-local"  class="input-task-date-time-picker"> 
+        </td>
 
-            </span>
+        <!-- Duration -->
+        <td class="td-event-duration">
+            {{ event.duration() }}
+        </td>
 
-            <!-- Duration -->
-            <span>{{ event.duration() }}</span>
+        <!-- Save -->
+        <td class="td-event-task-save">
+        <span class="span-event-task-save">
+            <button class="btn btn-primary btn-sm btn-event-task-save"><i class="material-icons">save</i></button>
+        </span>
+        </td>
 
-            <!-- Save -->
-            <span class="event-edit-submit {{ event.event_id }}Submit">
-                <i class="material-icons">done</i>
-            </span>
+        <!-- Delete -->
+        <td class="td-event-task-delete">
+        <span class="span-event-task-delete">
+            <button class="btn btn-primary btn-sm btn-event-task-delete"><i class="material-icons">clear</i></button>
+        </span>
+        </td>
 
-            <!-- Delete -->
-            <span class="{{ event.event_id }} delete-gcal">
-                <i class="material-icons">clear</i>
-            </span>    
-        </form>
-    </li>
+    </form>
+    </tr>
     {% endfor %}
-</ul>
-</div>
+    </tbody>
+</table>
+
 
 
 

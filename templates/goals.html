@@ -4,6 +4,7 @@
 
 
 <!-- Add new goal -->
+<h1>Add A New Goal</h1>
 <div id="goal-new">
     <form method="post" action="add_goal" id="form-goal">
         
@@ -44,7 +45,7 @@
 
         <div id="goal-save-div">
             <button type="button" id="goal-submit" class="btn btn-primary">
-                add new goal
+                Create
             </button>
         </div>
     </form>
@@ -52,7 +53,7 @@
 
 
 <!-- Goal Log -->
-<h1>your goals</h1>
+<h1>Your Goals</h1>
 
 <table class="table table-hover" id="goal-log">
     <thead>
@@ -185,7 +186,7 @@
                         {{ goal.start_time.strftime('%b %d at %I:%M %p') }}
                     </span>
                     <span class="input-goal-start-time time-input">
-                        <input type="datetime-local" name="startDate" class="date-time-picker"> 
+                        <input type="datetime-local" class="input-goal-date-time-picker"> 
                     </span>
                 </td>
                 </tr>
@@ -198,7 +199,7 @@
                             {{ goal.end_time.strftime('%b %d at %I:%M %p') }}
                         </span>
                         <span class="input-goal-end-time time-input">
-                            <input type="datetime-local" name="endDate" class="date-time-picker"> 
+                            <input type="datetime-local" name="endDate" class="input-goal-date-time-picker"> 
                         </span>
                     </td>
                 </tr>
@@ -225,8 +226,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary goal-edit-save">Save changes</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-sm goal-edit-save">Save changes</button>
                 </div>
             </form>
             </div>

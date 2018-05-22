@@ -159,7 +159,7 @@ label {
     #goal-new {
         border-radius: 10px;
         padding: 40px;
-        margin: 60px 180px;
+        margin: 10px 180px 60px 180px;
         font-size: 30pt;
         font-family: 'Dosis';
         background-color: #f34d4c;
@@ -194,7 +194,7 @@ label {
         font-size: 24pt;
    }
 
-    .date-time-picker {
+    .input-goal-date-time-picker {
         width: 450px;
         font-size: 24pt;
     }
@@ -230,7 +230,7 @@ label {
 
     #goal-submit {
         margin: 40px 0 10px 0;
-        width: 100%;
+        width: 50%;
         background-color: white;
         color: #f34d4c;
         font-family: 'Dosis', sans-serif;
@@ -243,7 +243,7 @@ label {
 /* GOAL LOG */
 
     .tr-goal {
-        height: 65px;
+        height: 64px;
     }
 
     .td-goal-total-time {
@@ -383,7 +383,8 @@ label {
 /* CATEGORY LOG */
 
     .tr-category {
-        height: 70px;
+        height: 64px;
+        vertical-align: middle;
     }
 
     .td-category {
@@ -409,3 +410,78 @@ label {
     .td-category-archive {
         width: 70px;
     }
+
+
+/* --------------------------------- TASKS --------------------------------- */
+
+
+/* TASK LOG */
+
+    #event-log {
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+    }
+
+    #event-log tbody {
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+    }
+
+    .tr-event-task {
+        height: 64px;
+    }
+
+    .td-event-task {
+        margin: 0;
+        vertical-align: middle !important;
+        width: 30%;
+        padding: 0 !important;
+    }
+
+    .td-input-event-task {
+        margin: 0;
+        width: 100%;
+        border: 0;
+        padding: 10 !important;
+    }
+
+    .td-event-task-categories {
+        width: 20%;
+        vertical-align: middle !important;
+    }
+
+    .td-input-event-task-categories {
+        width: 100%;
+        vertical-align: middle !important;
+    }
+
+    .td-event-start-time {
+        width: 200px;
+        color: #b8b8b8;
+        vertical-align: middle !important;
+    }
+
+   .td-event-end-time {
+        width: 200px;
+        color: #b8b8b8;
+        vertical-align: middle !important;
+    }
+
+    .td-event-duration {    
+        vertical-align: middle !important;
+        width: 100px;
+    }
+
+
+/* OTHER STUFF */
+
+h1 {
+    font-family: 'Dosis' !important;
+    text-transform: uppercase;
+    font-weight: 0;
+    font-size: 60pt !important;
+    text-align: center;
+
+}

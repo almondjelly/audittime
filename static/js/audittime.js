@@ -9,12 +9,12 @@ function initialize() {
     $(".span-goal-archive").hide();
     $(".event-edit-submit").hide();
     $(".category-edit-submit").hide();
-    $(".time-input").hide();
+    $(".input-task-date-time-picker").hide();
     $(".span-category-save").hide();
     $(".span-category-archive").hide();
 
     // Apply select2 to dropdowns
-    $(".category-dropdown").select2({placeholder: "select a category"});
+    $(".td-input-event-task-categories").select2({placeholder: "select a category"});
     $("#new_category").select2({placeholder: "tv"});
     $(".goal-dropdown").select2();
     $("#category-goal-dropdown").select2({placeholder: "goals"});
@@ -96,7 +96,14 @@ $(document).ready(function() {
 
 
 // CUSTOMIZE DATEPICKERS WITH FLATPICKR
-flatpickr(".date-time-picker", {
+flatpickr(".input-goal-date-time-picker", {
+    enableTime: true,
+    dateFormat: "M j \\at h:i K",
+    allowInput: true,
+    altFormat: "F j, Y"
+});
+
+flatpickr(".input-task-date-time-picker", {
     enableTime: true,
     dateFormat: "M j \\at h:i K",
     allowInput: true,
