@@ -7,11 +7,14 @@ function initialize() {
     $(".form-register").hide();
     $(".span-goal-edit").hide();
     $(".span-goal-archive").hide();
-    $(".event-edit-submit").hide();
-    $(".category-edit-submit").hide();
-    $(".input-task-date-time-picker").hide();
     $(".span-category-save").hide();
     $(".span-category-archive").hide();
+    $(".span-event-task-save").hide();
+    $(".span-event-task-delete").hide();
+    $(".input-task-start-date-time-picker").hide();
+    $(".input-task-end-date-time-picker").hide();
+
+
 
     // Apply select2 to dropdowns
     $(".td-input-event-task-categories").select2({placeholder: "select a category"});
@@ -48,12 +51,15 @@ function addEventListeners(){
     // Task
 
         // When the mouse hovers over the list item, show the Save button.
-        $(".event-input-field").parents("li").hover(function() {
-            $(this).children().children(".event-edit-submit").show();
+        $(".tr-event-task").hover(function() {
+            $(this).children(".td-event-task-save").children("span").show();
+            $(this).children(".td-event-task-delete").children("span").show();
+
 
         // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
-                $(this).children().children(".event-edit-submit").hide();
+            $(this).children(".td-event-task-save").children("span").hide();
+            $(this).children(".td-event-task-delete").children("span").hide();
             });    
         });
 
@@ -103,50 +109,43 @@ flatpickr(".input-goal-date-time-picker", {
     altFormat: "F j, Y"
 });
 
-flatpickr(".input-task-date-time-picker", {
+flatpickr(".input-task-start-date-time-picker", {
     enableTime: true,
-    dateFormat: "M j \\at h:i K",
+    dateFormat: "m/d \\at h:i K",
     allowInput: true,
     altFormat: "F j, Y"
 });
 
-
-// ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
-$("#mode-toggler").on("click", function() {
-    $("#startStop").toggle();
-    $("#datePickers").toggle();
+flatpickr(".input-task-end-date-time-picker", {
+    enableTime: true,
+    dateFormat: "m/d \\at h:i K",
+    allowInput: true,
+    altFormat: "F j, Y"
 });
 
 
 // ---------------------------------- GOALS ----------------------------------
 
 // ADD NEW GOAL
-function addNewGoal(result){
-    $("tbody").prepend(result);
-    $("#form-goal").trigger('reset');
+    function addNewGoal(result){
+        $("tbody").prepend(result);
+        $("#form-goal").trigger('reset');
+    }
 
-    // $("#goal-name").removeAttr("value");
-    // $("#hours").removeAttr("value");
-    // $("#minutes").removeAttr("value");
-    // $("#start-date").removeAttr("value");
-    // $("#end-date").removeAttr("value");
-    initialize();
-}
+    $("#goal-submit").on("click", function() {
+        let formInputs = {
+            "goalName": $("#goal-name").val(),
+            "goalType": $("#goal-type").val(),
+            "hours": $("#hours").val(),
+            "minutes": $("#minutes").val(),
+            "startDate": $("#start-date").val(),
+            "endDate": $("#end-date").val()
+        };
 
-$("#goal-submit").on("click", function() {
-    let formInputs = {
-        "goalName": $("#goal-name").val(),
-        "goalType": $("#goal-type").val(),
-        "hours": $("#hours").val(),
-        "minutes": $("#minutes").val(),
-        "startDate": $("#start-date").val(),
-        "endDate": $("#end-date").val()
-    };
+        $.post("/add_goal", formInputs, addNewGoal);
 
-    $.post("/add_goal", formInputs, addNewGoal);
-
-    toastr.success("New Goal Added")
-});
+        toastr.success("New Goal Added")
+    });
 
 
 // EDIT GOAL INFO AND SAVE
@@ -249,6 +248,13 @@ $(".category-input").parents("form").children(".category-edit-submit").on(
 
 // ------------------------------ TASKS + EVENTS ------------------------------
 
+// ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
+    $("#mode-toggler").on("click", function() {
+        $("#startStop").toggle();
+        $("#datePickers").toggle();
+    });
+
+
 // ADD NEW EVENT
     function addNewEvent(result) {   
         $("#event-log-ul").prepend(result);
@@ -322,16 +328,33 @@ $("#startButton").on("click", startStopwatch);
 
 
 // UPDATE TASK (EVENT) NAME AND SAVE
-$("span.task-input").parents("form").children("span.event-edit-submit").on(
-    "click", function() {
+    $(".td-event-start-time").click(function (){
+        $(this).parents("tr").children(".td-event-start-time").children("input").show();
+        $(this).parents("tr").mouseleave(function() {
+            $(this).parents("tr").children(".td-event-start-time").children("input").hide();
+        });
+    });
+    
+    $(".td-event-end-time").click(function (){
+        $(this).parents("tr").children(".td-event-end-time").children("input").show();
+        $(this).parents("tr").mouseleave(function() {
+            $(this).parents("tr").children(".td-event-start-time").children("input").hide();
+        });
+    });
+
+    $(".btn-event-task-save").click(function() {
+        console.log('saving task');
+
         let formInputs = {
-            "eventId": $(this).parents("form").children("span.task-input").children("span").children("input").attr("name"),
-            "newTaskName": $(this).parents("form").children("span.task-input").children("span").children("input").val(),
-            "newStartTime": $(this).parents("form").children(".start-end-times").children(".task-start-time").children("input").val(),
-            "newStopTime": $(this).parents("form").children(".start-end-times").children(".task-end-time").children("input").val()
-        }
+            "eventId": $(this).parents("tr").children(".input-event-id").val(),
+            "newTaskName": $(this).parents("tr").children(".td-event-task").children("input").val(),
+            "newStartTime": $(this).parents("tr").children(".td-event-start-time").children("input").val(),
+            "newStopTime": $(this).parents("tr").children(".td-event-end-time").children("input").val()
+        };
 
         $.post("/edit_task", formInputs);
+
+        toastr.success("Task Updated");
     });
 
 

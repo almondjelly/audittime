@@ -257,11 +257,6 @@ def edit_category_info():
     # Find the existing category
     category = Category.query.filter_by(category_id=category_id).one()
 
-    print "ID", category_id
-    print "Name", new_category_name
-    print "Goals", new_category_goals
-    print "Category", category
-
     # Update name and goals
     category.name = new_category_name
     category.goal = []
@@ -389,53 +384,14 @@ def add_event():
 
     event = Event.query.filter_by(task_id=task_id, stop_time=stop_time).one()
 
-    form_html = "<li> \
-        <form> \
-            <!-- Task --> \
-            <span class=\"task-input\"> \
-                <span class=\"event-{event_id}\"> \
-                    <input type=\"text\" value=\"{task_name}\" name=\"{event_id2}\" class=\"input-field\"> \
-                </span> \
-            </span> \
-\
-            <!-- Category --> \
-            <span class=\"category-title\"> \
-                <span class=\"event-{event_id3}\"> \
-                    {category_name} \
-\
-                    <!-- Dropdown for multiple selecting categories --> \
-                    <div class=\"category-dropdown event-{event_id4}\"> \
-                    <!-- ADD THE ACTUAL OPTIONS FOR PICKING CATEGORIES OR SOMETHING --> \
-                        <ul> \
-                            <li>asdf1</li> \
-                            <li>asdf2</li> \
-                            <li>asdf3</li> \
-                        </ul> \
-                    </div> \
-                </span> \
-            </span> \
-\
-            <!-- Duration --> \
-            <span>{duration}</span> \
-            <!-- Save --> \
-            <span class=\"event-edit-submit {event_id5}Submit\">save</span> \
-        </form> \
-    </li>".format(event_id=event.event_id,
-                  task_name=event.task.name,
-                  event_id2=event.event_id,
-                  event_id3=event.event_id,
-                  category_name=event.task.category.name,
-                  event_id4=event.event_id,
-                  duration=event.duration(),
-                  event_id5=event.event_id
-                  )
+    form_html = ""
 
     return form_html
 
 
 @app.route('/edit_task', methods=['POST'])
-def edit_task_name():
-    """Updates new task name in the tasks table."""
+def edit_task():
+    """Updates task"""
 
     event_id = request.form.get('eventId')
     new_task_name = request.form.get('newTaskName')
@@ -472,8 +428,6 @@ def edit_task_name():
         event.stop_time = newStopTime
 
     db.session.commit()
-
-    flash("task updated")
 
     return redirect('/user')
 

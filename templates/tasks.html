@@ -60,12 +60,13 @@
     {% for event in events %}            
 
     <!-- Event id, task id -->
-    <form class="form-event-id">
-        <input type="hidden" class="input-event-id" value="{{ event.event_id }}">
-        <input type="hidden" class="input-task-id" value="{{ event.task.task_id }}">
-    </form>
+
 
     <tr class="tr-event-task">
+        <form class="form-event-id">
+            <input type="hidden" class="input-event-id" value="{{ event.event_id }}">
+            <input type="hidden" class="input-task-id" value="{{ event.task.task_id }}">
+        </form>
 
         <!-- Task name -->
         <td class="td-event-task">
@@ -85,12 +86,12 @@
         <!-- Start and end times -->
         <td class="td-event-start-time">
             {{ event.start_time.strftime('%m/%d at %I:%M %p') }}
-            <input type="datetime-local"  class="input-task-date-time-picker"> 
+            <input type="datetime-local" class="input-task-start-date-time-picker"> 
         </td>
 
         <td class="td-event-end-time">
             {{ event.stop_time.strftime('%m/%d at %I:%M %p') }}
-            <input type="datetime-local"  class="input-task-date-time-picker"> 
+            <input type="datetime-local" class="input-task-end-date-time-picker"> 
         </td>
 
         <!-- Duration -->
