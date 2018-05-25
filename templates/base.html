@@ -11,10 +11,13 @@
         <link href="https://fonts.googleapis.com/css?family=Dosis:300|Sacramento" rel="stylesheet">
         
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/bootstrap.css">
 
         <!-- Select2 Dropdown Sheemer Sheemer -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet">
+
+        <!-- Selectize -->
+        <link rel="stylesheet" type="text/css" href="static/css/selectize.css">
 
         <!-- Flatpickr -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -23,15 +26,15 @@
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
         <!-- Google Material Design Icons -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
     </head>
 
     <body>
 
         <!-- Navbar -->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark-pink">
 
             <!-- AuditTime -->
             <a class="navbar-brand" href="/">AuditTime</a>
@@ -64,9 +67,19 @@
 
                     </ul>
 
+                    <ul class="navbar-nav">
 
-                    {{ session.get('user')}}
-                    <a class="nav-link" href="/logout">Log out</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ session.get('user')}}</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/settings">Settings</a>
+                                <a class="dropdown-item" href="/reports">Reports</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout">Log out</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"></li>
+                </ul>
 
                 {% else %}
                     <ul class="navbar-nav mr-auto">
@@ -99,9 +112,9 @@
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-        <!-- Popper, Bootstrap -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <!-- Popper, Bootstrap --><!-- 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+        <script src="static/js/bootstrap.bundle.js"></script>
 
         <!-- Flatpickr -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -109,10 +122,16 @@
         <!-- Select2 Dropdown -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
+        <!-- Selectize -->
+        <script src="static/js/selectize.js"></script>
+
         <!-- Toastr -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
         <!-- AuditTime -->
         <script src="static/js/audittime.js"></script>
+
+        
+
     </body>
 </html>

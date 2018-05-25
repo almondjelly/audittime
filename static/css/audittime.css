@@ -1,5 +1,23 @@
+
 body {
     font-family: 'Dosis', sans-serif;
+    background: #FF4B2B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FF416C, #FF4B2B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FF416C, #FF4B2B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #ffffff;
+}
+
+/* Remove Bootstrap's hideous blue glow */
+body:not(.user-is-tabbing) button:focus,
+body:not(.user-is-tabbing) input:focus,
+body:not(.user-is-tabbing) select:focus,
+body:not(.user-is-tabbing) textarea:focus {
+  outline: none;
+}
+
+/* Change navbar color */
+.bg-dark-pink {
+    background-color: #FF416C;
 }
 
 input {
@@ -21,18 +39,24 @@ input {
     font-family: 'Dosis';
     font-size: 30pt;
     text-align: center;
-    color: #9b9b9b;
+    color: #ffffff;
+}
+
+.container {
+    color: white;
+    margin: 0 0 200px 0;
 }
 
 
-/* -------------------------------- LOG IN -------------------------------- */
+/* ----------------------------- SIGN UP + LOG IN ----------------------------- */
 
+.form-signup,
 .form-login {
     text-transform: uppercase;
     border: 0;
 }
 
-.div-login-email {
+{
     margin: 10px;
     font-size: 15pt;
 }
@@ -41,137 +65,110 @@ label {
     line-height: 4px;
 }
 
-#input-email {
+#input-email,
+#input-password,
+#register-name,
+#register-email,
+#register-password {
     border-radius: 0;
-}
-
-#input-password {
-    border-radius: 0;
+    border: 1px solid #FF416C;
 }
 
 div > small {
     font-size: 11pt;
-    color: white !important;
+    color: #999 !important;
     text-transform: lowercase;
     font-style: italic;
     text-align: right;
 }
 
-.div-login-password {
+.div-signup-name,
+.div-signup-password,
+.div-signup-email,
+.div-login-password,
+.div-login-email {
     margin: 10px;
     font-size: 15pt;
 }
 
+#div-signup,
 #div-login {
     padding: 40px;
     margin: 60px 240px 0 240px;
-    border: 2px solid #f34d4c;
-    background-color: #f34d4c;
+    background-color: #ffffff;
     border-radius: 10px;
-    color: white;
+    color: #FF416C;
 }
 
-.div-login-button {
-    margin: 60px 10px 0px 10px;
-}
-
+#signup-button,
 #login-button {
-    margin: 10px 0;
+    margin: 60px 0 0 0;
     width: 100%;
+    line-height: 20px;
     background-color: white;
-    color: #f34d4c;
+    color: #FF416C;
     font-family: 'Dosis', sans-serif;
     text-transform: uppercase;
-    font-size: 18pt;
+    font-size: 28pt;
     border: 0;
     border-radius: 0;
 }
 
 
-/* -------------------------------- SIGNUP -------------------------------- */
+/* --------------------------- ADDING NEW ITEMS --------------------------- */
 
-.form-signup {
-    text-transform: uppercase;
-    border: 0;
-}
+/* DIV BOX */
 
-.div-signup-name {
-    margin: 10px;
-    font-size: 15pt;
-}
+    #goal-new,
+    #category-new,
+    #task-new {
+        border-radius: 10px;
+        padding: 40px;
+        margin: 10px 180px 60px 180px;
+        background-color: white;
+        font-size: 30pt;
+        font-family: 'Dosis';
+        color: #4a4a4a;
+        text-transform: uppercase;
+    }
 
-.div-signup-email {
-    margin: 10px;
-    font-size: 15pt;
-}
+/* TEXT INPUT */
 
-.div-signup-password {
-    margin: 10px;
-    font-size: 15pt;
-}
+    #goal-new input,
+    #category-new input,
+    #task-new input {
+        line-height: 0;
+        font-size: 24pt;
+        padding: 5px 10px 0px 10px;
+            border-bottom: 2px solid #FF416C;
 
-label {
-    line-height: 4px;
-}
+    }
 
-#register-email {
-    border-radius: 0;
-}
+/* SUBMIT BUTTON */
 
-#register-name {
-    border-radius: 0;
-}
-
-#register-password {
-    border-radius: 0;
-}
-
-#div-signup {
-    padding: 40px;
-    margin: 60px 240px 0 240px;
-    border: 2px solid #00DEAC;
-    background-color: #00DEAC;
-    border-radius: 10px;
-    color: white;
-}
-
-.div-signup-button {
-    margin: 60px 10px 0px 10px;
-}
-
-#signup-button {
-    margin: 10px 0;
+    #goal-submit,
+    #category-submit,
+    #start-button,
+    #stop-button {
+    margin: 60px 0 0 0;
     width: 100%;
+    line-height: 20px;
     background-color: white;
-    color: #00DEAC;
+    color: #FF416C;
     font-family: 'Dosis', sans-serif;
     text-transform: uppercase;
-    font-size: 18pt;
+    font-size: 28pt;
     border: 0;
     border-radius: 0;
-}
-
+    }
 
 /* --------------------------------- GOALS --------------------------------- */
 
 /* ADD GOAL */
 
-    #goal-new {
-        border-radius: 10px;
-        padding: 40px;
-        margin: 10px 180px 60px 180px;
-        font-size: 30pt;
-        font-family: 'Dosis';
-        background-color: #f34d4c;
-        color: white;
-        text-transform: uppercase;
-    }
 
-    #goal-new input {
-        line-height: 0;
-        font-size: 24pt;
-        padding: 5px 10px 0px 10px;
-    }
+
+
 
     #goal-name {
         width: 506px;
@@ -228,17 +225,6 @@ label {
         text-align: center;
     }
 
-    #goal-submit {
-        margin: 40px 0 10px 0;
-        width: 50%;
-        background-color: white;
-        color: #f34d4c;
-        font-family: 'Dosis', sans-serif;
-        text-transform: uppercase;
-        font-size: 18pt;
-        border: 0;
-        border-radius: 0;
-    }
 
 /* GOAL LOG */
 
@@ -288,15 +274,7 @@ label {
 
 /* ADD CATEGORY */
 
-    #category-new {
-        border-radius: 10px;
-        padding: 40px;
-        margin: 60px 180px;
-        font-family: 'Dosis';
-        background-color: #f34d4c;
-        color: white;
-        text-transform: uppercase;
-    }
+
 
     #category-new input {
         line-height: 0;
@@ -414,6 +392,38 @@ label {
 
 /* --------------------------------- TASKS --------------------------------- */
 
+/* NEW TASK */
+
+   #div-task-new {
+        border-radius: 10px;
+        padding: 40px;
+        margin: 10px 180px 60px 180px;
+        background-color: white;
+        font-size: 30pt;
+        font-family: 'Dosis';
+        color: #4a4a4a;
+        text-transform: uppercase;
+    }
+
+    #stopwatch {
+        padding: 0;
+        margin: 0;
+    }
+
+    #input-new-task-name {
+        margin: 0px 0px 10px 10px;
+        display: inline;
+        padding: 0px 10px;
+        font-size: 24pt;
+        height: 48px;
+        width: 63%;
+        color: #4a4a4a;
+        vertical-align: middle;
+        border-bottom: 2px solid #FF4B2B;
+    }
+
+   
+
 
 /* TASK LOG */
 
@@ -437,14 +447,17 @@ label {
         margin: 0;
         vertical-align: middle !important;
         width: 25%;
-        padding: 0 !important;
     }
 
     .td-input-event-task {
         margin: 0;
         width: 100%;
         border: 0;
-        padding: 10 !important;
+        padding: 5px;
+        display: inline-block;
+        background-color: white;
+        font-size: 11pt;
+        color: #4a4a4a;
     }
 
     .td-event-task-categories {
@@ -456,6 +469,7 @@ label {
         width: 100%;
         padding: 0;
         margin: 0;
+        font-size: 11pt;
         vertical-align: middle !important;
     }
 
@@ -477,6 +491,21 @@ label {
     }
 
 
+/* -------------------------------- REPORTS -------------------------------- */
+
+/* ADD GOAL */
+
+    #div-report {
+        border-radius: 10px;
+        padding: 40px;
+        margin: 10px 180px 60px 180px;
+        font-size: 30pt;
+        font-family: 'Dosis';
+        background-color: #ffffff;
+        color: #4a4a4a;
+        text-transform: uppercase;
+    }
+
 
 /* OTHER STUFF */
 
@@ -484,6 +513,7 @@ h1 {
     font-family: 'Dosis' !important;
     text-transform: uppercase;
     font-weight: 0;
+    color: white;
     font-size: 60pt !important;
     text-align: center;
 

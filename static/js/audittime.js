@@ -11,18 +11,22 @@ function initialize() {
     $(".span-category-archive").hide();
     $(".span-event-task-save").hide();
     $(".span-event-task-delete").hide();
+    $("#stop-button").hide();
     $(".input-task-start-date-time-picker").hide();
     $(".input-task-end-date-time-picker").hide();
 
-
-
     // Apply select2 to dropdowns
-    $(".td-input-event-task-categories").select2({placeholder: "select a category"});
-    $("#new_category").select2({placeholder: "tv"});
-    $(".goal-dropdown").select2();
-    $("#category-goal-dropdown").select2({placeholder: "goals"});
-    $(".td-input-category-goals").select2({placeholder: "goals"});
+    // $(".td-input-event-task-categories").select2({placeholder: "select a category"});
+    // $(".goal-dropdown").select2();
+    // $("#category-goal-dropdown").select2({placeholder: "goals"});
+    $(".td-input-category-goals").selectize();
     $(".gcal-categories").select2({placeholder: "category"});
+
+    // Apply selectize.js to dropdowns
+    $("#select-new-task-category").selectize({
+        placeholder: "tv",
+    });
+
 
     // Set toastr options
     toastr.options = {
@@ -49,6 +53,18 @@ function addEventListeners(){
     // SHOW/HIDE SAVE BUTTONS
 
     // Task
+
+        // When the stopwatch START button is clicked, hide the start button
+        // and expose the stop button.
+        $("#start-button").click(function() {
+            $(this).hide();
+            $("#stop-button").show();
+        });
+
+         $("#stop-button").click(function() {
+            $(this).hide();
+            $("#start-button").show();
+        });
 
         // When the mouse hovers over the list item, show the Save button.
         $(".tr-event-task").hover(function() {
@@ -257,11 +273,11 @@ $(".category-input").parents("form").children(".category-edit-submit").on(
 
 // ADD NEW EVENT
     function addNewEvent(result) {   
-        $("#event-log-ul").prepend(result);
-        $("#new_task").removeAttr("value");
-        $("#new_category").removeAttr("value");
-        $("#m-start").removeAttr("value");
-        $("#m-stop").removeAttr("value");
+        $("#event-log").prepend(result);
+        // $("#new_task").removeAttr("value");
+        // $("#new_category").removeAttr("value");
+        // $("#m-start").removeAttr("value");
+        // $("#m-stop").removeAttr("value");
         $("#form-stopwatch").trigger("reset");
         initialize();
         $("#event-log-ul > li:first-child .category-title > span").on("click", function() {
@@ -296,24 +312,23 @@ $("#manualSubmit").on("click", function() {
                formInputs,
                addNewEvent);
 
-
 });
 
 // SUBMIT EVENT - STOPWATCH
 
 function startStopwatch(event) {
-    event.preventDefault();
+
     let startTime = Date.now();
     console.log('Starting stopwatch...');
     console.log(startTime);
 
-    $("#stopButton").on("click", function() {
+    $("#stop-button").on("click", function() {
         event.preventDefault();
         let stopTime = Date.now();
 
         let formInputs = {
-            "task": $("#new_task").val(),
-            "category": $("#new_category").val(),
+            "task": $("#input-new-task-name").val(),
+            "category": $("#select-new-task-category").val(),
             "startTime": startTime,
             "stopTime": stopTime
         };
@@ -324,7 +339,7 @@ function startStopwatch(event) {
     });
 }
 
-$("#startButton").on("click", startStopwatch);
+$("#start-button").on("click", startStopwatch);
 
 
 // UPDATE TASK (EVENT) NAME AND SAVE

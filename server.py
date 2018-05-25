@@ -429,10 +429,10 @@ def edit_task():
 
     db.session.commit()
 
-    return redirect('/user')
+    return redirect('/tasks')
 
 
-@app.route('/account')
+@app.route('/settings')
 def account_settings():
     """Displays account information for a user."""
 
@@ -504,6 +504,13 @@ def save_gcal_event():
     db.session.commit()
 
     return redirect('/account')
+
+
+@app.route('/reports')
+def display_reports():
+    """Display user's reports."""
+
+    return render_template("reports.html")
 
 
 if __name__ == "__main__":

@@ -69,7 +69,7 @@ class Goal(db.Model):
         for event in goal_events:
             if event.start_time >= self.start_time or \
                event.stop_time <= self.end_time:
-                    total_time += event.duration()
+                    total_time += event.stop_time - event.start_time
 
         days = total_time.days
         hours = total_time.seconds / 3600

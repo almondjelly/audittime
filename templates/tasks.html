@@ -3,26 +3,34 @@
 {% block body %}
 
 
+<!-- Start a new task -->
+<h1>Start A New Task</h1>
+<div id="div-task-new">
+
 <!-- Toggle between stopwatch and manual entry. -->
-<button id="mode-toggler" type="button"> switch between manual/stopwatch modes </button>
+<button class="btn btn-primary" id="mode-toggler" type="button"> switch between manual/stopwatch modes </button>
+
 
 <!-- Event Timer -->
 <div id="stopwatch">
-    <form id="form-stopwatch" method="post" action="/add_event">
-        i'm currently 
-        <input type="text" id="new_task" placeholder="watching Better Call Saul" required autofocus name="task">
+    <form id="form-stopwatch" method="post">
+        I'm currently
+       
+        <input type="text" id="input-new-task-name" placeholder="watching Better Call Saul" required autofocus name="task">
 
-        <select id="new_category" name="new_category">
-
-                {% for category in categories %}
-                <option>{{ category.name }}</option>
-                {% endfor %}
+        <select required id="select-new-task-category">
+            <option value="Pick a category" disabled selected>Pick a category...</option>
+            {% for category in categories %}
+            <option>{{ category.name }}</option>
+            {% endfor %}
 
         </select>
-
         <span id="startStop">
-            <button id="startButton" name="startButton" type="button">start</button>
-            <button type="button" id="stopButton" name="stopButton">stop</button>
+
+            <button id="start-button" class="btn btn-primary" name="startButton" type="button">start</button>
+
+            <button type="button" class="btn btn-primary" id="stop-button" name="stopButton">stop</button>
+
         </span>
 
         <span id="datePickers">
@@ -41,6 +49,8 @@
     </div>
 </div>
 
+</div>
+
 
 <!-- Task Log -->
 <table class="table table-hover" id="event-log">
@@ -57,12 +67,10 @@
     </thead> 
 
     <tbody>
-    {% for event in events %}            
-
-    <!-- Event id, task id -->
-
-
+    {% for event in events %}
     <tr class="tr-event-task">
+
+        <!-- Event id, task id -->
         <form class="form-event-id">
             <input type="hidden" class="input-event-id" value="{{ event.event_id }}">
             <input type="hidden" class="input-task-id" value="{{ event.task.task_id }}">
