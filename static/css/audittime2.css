@@ -187,9 +187,7 @@ div > small {
 
 /* GOAL LOG */
 
-    .td-goal-total-time {
-        padding: 0;
-    }
+    
 
     .td-goal-name {
         width: 30%;
@@ -216,31 +214,10 @@ div > small {
         width: 70%;
     }
 
-    .td-goal-edit,
-    .td-goal-archive {
-        width: 70px;
-    }
-
 
 /* ------------------------------ CATEGORIES ------------------------------ */
 
 /* ADD CATEGORY */
-
-
-
-
-   
-
-    #hours {
-        width: 70px;
-        text-align: right;
-        font-size: 24pt;
-    }
-
-    #minutes {
-        width: 70px;
-        text-align: right;
-    }
 
     #category-type {
         line-height: 0;

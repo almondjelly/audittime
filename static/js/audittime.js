@@ -23,13 +23,12 @@ function initialize() {
     // $(".gcal-categories").select2({placeholder: "category"});
 
     // Apply selectize.js to dropdowns
-    $("#select-new-task-category").selectize({
-        placeholder: "tv",
-    });
-    $("#category-goal-dropdown").selectize({
-        placeholder: "goals",
-    });
+    $("#select-new-task-category").selectize({placeholder: "tv"});
+    $("#category-goal-dropdown").selectize({placeholder: "goals"});
     $(".td-input-event-task-categories").selectize();
+    $(".goal-modal-input-goal-categories").selectize();
+    $(".goal-modal-input-type").selectize();
+
 
     // Remove Bootstrap's hideous blue glow
     function handleFirstTab(e) {
@@ -146,6 +145,13 @@ flatpickr(".input-task-start-date-time-picker", {
     altFormat: "F j, Y"
 });
 
+flatpickr(".modal-input-goal-date-time-picker", {
+    enableTime: true,
+    dateFormat: "m/d \\at h:i K",
+    allowInput: true,
+    altFormat: "F j, Y"
+});
+
 flatpickr(".input-task-end-date-time-picker", {
     enableTime: true,
     dateFormat: "m/d \\at h:i K",
@@ -195,7 +201,7 @@ $(".goal-edit-save").click(function() {
 
     $.post("/edit_goal_info", formInputs);
 
-    toastr.success("Goal Saved")
+    toastr.success("Goal Updated")
 
 });
 

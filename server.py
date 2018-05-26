@@ -102,6 +102,7 @@ def logout():
 
 
 # ----------------------------------- GOALS -----------------------------------
+
 @app.route('/goals')
 def display_goals():
     """Display goals page."""
@@ -178,10 +179,6 @@ def edit_goal_info():
     goal.duration = new_duration
 
     db.session.commit()
-
-    flash('goal updated')
-
-    print goal
 
     return redirect('/goals')
 
