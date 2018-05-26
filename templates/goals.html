@@ -111,12 +111,12 @@
 
             <!-- Goal total time progress -->
             <td class="td-goal-total-time" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
-                {{ goal.total_time() }}
+                {{ goal.total_time_str() }}
             </td>
 
             <!-- Goal time left -->
             <td class="td-goal-total-time" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
-                {{ goal.total_time() }}
+                {{ goal.time_left() }}
 
             </td>
 

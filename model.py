@@ -66,20 +66,59 @@ class Goal(db.Model):
                 task_id=task.task_id).all())
 
         total_time = timedelta(0)
+
         for event in goal_events:
             if event.start_time >= self.start_time or \
                event.stop_time <= self.end_time:
                     total_time += event.stop_time - event.start_time
 
-        days = total_time.days
-        hours = total_time.seconds / 3600
-        minutes = (total_time.seconds - hours * 3600) / 60
+        return total_time
+
+    def total_time_str(self):
+        """Generate total time string."""
+
+        days = self.total_time().days
+        hours = self.total_time().seconds / 3600
+        minutes = (self.total_time().seconds - hours * 3600) / 60
 
         total_time_str = "{}h {}min".format(hours, minutes)
 
-        if total_time.days > 0:
+        if self.total_time().days > 0:
             total_time_str = "{} days ".format(days) + total_time_str
+
         return total_time_str
+
+    def time_left(self):
+        """Calculate the time left to reach goal target and return string."""
+
+        # Success conditions
+        if ((self.goal_type == "at_most" and self.total_time() <=
+            self.duration and datetime.now() >= self.end_time) or
+           (self.goal_type == "at_least" and self.total_time() >=
+           self.duration)):
+            time_left_str = "Success!"
+
+        # Fail conditions
+        elif ((self.goal_type == "at_most" and self.total_time() >
+              self.duration) or (self.goal_type == "at_least" and
+              self.total_time() < self.duration and datetime.now() >=
+              self.end_time)):
+            time_left_str = "Fail"
+
+        # Otherwise, show progress
+        else:
+            time_left = self.duration - self.total_time()
+
+            days = time_left.days
+            hours = time_left.seconds / 3600
+            minutes = (time_left.seconds - hours * 3600) / 60
+
+            time_left_str = "{}h {}min".format(hours, minutes)
+
+            if time_left.days > 0:
+                time_left_str = "{}d ".format(days) + time_left_str
+
+        return time_left_str
 
     def __repr__(self):
         """Provide helpful representation when printed."""
