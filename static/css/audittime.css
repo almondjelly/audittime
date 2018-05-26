@@ -1,121 +1,104 @@
+/* ------------------------------- ITEM LOGS ------------------------------- */
 
-body {
-    font-family: 'Dosis', sans-serif;
-    background: #FF4B2B;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #FF416C, #FF4B2B);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #FF416C, #FF4B2B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: #ffffff;
-}
+/* TABLE FONTS */
 
-/* Remove Bootstrap's hideous blue glow */
-body:not(.user-is-tabbing) button:focus,
-body:not(.user-is-tabbing) input:focus,
-body:not(.user-is-tabbing) select:focus,
-body:not(.user-is-tabbing) textarea:focus {
-  outline: none;
-}
-
-/* Change navbar color */
-.bg-dark-pink {
-    background-color: #FF416C;
-}
-
-input {
-    font-family: 'Dosis', sans-serif;
-    font-size: 12pt;
-    border: 0;
-    border-radius: 0;
-}
-
-.title {
-    padding-top: 80px;
-    font-family: 'Sacramento';
-    text-align: center;
-    font-size: 140pt;
-    line-height: 100pt;
-}
-
-.subtitle {
-    font-family: 'Dosis';
-    font-size: 30pt;
-    text-align: center;
-    color: #ffffff;
-}
-
-.container {
-    color: white;
-    margin: 0 0 200px 0;
-}
+    .table input {
+        font-family: "Source Sans Pro";
+        text-transform: uppercase;
+        font-size: 18px;
+    }
 
 
-/* ----------------------------- SIGN UP + LOG IN ----------------------------- */
+/* TABLE ROWS */
 
-.form-signup,
-.form-login {
-    text-transform: uppercase;
-    border: 0;
-}
+    .table .tr-goal td,
+    .table .tr-category td,
+    .table .tr-event-task td {
+        vertical-align: middle;
+        padding: 12px;
+        height: 64px;
+    }
 
-{
-    margin: 10px;
-    font-size: 15pt;
-}
-
-label {
-    line-height: 4px;
-}
-
-#input-email,
-#input-password,
-#register-name,
-#register-email,
-#register-password {
-    border-radius: 0;
-    border: 1px solid #FF416C;
-}
-
-div > small {
-    font-size: 11pt;
-    color: #999 !important;
-    text-transform: lowercase;
-    font-style: italic;
-    text-align: right;
-}
-
-.div-signup-name,
-.div-signup-password,
-.div-signup-email,
-.div-login-password,
-.div-login-email {
-    margin: 10px;
-    font-size: 15pt;
-}
-
-#div-signup,
-#div-login {
-    padding: 40px;
-    margin: 60px 240px 0 240px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    color: #FF416C;
-}
-
-#signup-button,
-#login-button {
-    margin: 60px 0 0 0;
-    width: 100%;
-    line-height: 20px;
-    background-color: white;
-    color: #FF416C;
-    font-family: 'Dosis', sans-serif;
-    text-transform: uppercase;
-    font-size: 28pt;
-    border: 0;
-    border-radius: 0;
-}
+    .table .tr-category .td-category-goals {
+        padding: 7px 0 0 12px;
+    }
 
 
-/* --------------------------- ADDING NEW ITEMS --------------------------- */
+/* TEXT INPUT */
+
+    .td-input-category,
+    .td-input-event-task {
+        background-color: transparent;
+        width: 100%;
+        color: white;
+        height: 38px;
+    }
+
+
+/* TABLE CELL WIDTHS */
+
+    .td-goal {
+        width: 50%;
+    }
+
+    .td-goal-duration {
+        width: 20%;
+    }
+
+    .td-category {
+        width: 40%;
+    }
+
+    .td-category-goals {
+        width: 47%;
+    }
+
+    .td-event-task {
+        width: 220px;
+    }    
+
+    .td-event-task-categories {
+        width: 200px;
+    }
+
+    .table .tr-event-task .td-event-start-time,
+    .table .tr-event-task .td-event-end-time,{
+        width: 10px;
+    }
+
+
+    .td-event-duration {
+        width: 100px;
+    }
+
+
+/* SAVE + ARCHIVE BUTTONS */
+
+    .table .tr-goal .td-goal-archive,
+    .table .tr-category .td-category-save,
+    .table .tr-category .td-category-archive,
+    .table .tr-event-task .td-event-task-save,
+    .table .tr-event-task .td-event-task-remove {
+        margin: 0;
+        text-align: center;
+        font-size: 18px;
+        width: 30px;
+    }
+
+
+/* ----------------------------- ADD NEW ITEMS ----------------------------- */
+
+/* HEADERS */
+    
+    h1 {
+        font-family: 'Dosis' !important;
+        text-transform: uppercase;
+        font-weight: 0;
+        color: white;
+        font-size: 60pt !important;
+        text-align: center;
+    }
+
 
 /* DIV BOX */
 
@@ -132,6 +115,7 @@ div > small {
         text-transform: uppercase;
     }
 
+
 /* TEXT INPUT */
 
     #goal-new input,
@@ -140,381 +124,95 @@ div > small {
         line-height: 0;
         font-size: 24pt;
         padding: 5px 10px 0px 10px;
-            border-bottom: 2px solid #FF416C;
-
+        border: 0;
+        border-radius: 0;
+        border-bottom: 2px solid #FF416C;
     }
+
+
+/* INPUT WIDTH */
+
+    #input-category-new {
+        width: 100%;
+    }
+
 
 /* SUBMIT BUTTON */
 
     #goal-submit,
     #category-submit,
     #start-button,
-    #stop-button {
-    margin: 60px 0 0 0;
-    width: 100%;
-    line-height: 20px;
-    background-color: white;
-    color: #FF416C;
-    font-family: 'Dosis', sans-serif;
-    text-transform: uppercase;
-    font-size: 28pt;
-    border: 0;
-    border-radius: 0;
-    }
-
-/* --------------------------------- GOALS --------------------------------- */
-
-/* ADD GOAL */
-
-
-
-
-
-    #goal-name {
-        width: 506px;
-        padding: 0 10px !important;
-    }
-
-    #hours {
-        width: 70px;
-        text-align: right;
-        font-size: 24pt;
-    }
-
-    #minutes {
-        width: 70px;
-        text-align: right;
-    }
-
-    #goal-type {
-        line-height: 0;
-        font-size: 24pt;
-   }
-
-    .input-goal-date-time-picker {
-        width: 450px;
-        font-size: 24pt;
-    }
-
-    #start-date {
-        width: 258px;
-        padding: 0 10px !important;
-    }
-
-    #end-date {
-        width: 258px;
-        padding: 0 10px !important;
-    }
-
-    .goal-duration {
-        width: 80px;
-        padding: 0 !important;
-        font-size: 24pt;
-    }
-
-    #goal-type {
-        border: 0;
-        color: #666;
-        width: 170px;
-        border-radius: 0 !important;
-        background-color: white;
-        padding: 0 !important;
-    }
-
-    #goal-save-div {
-        text-align: center;
-    }
-
-
-/* GOAL LOG */
-
-    .tr-goal {
-        height: 64px;
-    }
-
-    .td-goal-total-time {
-        padding: 0;
-    }
-
-    .td-goal-name {
-        width: 30%;
-        padding-right: 0;
-    }
-
-    .td-goal-name > input {
+    #stop-button,
+    #manual-submit {
+        margin: 60px 0 0 0;
         width: 100%;
-    }
-
-    .td-goal-type {
-        padding-right: 1%;
-        border: 0;
+        line-height: 20px;
         background-color: white;
-    }
-
-    input.td-goal-duration {
-        width: 25px;
-        padding: 0;
-        text-align: right;
-    }
-
-    .td-goal-categories {
-        width: 70%;
-    }
-
-    .td-goal-edit {
-        width: 70px;
-    }
-
-    .td-goal-archive {
-        width: 70px;
-    }
-
-
-/* ------------------------------ CATEGORIES ------------------------------ */
-
-/* ADD CATEGORY */
-
-
-
-    #category-new input {
-        line-height: 0;
-        font-size: 24pt;
-        width: 100%;
-        padding: 5px 10px 0px 10px;
-    }
-
-    #category-new option {
-        color: #666 !important;
-    }
-
-    .input-category-new {
-        padding: 0 5px !important;
-        margin-bottom: 10px;
-    }
-
-    #hours {
-        width: 70px;
-        text-align: right;
-        font-size: 24pt;
-    }
-
-    #minutes {
-        width: 70px;
-        text-align: right;
-    }
-
-    #category-type {
-        line-height: 0;
-        font-size: 24pt;
-   }
-
-    .date-time-picker {
-        width: 450px;
-        font-size: 24pt;
-    }
-
-    #start-date {
-        width: 258px;
-        padding: 0 10px !important;
-    }
-
-    #end-date {
-        width: 258px;
-        padding: 0 10px !important;
-    }
-
-    .category-duration {
-        width: 80px;
-        padding: 0 !important;
-        font-size: 24pt;
-    }
-
-    #category-type {
-        border: 0;
-        color: #666;
-        width: 170px;
-        border-radius: 0 !important;
-        background-color: white;
-        padding: 0 !important;
-    }
-
-    #category-save-div {
-        text-align: center;
-    }
-
-    #category-submit {
-        margin: 40px 0 10px 0;
-        width: 100%;
-        background-color: white;
-        color: #f34d4c;
+        color: #FF416C;
         font-family: 'Dosis', sans-serif;
         text-transform: uppercase;
-        font-size: 18pt;
+        font-size: 28pt;
         border: 0;
         border-radius: 0;
     }
 
-    #category-goal-dropdown {
-        width: 100%;
+/* ------------------------------- INITIALIZE ------------------------------ */
+
+/* FONT FAMILY AND COLOR + BACKGROUND */
+
+    body {
+        font-family: 'Dosis', sans-serif;
+        background: #FF0080;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to top, #40E0D0, #FF8C00, #FF0080);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #40E0D0, #FF8C00, #FF0080); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        color: #ffffff;
     }
 
-/* CATEGORY LOG */
-
-    .tr-category {
-        height: 64px;
-        vertical-align: middle;
-    }
-
-    .td-category {
-        width: 30%;
-    }
-
-    .td-input-category {
-        width: 100%;
-    }
-
-    .td-category-goals {
-        width: 55%;
-    }
-
-    .td-input-category-goals {
-        width: 100%;
-    }
-
-    .td-category-save {
-        width: 70px;
-    }
-
-    .td-category-archive {
-        width: 70px;
+    .container {
+        color: white;
+        margin: 0 0 200px 0;
     }
 
 
-/* --------------------------------- TASKS --------------------------------- */
+/* REMOVE HIDEOUS BOOTSTRAP BLUE GLOW */
 
-/* NEW TASK */
+    body:not(.user-is-tabbing) button:focus,
+    body:not(.user-is-tabbing) input:focus,
+    body:not(.user-is-tabbing) select:focus,
+    body:not(.user-is-tabbing) textarea:focus {
+      outline: none;
+    }
 
-   #div-task-new {
-        border-radius: 10px;
-        padding: 40px;
-        margin: 10px 180px 60px 180px;
-        background-color: white;
-        font-size: 30pt;
+/* CHANGE NAVBAR COLOR */
+
+    .bg-dark-weddingdayblues {
+        background-color: #FF0080;
+    }
+
+
+/* SET TITLE FONTS (VISIBLE WHEN SIGNED OUT) */
+
+    .title {
+        padding-top: 80px;
+        font-family: 'Sacramento';
+        text-align: center;
+        font-size: 140pt;
+        line-height: 100pt;
+    }
+
+    .subtitle {
         font-family: 'Dosis';
-        color: #4a4a4a;
-        text-transform: uppercase;
+        font-size: 30pt;
+        text-align: center;
+        color: #ffffff;
     }
 
-    #stopwatch {
-        padding: 0;
-        margin: 0;
-    }
-
-    #input-new-task-name {
-        margin: 0px 0px 10px 10px;
-        display: inline;
-        padding: 0px 10px;
-        font-size: 24pt;
-        height: 48px;
-        width: 63%;
-        color: #4a4a4a;
-        vertical-align: middle;
-        border-bottom: 2px solid #FF4B2B;
-    }
-
-   
-
-
-/* TASK LOG */
-
-    #event-log {
-        margin: 0;
-        padding: 0;
-        vertical-align: middle;
-    }
-
-    #event-log tbody {
-        margin: 0;
-        padding: 0;
-        vertical-align: middle;
-    }
-
-    .tr-event-task {
-        height: 64px;
-    }
-
-    .td-event-task {
-        margin: 0;
-        vertical-align: middle !important;
-        width: 25%;
-    }
-
-    .td-input-event-task {
-        margin: 0;
-        width: 100%;
+    input {
+        font-family: 'Dosis', sans-serif;
+        font-size: 12pt;
         border: 0;
-        padding: 5px;
-        display: inline-block;
-        background-color: white;
-        font-size: 11pt;
-        color: #4a4a4a;
-    }
-
-    .td-event-task-categories {
-        width: 20%;
-        vertical-align: middle !important;
-    }
-
-    .td-input-event-task-categories {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        font-size: 11pt;
-        vertical-align: middle !important;
-    }
-
-    .td-event-start-time {
-        width: 180px;
-        color: #b8b8b8;
-        vertical-align: middle !important;
-    }
-
-   .td-event-end-time {
-        width: 180px;
-        color: #b8b8b8;
-        vertical-align: middle !important;
-    }
-
-    .td-event-duration {    
-        vertical-align: middle !important;
-        width: 100px;
+        border-radius: 0;
     }
 
 
-/* -------------------------------- REPORTS -------------------------------- */
 
-/* ADD GOAL */
-
-    #div-report {
-        border-radius: 10px;
-        padding: 40px;
-        margin: 10px 180px 60px 180px;
-        font-size: 30pt;
-        font-family: 'Dosis';
-        background-color: #ffffff;
-        color: #4a4a4a;
-        text-transform: uppercase;
-    }
-
-
-/* OTHER STUFF */
-
-h1 {
-    font-family: 'Dosis' !important;
-    text-transform: uppercase;
-    font-weight: 0;
-    color: white;
-    font-size: 60pt !important;
-    text-align: center;
-
-}

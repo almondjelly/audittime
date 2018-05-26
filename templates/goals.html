@@ -64,7 +64,7 @@
         <th scope="col">Target</th>
         <th scope="col">End Time</th>
         <th scope="col">Progress</th>
-        <th scope="col"></th>
+        <th scope="col">Time Left</th>
         <th scope="col"></th>
     </tr>
     </thead> 
@@ -93,13 +93,13 @@
             <!-- Goal duration target -->
             <td class="td-goal-duration" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
                 {% if goal.duration.days > 0 %}
-                    {{ goal.duration.days }} days
+                    {{ goal.duration.days }}d 
                 {% endif %} 
                 {% if (goal.duration.seconds // 3600) > 0 %}
-                    {{ goal.duration.seconds // 3600 }} hours
+                    {{ goal.duration.seconds // 3600 }}h 
                 {% endif %} 
                 {% if (goal.duration.seconds // 60 % 60) > 0 %}
-                    {{ goal.duration.seconds // 60 % 60 }} min
+                    {{ goal.duration.seconds // 60 % 60 }}min
                 {% endif %} 
 
             </td>
@@ -112,18 +112,23 @@
             <!-- Goal total time progress -->
             <td class="td-goal-total-time" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
                 {{ goal.total_time() }}
+            </td>
+
+            <!-- Goal time left -->
+            <td class="td-goal-total-time" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
+                {{ goal.total_time() }}
 
             </td>
 
             <!-- Archive -->
             <td class="td-goal-archive">
                 <span class="span-goal-archive">
-                <button type="button" class="btn btn-sm btn-primary">
-                    <i class="material-icons">archive</i>
+                <button type="button" class="btn btn-link">
+                    x
                 </button>              
                 </span>
 
-                            <!-- Edit modal -->
+            <!-- Edit modal -->
             <div class="modal fade" id="{{ goal.goal_id }}-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">

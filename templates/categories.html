@@ -7,7 +7,7 @@
 <h1>Add A New Category</h1>
 <div id="category-new">
     <form method="post" id="form-category">
-        <input type="text" class="input-category-new" placeholder="new category name">
+        <input type="text" id="input-category-new" placeholder="new category name">
    
         <select multiple name="categoryGoals" id="category-goal-dropdown">
             {% for goal in goals %}
@@ -15,7 +15,7 @@
             {% endfor %}
         </select> 
     
-        <button type="button" class="btn btn-primary" id="category-submit">add new category</button>
+        <button type="button" class="btn btn-primary" id="category-submit">Create</button>
             
     </form>
 </div>
@@ -66,7 +66,7 @@
         <!-- Save -->
         <td class="td-category-save">
         <span class="span-category-save">
-            <button class="btn btn-primary btn-sm btn-category-save"><i class="material-icons">save</i></button>
+            <button class="btn btn-link btn-category-save">save</button>
         </span>
         </td>
 
@@ -74,7 +74,7 @@
         <!-- Archive -->
         <td class="td-category-archive">
         <span class="span-category-archive">
-            <button class="btn btn-primary btn-sm btn-category-archive"><i class="material-icons">clear</i></button>
+            <button class="btn btn-link btn-category-archive">x</button>
         </span>
         </td>
 

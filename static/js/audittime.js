@@ -18,14 +18,28 @@ function initialize() {
     // Apply select2 to dropdowns
     // $(".td-input-event-task-categories").select2({placeholder: "select a category"});
     // $(".goal-dropdown").select2();
-    // $("#category-goal-dropdown").select2({placeholder: "goals"});
+    
     $(".td-input-category-goals").selectize();
-    $(".gcal-categories").select2({placeholder: "category"});
+    // $(".gcal-categories").select2({placeholder: "category"});
 
     // Apply selectize.js to dropdowns
     $("#select-new-task-category").selectize({
         placeholder: "tv",
     });
+    $("#category-goal-dropdown").selectize({
+        placeholder: "goals",
+    });
+    $(".td-input-event-task-categories").selectize();
+
+    // Remove Bootstrap's hideous blue glow
+    function handleFirstTab(e) {
+        if (e.keyCode === 9) { // the "I am a keyboard user" key
+            document.body.classList.add('user-is-tabbing');
+            window.removeEventListener('keydown', handleFirstTab);
+        }
+    }
+
+    window.addEventListener('keydown', handleFirstTab);
 
 
     // Set toastr options
@@ -69,13 +83,13 @@ function addEventListeners(){
         // When the mouse hovers over the list item, show the Save button.
         $(".tr-event-task").hover(function() {
             $(this).children(".td-event-task-save").children("span").show();
-            $(this).children(".td-event-task-delete").children("span").show();
+            $(this).children(".td-event-task-remove").children("span").show();
 
 
         // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
             $(this).children(".td-event-task-save").children("span").hide();
-            $(this).children(".td-event-task-delete").children("span").hide();
+            $(this).children(".td-event-task-remove").children("span").hide();
             });    
         });
 
@@ -297,7 +311,7 @@ $(".category-input").parents("form").children(".category-edit-submit").on(
     }
 
 // SUBMIT EVENT - MANUAL
-$("#manualSubmit").on("click", function() {
+$("#manual-submit").on("click", function() {
     event.preventDefault();
         let stopTime = Date.now();
 

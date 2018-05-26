@@ -510,7 +510,7 @@ def save_gcal_event():
 def display_reports():
     """Display user's reports."""
 
-    return render_template("reports.html")
+    return render_template()
 
 
 if __name__ == "__main__":

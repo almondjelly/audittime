@@ -47,14 +47,14 @@ def goal_generate_html(total_time, goal_id, goal_name, goal_type, days, hours,
         <span class=\"goal-input duration\"> \
             <span class=\"goal-{id}\"> \
                 <input class=\"goal-input-field duration days\" type=\"text\" \
-                 value=\"{days}\" name=\"days-{id}\"> days \
+                 value=\"{days}\" name=\"days-{id}\">d \
  \
                 <input class=\"goal-input-field duration hours\" type=\"text\"\
-                 value=\"{hours}\" name=\"hours-{id}\"> hours \
+                 value=\"{hours}\" name=\"hours-{id}\">h \
  \
                 <input class=\"goal-input-field duration minutes\" \
-                type=\"text\" value=\"{minutes}\" name=\"minutes-{id}\"> \
-                minutes \
+                type=\"text\" value=\"{minutes}\" name=\"minutes-{id}\" \
+                >min \
             </span> \
         </span>".format(days=days, hours=hours, minutes=minutes,
                         id=goal_id)

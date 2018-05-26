@@ -5,7 +5,7 @@
 
 <!-- Start a new task -->
 <h1>Start A New Task</h1>
-<div id="div-task-new">
+<div id="task-new">
 
 <!-- Toggle between stopwatch and manual entry. -->
 <button class="btn btn-primary" id="mode-toggler" type="button"> switch between manual/stopwatch modes </button>
@@ -38,7 +38,7 @@
            
             <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime">
 
-            <button type="button" id="manualSubmit">submit</button>
+            <button type="button" id="manual-submit">submit</button>
 
         </span>
 
@@ -110,14 +110,14 @@
         <!-- Save -->
         <td class="td-event-task-save">
         <span class="span-event-task-save">
-            <button class="btn btn-primary btn-sm btn-event-task-save"><i class="material-icons">save</i></button>
+            <button class="btn btn-link btn-event-task-save">save</button>
         </span>
         </td>
 
         <!-- Delete -->
-        <td class="td-event-task-delete">
-        <span class="span-event-task-delete">
-            <button class="btn btn-primary btn-sm btn-event-task-delete"><i class="material-icons">clear</i></button>
+        <td class="td-event-task-remove">
+        <span class="span-event-task-remove">
+            <button class="btn btn-link btn-event-task-remove">x</button>
         </span>
         </td>
 
