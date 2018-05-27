@@ -18,10 +18,10 @@
        
         <input type="text" id="input-new-task-name" placeholder="watching Better Call Saul" required autofocus name="task">
 
-        <select required id="select-new-task-category">
-            <option value="Pick a category" disabled selected>Pick a category...</option>
+        <select required id="select-task-category">
+            <!-- <option value="Pick a category" disabled selected>Pick a category...</option> -->
             {% for category in categories %}
-            <option>{{ category.name }}</option>
+            <option value="{{ category.name }}">{{ category.name }}</option>
             {% endfor %}
 
         </select>

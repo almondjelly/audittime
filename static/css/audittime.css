@@ -2,10 +2,15 @@
 
 /* TABLE FONTS */
 
+    td,
+    th,
     .table input {
-        font-family: "Source Sans Pro";
-        text-transform: uppercase;
+        font-family: "Roboto Condensed";
         font-size: 18px;
+    }
+
+    th {
+        text-transform: uppercase;
     }
 
 
@@ -180,13 +185,36 @@
         width: 70px;
         text-align: right;
         font-size: 24pt;
+        margin-bottom: 8px;
     }
+    
+    .input-goal-date-time-picker {
 
+    }
 
 /* INPUT WIDTH */
 
+    #input-goal-name {
+        width: 506px;
+        margin-bottom: 8px;
+    }
+
     #input-category-new {
         width: 100%;
+        margin-bottom: 8px;
+    }
+
+    #input-new-task-name {
+        width: 432px;
+        margin-bottom: 8px;
+    }
+
+    #select-goal-type {
+        padding: 10px;
+        width: 150px;
+        font-size: 30px;
+        margin-left: 3px;
+        color: #4a4a4a;
     }
 
 
@@ -240,6 +268,14 @@
 
     .bg-dark-weddingdayblues {
         background-color: #FF0080;
+    }
+
+/* SET NAVBAR FONT */
+    
+    nav a {
+        font-family: "Roboto Condensed";
+        font-size: 18px;
+        text-transform: uppercase;
     }
 
 

@@ -23,8 +23,9 @@ function initialize() {
     // $(".gcal-categories").select2({placeholder: "category"});
 
     // Apply selectize.js to dropdowns
-    $("#select-new-task-category").selectize({placeholder: "tv"});
-    $("#category-goal-dropdown").selectize({placeholder: "goals"});
+    $("#select-category-goal").selectize({placeholder: "goals"});
+    $("#select-task-category").selectize({placeholder: "tv"});
+    // $("#select-goal-type").selectize();
     $(".td-input-event-task-categories").selectize();
     $(".goal-modal-input-goal-categories").selectize();
     $(".goal-modal-input-type").selectize();
