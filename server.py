@@ -507,7 +507,10 @@ def save_gcal_event():
 def display_reports():
     """Display user's reports."""
 
-    return render_template("reports.html")
+    user_id = session['user_id']
+    categories = Category.query.filter_by(user_id=user_id).order_by('name').all()
+
+    return render_template("reports.html", categories=categories)
 
 
 if __name__ == "__main__":

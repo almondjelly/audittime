@@ -206,19 +206,25 @@ class Category(db.Model):
 
         return total_time
 
-    def duration_str(self):
+    def duration_str(self, time_period='all_time'):
         """Returns the duration of the event as a formatted string."""
 
-        total_time = self.duration(time_period='all_time')
+        total_time = self.duration(time_period)
 
         days = total_time.days
         hours = total_time.seconds / 3600
         minutes = (total_time.seconds - hours * 3600) / 60
 
-        total_time_str = "{}h {}min".format(hours, minutes)
+        total_time_str = ""
 
         if total_time.days > 0:
-            total_time_str = "{} days ".format(days) + total_time_str
+            total_time_str += "{}d ".format(days)
+
+        if hours > 0:
+            total_time_str += "{}h ".format(hours)
+
+        if minutes > 0:
+            total_time_str += "{}m".format(minutes)
 
         return total_time_str
 

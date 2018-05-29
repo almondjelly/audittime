@@ -13,9 +13,21 @@ asfdasdfasfsfssdasd
 
 </div>
 
-<div id="report-category">
 
-Last 7 days
+
+    <div id="report-category" class="carousel slide" data-ride="carousel">
+
+        <ol class="carousel-indicators">
+    <li data-target="#report-category" data-slide-to="0" class="active"></li>
+    <li data-target="#report-category" data-slide-to="1"></li>
+    <li data-target="#report-category" data-slide-to="2"></li>
+    <li data-target="#report-category" data-slide-to="3"></li>
+    <li data-target="#report-category" data-slide-to="4"></li>
+    <li data-target="#report-category" data-slide-to="5"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      This Week
 
     <table class="table table-hover">
         <thead>
@@ -26,17 +38,174 @@ Last 7 days
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-        </tbody>
 
+            {% for category in categories %}
+            {% if category.duration_str('this_week') %}
+
+                <tr>
+                    <td>
+                        {{ category.name }}
+                    </td>
+                    <td>
+                    </td>
+                    <td class="duration">
+                        {{ category.duration_str('this_week') }}
+                    </td>
+                </tr>
+
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
     </table>
+    </div>
+    <div class="carousel-item">
+      Last Week
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col"></th>
+                <th scope="col">Time Spent</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for category in categories %}
+            {% if category.duration_str('last_week') %}
+
+                <tr>
+                    <td>
+                        {{ category.name }}
+                    </td>
+                    <td>
+                    </td>
+                    <td class="duration">
+                        {{ category.duration_str('last_week') }}
+                    </td>
+                </tr>
+
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+    </div>
+    <div class="carousel-item">
+      This Month
+      <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col"></th>
+                <th scope="col">Time Spent</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for category in categories %}
+            {% if category.duration_str('this_month') %}
+
+                <tr>
+                    <td>
+                        {{ category.name }}
+                    </td>
+                    <td>
+                    </td>
+                    <td class="duration">
+                        {{ category.duration_str('this_month') }}
+                    </td>
+                </tr>
+
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+    </div>
+
+<div class="carousel-item">
+      Last Month
+      <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col"></th>
+                <th scope="col">Time Spent</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for category in categories %}
+            {% if category.duration_str('last_month') %}
+
+                <tr>
+                    <td>
+                        {{ category.name }}
+                    </td>
+                    <td>
+                    </td>
+                    <td class="duration">
+                        {{ category.duration_str('last_month') }}
+                    </td>
+                </tr>
+
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+    </div>
+
+    <div class="carousel-item">
+      All Time
+      <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col"></th>
+                <th scope="col">Time Spent</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for category in categories %}
+            {% if category.duration_str('all_time') %}
+
+                <tr>
+                    <td>
+                        {{ category.name }}
+                    </td>
+                    <td>
+                    </td>
+                    <td class="duration">
+                        {{ category.duration_str('all_time') }}
+                    </td>
+                </tr>
+
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+    </div>
+
+
+
+  </div>
+  <a class="carousel-control-prev" href="#report-category" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#report-category" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+
 
 </div>
 
