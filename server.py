@@ -171,10 +171,10 @@ def edit_goal_info():
     new_duration = timedelta(days=new_days, hours=new_hours,
                              minutes=new_minutes)
 
-    # Find the existing goal.
+    # Find the existing goal
     goal = Goal.query.filter_by(goal_id=goal_id).one()
 
-    # Update name and duration.
+    # Update name and duration
     goal.name = new_goal_name
     goal.duration = new_duration
 
@@ -507,7 +507,7 @@ def save_gcal_event():
 def display_reports():
     """Display user's reports."""
 
-    return render_template()
+    return render_template("reports.html")
 
 
 if __name__ == "__main__":

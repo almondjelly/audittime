@@ -203,7 +203,7 @@ def task_generate_html():
                   event_id3=event.event_id,
                   category_name=event.task.category.name,
                   event_id4=event.event_id,
-                  duration=event.duration(),
+                  duration=event.duration_str(),
                   event_id5=event.event_id
                   )
 """

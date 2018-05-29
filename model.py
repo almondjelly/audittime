@@ -1,7 +1,7 @@
 """Auditime model and database functions."""
 
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from sqlalchemy import desc, asc, func
 
 # This is the connection to the PostgreSQL database; we're getting this through
@@ -144,6 +144,84 @@ class Category(db.Model):
     goal = db.relationship("Goal", secondary="goals_categories",
                            backref="categories")
 
+    def duration(self, time_period='all_time'):
+
+        total_time = timedelta(0)
+        today = datetime.today().date()
+
+        # This past Sunday
+        days_since_sun = (today.weekday() - 6) % 7
+        sun = today - timedelta(days_since_sun)
+        sun = datetime.combine(sun, time(0, 0))
+
+        # This upcoming Saturday
+        days_until_sat = (5 - today.weekday()) % 7
+        sat = today + timedelta(days_until_sat)
+        sat = datetime.combine(sat, time(23, 59))
+
+        # This year and this month
+        year = datetime.now().year
+        month = datetime.now().month
+
+        if time_period == 'this_week':
+            start = sun
+            end = sat
+            print start, end
+
+        elif time_period == 'last_week':
+            start = sun - timedelta(7)
+            end = sat - timedelta(7)
+
+        elif time_period == 'this_month':
+            start = datetime(year, month, 1, 0, 0)
+            end = datetime(year, month + 1, 1, 23, 59) - timedelta(1)
+
+        elif time_period == 'last_month':
+            month = month - 1
+
+            if month == 12:
+                year = year - 1
+
+            start = datetime(year, month, 1, 0, 0)
+            end = datetime(year, month + 1, 1, 23, 59) - timedelta(1)
+
+        elif time_period == 'all_time':
+            start = datetime(1900, 1, 1, 0, 0)
+            end = datetime.now()
+
+        for task in self.tasks:
+            for event in task.events:
+
+                # If the event starts and ends within the time period
+                if event.start_time >= start and event.stop_time <= end:
+                    total_time += event.duration()
+
+                # If the the event starts within the time period but ends after
+                elif event.start_time <= end and event.start_time >= start:
+                    total_time += end - event.start_time
+
+                # If the event ends within the time period but starts before
+                elif event.stop_time >= start and event.stop_time <= end:
+                    total_time += event.stop_time - start
+
+        return total_time
+
+    def duration_str(self):
+        """Returns the duration of the event as a formatted string."""
+
+        total_time = self.duration(time_period='all_time')
+
+        days = total_time.days
+        hours = total_time.seconds / 3600
+        minutes = (total_time.seconds - hours * 3600) / 60
+
+        total_time_str = "{}h {}min".format(hours, minutes)
+
+        if total_time.days > 0:
+            total_time_str = "{} days ".format(days) + total_time_str
+
+        return total_time_str
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 
@@ -219,7 +297,12 @@ class Event(db.Model):
     def duration(self):
         """Calculates and returns the duration of the event."""
 
-        total_time = self.stop_time - self.start_time
+        return self.stop_time - self.start_time
+
+    def duration_str(self):
+        """Returns the duration of the event as a formatted string."""
+
+        total_time = self.duration()
 
         days = total_time.days
         hours = total_time.seconds / 3600

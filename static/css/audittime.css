@@ -57,7 +57,7 @@
     .td-goal-total-time,
     .td-goal-time-left,
     .td-event-duration {
-        width: 120px;
+        width: 100px;
     }
 
     .td-goal-end-time {
@@ -73,7 +73,7 @@
     }
 
     .td-event-task {
-        width: 220px;
+        width: 200px;
     }    
 
     .td-event-task-categories {
@@ -155,7 +155,9 @@
 
     #goal-new,
     #category-new,
-    #task-new {
+    #task-new,
+    #report-goal,
+    #report-category {
         border-radius: 10px;
         padding: 40px;
         margin: 10px 180px 60px 180px;
@@ -190,6 +192,13 @@
     
     .input-goal-date-time-picker {
 
+    }
+
+    .td-input-event-task-categories {
+        width: 100%;
+        height: 30px;
+        border: 0;
+        color: #666;
     }
 
 /* INPUT WIDTH */
@@ -237,6 +246,24 @@
         border-radius: 0;
     }
 
+    #mode-toggler {
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    #datePickers {
+        text-align: center;
+        display: inline-block;
+    }
+
+    .date-time-picker {
+        padding-top: 0;
+        margin-top: 0;
+        text-align: center;
+    }
+
 /* ------------------------------- INITIALIZE ------------------------------ */
 
 /* FONT FAMILY AND COLOR + BACKGROUND */
@@ -267,7 +294,7 @@
 /* CHANGE NAVBAR COLOR */
 
     .bg-dark-weddingdayblues {
-        background-color: #FF0080;
+        background: none;
     }
 
 /* SET NAVBAR FONT */

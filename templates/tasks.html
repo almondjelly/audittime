@@ -8,8 +8,10 @@
 <div id="task-new">
 
 <!-- Toggle between stopwatch and manual entry. -->
-<button class="btn btn-primary" id="mode-toggler" type="button"> switch between manual/stopwatch modes </button>
-
+<span id="mode-toggler">
+<button class="btn btn-light" type="button" id="mode-stopwatch">SWITCH TO STOPWATCH MODE</button>
+<button class="btn btn-light" type="button" id="mode-manual">SWITCH TO MANUAL MODE</button>
+</span>
 
 <!-- Event Timer -->
 <div id="stopwatch">
@@ -34,9 +36,9 @@
         </span>
 
         <span id="datePickers">
-            <input type="datetime-local" id="m-start" class="date-time-picker" required name="startTime">
+            <input type="datetime-local" id="m-start" class="date-time-picker" required name="startTime" placeholder="START">
            
-            <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime">
+            <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime" placeholder="STOP">
 
             <button type="button" id="manual-submit">submit</button>
 

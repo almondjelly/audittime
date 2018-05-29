@@ -11,22 +11,19 @@ function initialize() {
     $(".span-category-archive").hide();
     $(".span-event-task-save").hide();
     $(".span-event-task-delete").hide();
+    $("#mode-stopwatch").hide();
     $("#stop-button").hide();
     $(".input-task-start-date-time-picker").hide();
-    $(".input-task-end-date-time-picker").hide();
+    $(".input-task-end-date-time-picker").hide();    
 
-    // Apply select2 to dropdowns
-    // $(".td-input-event-task-categories").select2({placeholder: "select a category"});
-    // $(".goal-dropdown").select2();
-    
+
     $(".td-input-category-goals").selectize();
     // $(".gcal-categories").select2({placeholder: "category"});
 
     // Apply selectize.js to dropdowns
     $("#select-category-goal").selectize({placeholder: "goals"});
     $("#select-task-category").selectize({placeholder: "tv"});
-    // $("#select-goal-type").selectize();
-    $(".td-input-event-task-categories").selectize();
+    // $(".td-input-event-task-categories").selectize();
     $(".goal-modal-input-goal-categories").selectize();
     $(".goal-modal-input-type").selectize();
 
@@ -160,6 +157,13 @@ flatpickr(".input-task-end-date-time-picker", {
     altFormat: "F j, Y"
 });
 
+flatpickr(".date-time-picker", {
+    enableTime: true,
+    dateFormat: "m/d \\at h:i K",
+    allowInput: true,
+    altFormat: "F j, Y"
+});
+
 
 // ---------------------------------- GOALS ----------------------------------
 
@@ -286,9 +290,19 @@ $(".category-input").parents("form").children(".category-edit-submit").on(
 // ------------------------------ TASKS + EVENTS ------------------------------
 
 // ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
-    $("#mode-toggler").on("click", function() {
-        $("#startStop").toggle();
-        $("#datePickers").toggle();
+    $("#mode-stopwatch").click(function() {
+        $("#startStop").show();
+        $("#datePickers").hide();
+        $(this).hide();
+        $('#mode-manual').show();
+    });
+
+    $("#mode-manual").click(function() {
+        console.log("Hello locker");
+        $("#startStop").hide();
+        $("#datePickers").show();
+        $(this).hide();
+        $('#mode-stopwatch').show();
     });
 
 
@@ -366,9 +380,9 @@ $("#start-button").on("click", startStopwatch);
 // UPDATE TASK (EVENT) NAME AND SAVE
     $(".td-event-start-time").click(function (){
         $(this).parents("tr").children(".td-event-start-time").children("input").show();
-        $(this).parents("tr").mouseleave(function() {
-            $(this).parents("tr").children(".td-event-start-time").children("input").hide();
-        });
+        let currentStart = $(this).val();
+        $(this).parents("tr").children(".td-event-start-time").children("input").attr("placeholder",
+            currentStart);
     });
     
     $(".td-event-end-time").click(function (){
