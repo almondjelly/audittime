@@ -429,6 +429,23 @@ def edit_task():
     return redirect('/tasks')
 
 
+@app.route('/archive_event', methods=['POST'])
+def archive_event():
+    """Archive an event."""
+
+    # Grab data from form via JavaScript
+    event_id = request.form.get('eventId')
+
+    # Find the existing event
+    event = event.query.filter_by(event_id=event_id).one()
+
+    # Set status to 'archived'
+    event.status = 'archived'
+    db.session.commit()
+
+    return "event archived"
+
+
 @app.route('/settings')
 def account_settings():
     """Displays account information for a user."""

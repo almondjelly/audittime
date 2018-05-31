@@ -295,6 +295,7 @@ class Event(db.Model):
                         nullable=False)
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.task_id'),
                         nullable=False)
+    status = db.Column(db.String(64), nullable=True)
 
     # Define relationship to Task, User
     task = db.relationship("Task", backref=db.backref("events"))

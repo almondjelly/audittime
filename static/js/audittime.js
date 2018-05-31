@@ -408,6 +408,24 @@ $("#start-button").on("click", startStopwatch);
     });
 
 
+// ARCHIVE EVENT
+
+    function displayArchiveEventResults(result) {
+        console.log(result);
+    }
+
+    $(".btn-event-task-remove").click(function() {
+        let formInputs = {
+            "eventId": $(this).parents("tr").children(".input-event-id").val()
+        };
+
+        toastr.success("Task Archived");
+
+        $.post("archive_event", formInputs, displayArchiveEventResults);
+        $(this).parents("tr").hide();
+    });
+
+
 // GOOGLE CALENDAR EVENT - DELETE PENDING EVENT
 $("span.delete-gcal").click(function() {
     let formInputs = {
