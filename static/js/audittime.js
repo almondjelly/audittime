@@ -246,25 +246,31 @@ $(".goal-edit-save").click(function() {
 
 // EDIT CATEGORY INFO AND SAVE
 
-$(".category-input").parents("form").children(".category-edit-submit").on(
-    "click", function() {
+function displayEditCategoryResults(result) {
+    toastr.success("Category Saved");
+}
+
+
+$(".btn-category-save").click(function() {
+        console.log("all i want for christmas");
         let newCategoryGoals = '';
 
-        $(this).parents("form").children(".category-goal-title").children("span").children("select").change(function() {
+        
+        $(this).parents("tr").children(".td-category-goals").children("select").change(function() {
             $(this).children("option:selected").each(function() {
                 newCategoryGoals += $(this).text() + '|';
             });
         }).trigger("change");
+    
         console.log("saving category");
+    
         let formInputs = {
-            "categoryId": $(this).attr("name"),
-            "newcategoryName": $(this).parents("form").children(".category-input").children("span").children(".category-name").val(),
+            "categoryId": $(this).parents("tr").children(".input-category-id").val(),
+            "newcategoryName": $(this).parents("tr").children(".td-category").children(".td-input-category").val(),
             "newCategoryGoals": newCategoryGoals
         };
 
-        $.post("/edit_category_info", formInputs);
-
-        toastr.success("Category Saved")
+        $.post("/edit_category_info", formInputs, displayEditCategoryResults);
 
     });
 

@@ -268,9 +268,7 @@ def edit_category_info():
 
     db.session.commit()
 
-    flash("category updated ")
-
-    return redirect('/goals')
+    return "category updated"
 
 
 @app.route('/archive_category', methods=['POST'])
