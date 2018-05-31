@@ -330,12 +330,9 @@ $(".btn-category-save").click(function() {
 
 
 // ADD NEW EVENT
-    function addNewEvent(result) {   
+    function addNewEvent(result) {
+        toastr.success("New task added")
         $("#event-log").prepend(result);
-        // $("#new_task").removeAttr("value");
-        // $("#new_category").removeAttr("value");
-        // $("#m-start").removeAttr("value");
-        // $("#m-stop").removeAttr("value");
         $("#form-stopwatch").trigger("reset");
         initialize();
         $("#event-log-ul > li:first-child .category-title > span").on("click", function() {
@@ -355,13 +352,11 @@ $(".btn-category-save").click(function() {
     }
 
 // SUBMIT EVENT - MANUAL
-$("#manual-submit").on("click", function() {
-    event.preventDefault();
-        let stopTime = Date.now();
+$("#manual-submit").click(function() {
 
         let formInputs = {
-            "task": $("#new_task").val(),
-            "category": $("#new_category").val(),
+            "task": $("#input-new-task-name").val(),
+            "category": $("#select-task-category").val(),
             "startTime": $("#m-start").val(),
             "stopTime": $("#m-stop").val()
         };
@@ -380,13 +375,12 @@ function startStopwatch(event) {
     console.log('Starting stopwatch...');
     console.log(startTime);
 
-    $("#stop-button").on("click", function() {
-        event.preventDefault();
+    $("#stop-button").click(function() {
         let stopTime = Date.now();
 
         let formInputs = {
             "task": $("#input-new-task-name").val(),
-            "category": $("#select-new-task-category").val(),
+            "category": $("#select-task-category").val(),
             "startTime": startTime,
             "stopTime": stopTime
         };

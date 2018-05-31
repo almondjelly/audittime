@@ -7,7 +7,6 @@
 <h1>Start A New Task</h1>
 <div id="task-new">
 
-
     <!-- Event Timer -->
     <div id="stopwatch">
         <form id="form-stopwatch" method="post">
@@ -24,9 +23,9 @@
             </select>
             <span id="startStop">
 
-                <button id="start-button" class="btn btn-primary" name="startButton" type="button">start</button>
+                <button id="start-button" class="btn btn-primary" type="button">start</button>
 
-                <button type="button" class="btn btn-primary" id="stop-button" name="stopButton">stop</button>
+                <button type="button" class="btn btn-primary" id="stop-button">stop</button>
 
             </span>
 
@@ -35,9 +34,10 @@
                
                 <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime" placeholder="STOP">
 
-                <button type="button" id="manual-submit">submit</button>
-
+                <button type="button" class="btn btn-primary" id="manual-submit">submit</button>
             </span>
+
+
 
 
         </form>
