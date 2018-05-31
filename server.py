@@ -8,7 +8,7 @@ from model import connect_to_db, db, User, Category, Event, Task, Goal, \
                   GoalCategory, GoogleCalendar
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from addNew import goal_generate_html, category_generate_html
+from addNew import goal_generate_html, category_generate_html, task_generate_html
 from math import floor
 from gcal import get_last_7_days, update_db
 import json
@@ -315,7 +315,7 @@ def display_tasks():
         user_id=session['user_id']).order_by('name').all()
 
     events = db.session.query(Event).filter_by(
-        user_id=session['user_id']).order_by('stop_time').all()
+        user_id=session['user_id'], status='active').order_by('stop_time').all()
 
     # Display log in reverse chronological order.
     events.reverse()
@@ -347,6 +347,7 @@ def add_event():
 
     task_name = form_data['task']
     category_name = form_data['category']
+    status = 'active'
     user_id = User.query.filter_by(email=session['user']).one().user_id
 
     # If the task already exists, find its id.
@@ -389,14 +390,25 @@ def add_event():
 
     # With the task_id, we now have enough info to create the new event.
     new_event = Event(start_time=start_time, stop_time=stop_time,
-                      user_id=user_id, task_id=task_id)
+                      user_id=user_id, task_id=task_id, status=status)
 
     db.session.add(new_event)
     db.session.commit()
 
     event = Event.query.filter_by(task_id=task_id, stop_time=stop_time).one()
 
-    form_html = ""
+    categories = Category.query.filter_by(user_id=user_id).all()
+    start = event.start_time.strftime('%m/%d at %I:%M %p')
+    stop = event.stop_time.strftime('%m/%d at %I:%M %p')
+    duration = event.duration_str()
+
+    form_html = task_generate_html(event_id=event.event_id,
+                                   task_id=event.task.task_id,
+                                   task_name=event.task.name,
+                                   category_name=event.task.category.name,
+                                   all_categories=categories,
+                                   start=start, stop=stop,
+                                   duration=duration)
 
     return form_html
 
@@ -452,7 +464,7 @@ def archive_event():
     event_id = request.form.get('eventId')
 
     # Find the existing event
-    event = event.query.filter_by(event_id=event_id).one()
+    event = Event.query.filter_by(event_id=event_id).one()
 
     # Set status to 'archived'
     event.status = 'archived'

@@ -137,7 +137,7 @@ def load_events():
 
         event = Event(event_id=event_id, start_time=start_time,
                       stop_time=stop_time, user_id=user_id,
-                      task_id=task_id)
+                      task_id=task_id, status='active')
 
         db.session.add(event)
 

@@ -163,47 +163,64 @@ def category_generate_html(category_id, category_name, all_goals,
     return new_category_html
 
 
-def task_generate_html():
+def task_generate_html(event_id, task_id, task_name, category_name,
+                       all_categories, start, stop, duration):
+
+    new_task_html = '<tr class="tr-event-task"> \
+\
+        <!-- Event id, task id --> \
+        <form class="form-event-id"> \
+            <input type="hidden" class="input-event-id" value={}>\
+            <input type="hidden" class="input-task-id" value={}>\
+        </form>'.format(event_id, task_id)
+
+    new_task_html += '<!-- Task name -->\
+        <td class="td-event-task">\
+            <input type="text" value="{}" class="td-input-event-task">\
+        </td>'.format(task_name)
+
+    new_task_html += '<!-- Category dropdown -->\
+        <td class="td-event-task-categories">\
+            <select class="td-input-event-task-categories">\
+                <option selected>{}</option>'.format(category_name)
+
+    for category in all_categories:
+        new_task_html += '<option>{}</option>'.format(category.name)
+
+    new_task_html += '</select>\
+        </td>\
+\
+        <!-- Start and end times -->\
+        <td class="td-event-start-time">\
+            {}\
+            <input type="datetime-local" class="input-task-start-date-time-picker">\
+        </td>\
+\
+        <td class="td-event-end-time">\
+            {}\
+            <input type="datetime-local" class="input-task-end-date-time-picker">\
+        </td>'.format(start, stop)
+
+    new_task_html += '<!-- Duration -->\
+        <td class="td-event-duration">\
+            {}\
+        </td>\
+\
+        <!-- Save -->\
+        <td class="td-event-task-save">\
+        <span class="span-event-task-save">\
+            <button class="btn btn-link btn-event-task-save">save</button>\
+        </span>\
+        </td>\
+\
+        <!-- Delete -->\
+        <td class="td-event-task-remove">\
+        <span class="span-event-task-remove">\
+            <button class="btn btn-link btn-event-task-remove">x</button>\
+        </span>\
+        </td>\
+\
+    </form>\
+    </tr>'.format(duration)
 
     return new_task_html
-"""<li> \
-        <form> \
-            <!-- Task --> \
-            <span class=\"task-input\"> \
-                <span class=\"event-{event_id}\"> \
-                    <input type=\"text\" value=\"{task_name}\" name=\"{event_id2}\" class=\"input-field\"> \
-                </span> \
-            </span> \
-\
-            <!-- Category --> \
-            <span class=\"category-title\"> \
-                <span class=\"event-{event_id3}\"> \
-                    {category_name} \
-\
-                    <!-- Dropdown for multiple selecting categories --> \
-                    <div class=\"category-dropdown event-{event_id4}\"> \
-                    <!-- ADD THE ACTUAL OPTIONS FOR PICKING CATEGORIES OR SOMETHING --> \
-                        <ul> \
-                            <li>asdf1</li> \
-                            <li>asdf2</li> \
-                            <li>asdf3</li> \
-                        </ul> \
-                    </div> \
-                </span> \
-            </span> \
-\
-            <!-- Duration --> \
-            <span>{duration}</span> \
-            <!-- Save --> \
-            <span class=\"event-edit-submit {event_id5}Submit\">save</span> \
-        </form> \
-    </li>".format(event_id=event.event_id,
-                  task_name=event.task.name,
-                  event_id2=event.event_id,
-                  event_id3=event.event_id,
-                  category_name=event.task.category.name,
-                  event_id4=event.event_id,
-                  duration=event.duration_str(),
-                  event_id5=event.event_id
-                  )
-"""
