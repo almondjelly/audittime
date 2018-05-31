@@ -11,8 +11,29 @@ from sqlalchemy import desc, asc, func
 db = SQLAlchemy()
 
 
+def duration_str(duration):
+    """Format duration to a friendly string."""
+
+    days = duration.days
+    hours = duration.seconds / 3600
+    minutes = (duration.seconds - hours * 3600) / 60
+
+    duration_str = ""
+
+    if duration.days > 0:
+        duration_str += "{}d ".format(days)
+
+    if hours > 0:
+        duration_str += "{}h ".format(hours)
+
+    if minutes > 0:
+        duration_str += "{}m".format(minutes)
+
+    return duration_str
+
 ##############################################################################
 # Model definitions
+
 
 class User(db.Model):
     """User."""
@@ -51,6 +72,9 @@ class Goal(db.Model):
     user = db.relationship("User", backref=db.backref("goals"))
     category = db.relationship("Category", secondary="goals_categories",
                                backref="goals")
+
+    def duration_str(self):
+        return duration_str(self.duration)
 
     def total_time(self, time_period="all_time"):
         """Calculate total time spent on a goal."""
@@ -125,37 +149,31 @@ class Goal(db.Model):
         return total_time
 
     def total_time_str(self, time_period='all_time'):
-        """Returns the duration of the event as a formatted string."""
 
-        total_time = self.total_time(time_period)
-
-        days = total_time.days
-        hours = total_time.seconds / 3600
-        minutes = (total_time.seconds - hours * 3600) / 60
-
-        total_time_str = ""
-
-        if total_time.days > 0:
-            total_time_str += "{}d ".format(days)
-
-        if hours > 0:
-            total_time_str += "{}h ".format(hours)
-
-        if minutes > 0:
-            total_time_str += "{}m".format(minutes)
-
-        return total_time_str
-
+        return duration_str(self.total_time(time_period))
 
     def time_left(self):
-        """Calculate the time left to reach goal target and return string."""
+        """Calculate the time left to reach goal target."""
+
+        if self.duration >= self.total_time():
+            time_left = self.duration - self.total_time()
+            time_left_str = duration_str(time_left)
+
+        else:
+            time_left = self.total_time() - self.duration
+            time_left_str = "-" + duration_str(time_left)
+
+        return time_left_str
+
+    def goal_status(self):
+        """Return goal status."""
 
         # Success conditions
         if ((self.goal_type == "at_most" and self.total_time() <=
             self.duration and datetime.now() >= self.end_time) or
            (self.goal_type == "at_least" and self.total_time() >=
            self.duration)):
-            time_left_str = "Success!"
+            time_left_str = "Success"
 
         # Fail conditions
         elif ((self.goal_type == "at_most" and self.total_time() >
@@ -166,16 +184,7 @@ class Goal(db.Model):
 
         # Otherwise, show progress
         else:
-            time_left = self.duration - self.total_time()
-
-            days = time_left.days
-            hours = time_left.seconds / 3600
-            minutes = (time_left.seconds - hours * 3600) / 60
-
-            time_left_str = "{}h {}min".format(hours, minutes)
-
-            if time_left.days > 0:
-                time_left_str = "{}d ".format(days) + time_left_str
+            time_left_str = ""
 
         return time_left_str
 
@@ -268,24 +277,7 @@ class Category(db.Model):
     def duration_str(self, time_period='all_time'):
         """Returns the duration of the event as a formatted string."""
 
-        total_time = self.duration(time_period)
-
-        days = total_time.days
-        hours = total_time.seconds / 3600
-        minutes = (total_time.seconds - hours * 3600) / 60
-
-        total_time_str = ""
-
-        if total_time.days > 0:
-            total_time_str += "{}d ".format(days)
-
-        if hours > 0:
-            total_time_str += "{}h ".format(hours)
-
-        if minutes > 0:
-            total_time_str += "{}m".format(minutes)
-
-        return total_time_str
+        return duration_str(self.duration(time_period))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -368,18 +360,7 @@ class Event(db.Model):
     def duration_str(self):
         """Returns the duration of the event as a formatted string."""
 
-        total_time = self.duration()
-
-        days = total_time.days
-        hours = total_time.seconds / 3600
-        minutes = (total_time.seconds - hours * 3600) / 60
-
-        total_time_str = "{}h {}min".format(hours, minutes)
-
-        if total_time.days > 0:
-            total_time_str = "{} days ".format(days) + total_time_str
-
-        return total_time_str
+        return duration_str(self.duration())
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -412,6 +393,7 @@ class GoogleCalendar(db.Model):
 
 ##############################################################################
 # Helper functions
+
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""

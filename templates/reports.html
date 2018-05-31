@@ -6,7 +6,7 @@
 <h1>Your Reports</h1>
 
 <div id="report-goal" class="carousel slide" data-ride="carousel">
-    <h2>Goal</h2>
+    <h2>Goals</h2>
     <ol class="carousel-indicators">
         <li data-target="#report-goal" data-slide-to="0" class="active"></li>
         <li data-target="#report-goal" data-slide-to="1"></li>
@@ -17,7 +17,60 @@
     </ol>
     
     <div class="carousel-inner">
+
+        
         <div class="carousel-item active">
+            <p>Status</p>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Goal</th>
+                    <th scope="col">Target</th>
+                    <th scope="col">Time Spent</th>
+                    <th scope="col">Time Left</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+        <tbody>
+
+        {% for goal in goals %}
+            {% if goal.total_time_str('all_time') %}
+
+                <tr>
+                    <td>
+                        {{ goal.name }}
+                    </td>
+
+                    <td class="duration">
+                        {{ goal.duration_str() }}
+                    </td>
+
+                    <td class="duration">
+                        {{ goal.total_time_str('all_time') }}
+                    </td>
+
+                    <td class="duration">
+                        {{ goal.time_left() }}
+                    </td>
+
+                    <td>
+                        {{ goal.goal_status() }}
+                    </td>
+                </tr>
+
+            {% endif %}
+        {% endfor %}
+
+        </tbody>
+        </table>
+        </div>
+
+
+
+
+
+        <div class="carousel-item">
             <p>This Week</p>
 
         <table class="table table-hover">

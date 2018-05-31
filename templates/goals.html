@@ -63,8 +63,9 @@
         <th scope="col">Type</th>
         <th scope="col">Target</th>
         <th scope="col">End Time</th>
-        <th scope="col">Progress</th>
+        <th scope="col">Time Spent</th>
         <th scope="col">Time Left</th>
+        <th scope="col">Status</th>
         <th scope="col"></th>
     </tr>
     </thead> 
@@ -73,7 +74,7 @@
     {% for goal in goals %}
         
         <tr class="tr-goal">
-            
+
         <!-- Goal id -->
         <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
 
@@ -120,6 +121,11 @@
             <td class="td-goal-time-left" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
                 {{ goal.time_left() }}
 
+            </td>
+
+            <!-- Goal status -->
+            <td class="td-goal-status" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
+                {{ goal.goal_status() }}
             </td>
 
             <!-- Archive -->
