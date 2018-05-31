@@ -155,7 +155,6 @@
 
     #goal-new,
     #category-new,
-    #task-new,
     #report-goal,
     #report-category {
         border-radius: 10px;
@@ -168,11 +167,25 @@
         text-transform: uppercase;
     }
 
+    #task-new {
+        border-radius: 10px;
+        padding: 40px;
+        margin: 10px 180px 10px 180px;
+        background-color: white;
+        font-size: 30pt;
+        font-family: 'Dosis';
+        color: #4a4a4a;
+        text-transform: uppercase;
+    }
+
+    #mode-toggler {
+        margin-bottom: 50px;
+    }
+
 /* TEXT INPUT */
 
     #goal-new input,
-    #category-new input,
-    #task-new input {
+    #category-new input {
         line-height: 0;
         font-size: 24pt;
         padding: 5px 10px 0px 10px;

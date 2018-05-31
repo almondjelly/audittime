@@ -7,51 +7,52 @@
 <h1>Start A New Task</h1>
 <div id="task-new">
 
+
+    <!-- Event Timer -->
+    <div id="stopwatch">
+        <form id="form-stopwatch" method="post">
+            I'm currently
+           
+            <input type="text" id="input-new-task-name" placeholder="watching Better Call Saul" required autofocus name="task">
+
+            <select required id="select-task-category">
+                <!-- <option value="Pick a category" disabled selected>Pick a category...</option> -->
+                {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endfor %}
+
+            </select>
+            <span id="startStop">
+
+                <button id="start-button" class="btn btn-primary" name="startButton" type="button">start</button>
+
+                <button type="button" class="btn btn-primary" id="stop-button" name="stopButton">stop</button>
+
+            </span>
+
+            <span id="datePickers">
+                <input type="datetime-local" id="m-start" class="date-time-picker" required name="startTime" placeholder="START">
+               
+                <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime" placeholder="STOP">
+
+                <button type="button" id="manual-submit">submit</button>
+
+            </span>
+
+
+        </form>
+
+        <div id="duration">
+        </div>
+    </div>
+
+</div>
+    
 <!-- Toggle between stopwatch and manual entry. -->
 <span id="mode-toggler">
-<button class="btn btn-light" type="button" id="mode-stopwatch">SWITCH TO STOPWATCH MODE</button>
-<button class="btn btn-light" type="button" id="mode-manual">SWITCH TO MANUAL MODE</button>
+    <button class="btn btn-light" type="button" id="mode-stopwatch">SWITCH TO STOPWATCH MODE</button>
+    <button class="btn btn-light" type="button" id="mode-manual">SWITCH TO MANUAL MODE</button>
 </span>
-
-<!-- Event Timer -->
-<div id="stopwatch">
-    <form id="form-stopwatch" method="post">
-        I'm currently
-       
-        <input type="text" id="input-new-task-name" placeholder="watching Better Call Saul" required autofocus name="task">
-
-        <select required id="select-task-category">
-            <!-- <option value="Pick a category" disabled selected>Pick a category...</option> -->
-            {% for category in categories %}
-            <option value="{{ category.name }}">{{ category.name }}</option>
-            {% endfor %}
-
-        </select>
-        <span id="startStop">
-
-            <button id="start-button" class="btn btn-primary" name="startButton" type="button">start</button>
-
-            <button type="button" class="btn btn-primary" id="stop-button" name="stopButton">stop</button>
-
-        </span>
-
-        <span id="datePickers">
-            <input type="datetime-local" id="m-start" class="date-time-picker" required name="startTime" placeholder="START">
-           
-            <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime" placeholder="STOP">
-
-            <button type="button" id="manual-submit">submit</button>
-
-        </span>
-
-
-    </form>
-
-    <div id="duration">
-    </div>
-</div>
-
-</div>
 
 
 <!-- Task Log -->
