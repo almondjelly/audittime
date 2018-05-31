@@ -210,6 +210,23 @@ $(".goal-edit-save").click(function() {
 
 });
 
+// ARCHIVE Goal
+
+    function displayArchiveGoalResults(result) {
+        console.log(result);
+    }
+
+    $(".btn-goal-archive").click(function() {
+        let formInputs = {
+            "goalId": $(this).parents("tr").children(".input-goal-id").val()
+        };
+
+        toastr.success("Goal Archived");
+
+        $.post("archive_goal", formInputs, displayArchiveGoalResults);
+        $(this).parents("tr").hide();
+    });
+
 
 // -------------------------------- CATEGORIES --------------------------------
 

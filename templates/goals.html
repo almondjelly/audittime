@@ -71,10 +71,12 @@
 
     <tbody>
     {% for goal in goals %}
-        <!-- Goal id -->
-        <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
         
         <tr class="tr-goal">
+            
+        <!-- Goal id -->
+        <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
+
             <!-- Goal name -->
             <td data-toggle="modal" data-target="#{{ goal.goal_id }}-modal" class="td-goal-i-want">I want to </td>
             <td class="td-goal-name" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">{{ goal.name }}</td>
@@ -123,7 +125,7 @@
             <!-- Archive -->
             <td class="td-goal-archive">
                 <span class="span-goal-archive">
-                <button type="button" class="btn btn-link">
+                <button type="button" class="btn btn-link btn-goal-archive">
                     x
                 </button>              
                 </span>

@@ -52,7 +52,7 @@ class Goal(db.Model):
     category = db.relationship("Category", secondary="goals_categories",
                                backref="goals")
 
-    def total_time(self):
+    def total_time(self, time_period="all_time"):
         """Calculate total time spent on a goal."""
 
         goal_tasks = []
@@ -66,27 +66,86 @@ class Goal(db.Model):
                 task_id=task.task_id).all())
 
         total_time = timedelta(0)
+        today = datetime.today().date()
+
+        # This past Sunday
+        days_since_sun = (today.weekday() - 6) % 7
+        sun = today - timedelta(days_since_sun)
+        sun = datetime.combine(sun, time(0, 0))
+
+        # This upcoming Saturday
+        days_until_sat = (5 - today.weekday()) % 7
+        sat = today + timedelta(days_until_sat)
+        sat = datetime.combine(sat, time(23, 59))
+
+        # This year and this month
+        year = datetime.now().year
+        month = datetime.now().month
+
+        if time_period == 'this_week':
+            start = sun
+            end = sat
+            print start, end
+
+        elif time_period == 'last_week':
+            start = sun - timedelta(7)
+            end = sat - timedelta(7)
+
+        elif time_period == 'this_month':
+            start = datetime(year, month, 1, 0, 0)
+            end = datetime(year, month + 1, 1, 23, 59) - timedelta(1)
+
+        elif time_period == 'last_month':
+            month = month - 1
+
+            if month == 12:
+                year = year - 1
+
+            start = datetime(year, month, 1, 0, 0)
+            end = datetime(year, month + 1, 1, 23, 59) - timedelta(1)
+
+        elif time_period == 'all_time':
+            start = datetime(1900, 1, 1, 0, 0)
+            end = datetime.now()
 
         for event in goal_events:
-            if event.start_time >= self.start_time or \
-               event.stop_time <= self.end_time:
-                    total_time += event.stop_time - event.start_time
+
+            # If the event starts and ends within the time period
+            if event.start_time >= start and event.stop_time <= end:
+                total_time += event.duration()
+
+            # If the the event starts within the time period but ends after
+            elif event.start_time <= end and event.start_time >= start:
+                total_time += end - event.start_time
+
+            # If the event ends within the time period but starts before
+            elif event.stop_time >= start and event.stop_time <= end:
+                total_time += event.stop_time - start
 
         return total_time
 
-    def total_time_str(self):
-        """Generate total time string."""
+    def total_time_str(self, time_period='all_time'):
+        """Returns the duration of the event as a formatted string."""
 
-        days = self.total_time().days
-        hours = self.total_time().seconds / 3600
-        minutes = (self.total_time().seconds - hours * 3600) / 60
+        total_time = self.total_time(time_period)
 
-        total_time_str = "{}h {}min".format(hours, minutes)
+        days = total_time.days
+        hours = total_time.seconds / 3600
+        minutes = (total_time.seconds - hours * 3600) / 60
 
-        if self.total_time().days > 0:
-            total_time_str = "{} days ".format(days) + total_time_str
+        total_time_str = ""
+
+        if total_time.days > 0:
+            total_time_str += "{}d ".format(days)
+
+        if hours > 0:
+            total_time_str += "{}h ".format(hours)
+
+        if minutes > 0:
+            total_time_str += "{}m".format(minutes)
 
         return total_time_str
+
 
     def time_left(self):
         """Calculate the time left to reach goal target and return string."""

@@ -108,7 +108,7 @@ def display_goals():
     """Display goals page."""
 
     goals = db.session.query(Goal).filter_by(
-        user_id=session['user_id']).order_by(
+        user_id=session['user_id'], status='active').order_by(
         'end_time').all()
 
     categories = db.session.query(Category).filter_by(
@@ -181,6 +181,23 @@ def edit_goal_info():
     db.session.commit()
 
     return redirect('/goals')
+
+
+@app.route('/archive_goal', methods=['POST'])
+def archive_goal():
+    """Archive a goal."""
+
+    # Grab data from form via JavaScript
+    goal_id = request.form.get('goalId')
+
+    # Find the existing goal
+    goal = Goal.query.filter_by(goal_id=goal_id).one()
+
+    # Set status to 'archived'
+    goal.status = 'archived'
+    db.session.commit()
+
+    return "goal archived"
 
 
 # -------------------------------- CATEGORIES --------------------------------
@@ -523,9 +540,15 @@ def display_reports():
     """Display user's reports."""
 
     user_id = session['user_id']
-    categories = Category.query.filter_by(user_id=user_id).order_by('name').all()
+    goals = Goal.query.filter_by(user_id=user_id).order_by('name').all()
+    categories = Category.query.filter_by(user_id=user_id).order_by(
+        'name').all()
 
-    return render_template("reports.html", categories=categories)
+    time_periods = [('Last Week', 'last_week'), ('This Month', 'this_month'),
+                    ('Last Month', 'last_month'), ('All Time', 'all_time')]
+
+    return render_template("reports.html", goals=goals, categories=categories,
+                           time_periods=time_periods)
 
 
 if __name__ == "__main__":

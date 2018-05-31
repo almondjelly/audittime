@@ -334,4 +334,8 @@
     }
 
 
+/* ADD SPACING TO BOTTOM OF PAGE */
 
+    .report-space {
+        height: 500px;    
+    }
