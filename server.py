@@ -562,6 +562,25 @@ def display_reports():
     return render_template("reports.html", goals=goals, categories=categories,
                            time_periods=time_periods)
 
+@app.route('/report-goal-data')
+def send_goal_data():
+    """Sends data to client for displaying goal graph."""
+
+    user_id = session['user_id']
+    goals = Goal.query.filter_by(user_id=user_id).order_by('name').all()
+    categories = Category.query.filter_by(user_id=user_id).order_by(
+        'name').all()
+
+    goal_report_data = []
+    for goal in goals:
+       goal_tup = (goal.name, goal.duration.seconds / 3600, goal.total_time().seconds / 3600)
+       goal_report_data.append(goal_tup)
+
+    goal_report_data = jsonify(goal_report_data)
+    print goal_report_data
+
+    return goal_report_data
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the

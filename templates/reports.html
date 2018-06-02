@@ -2,10 +2,99 @@
 
 {% block body %}
 
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
 
+    <!-- jQuery -->
+    <script src="static/js/jquery-3.3.1.min.js"></script>
+
+    <!-- Chart.js -->
+    <script>
+        
+    let ionno = '';
+    let goalData = [];
+    let goalNames = [];
+    let goalDurations = [];
+    let goalTotalTimes = [];
+
+    function printGoalData(result) {
+        goalData.push(result);
+        goalData = goalData[0];
+        for (let goal in goalData) {
+            goalNames.push(goalData[goal][0]);
+            goalDurations.push(goalData[goal][1]);
+            goalTotalTimes.push(goalData[goal][2]);
+        };
+
+        var ctx = document.getElementById("myChart");
+
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: goalNames,
+                datasets: [{
+                    label: 'Total # of Hours Spent',
+                    data: goalTotalTimes,
+                    backgroundColor: 'rgba(255, 0, 128, 0.2)',
+                    borderColor: 'rgba(255, 0, 128, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Target # of Hours',
+                    data: goalDurations,
+                    backgroundColor: 'rgba(255, 140, 0, 0.2)',
+                    borderColor: 'rgba(255, 140, 0, 1)',
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                },
+                responsive: true,
+            }
+        });
+
+    }
+
+    $(document).ready(function() {
+        $.get("/report-goal-data", 
+            printGoalData);
+    });
+
+
+
+    </script>
+
+
+</head>
 <h1>Your Reports</h1>
 
-<div id="report-goal" class="carousel slide" data-ride="carousel">
+<div id="report-goal-graph" class="div-reports">
+
+    <h2>Progress</h2>
+    <canvas id="myChart"></canvas>
+
+</div>
+
+
+
+
+<div id="report-goal" class="carousel slide div-reports" data-ride="carousel" data-interval="false">
     <h2>Goals</h2>
     <ol class="carousel-indicators">
         <li data-target="#report-goal" data-slide-to="0" class="active"></li>
@@ -55,7 +144,13 @@
                     </td>
 
                     <td>
-                        {{ goal.goal_status() }}
+                        {% if goal.goal_status() == 'Success' %}
+                            <span class="success">{{ goal.goal_status() }}</span>
+
+                        {% elif goal.goal_status() == 'Fail' %}
+                            <span class="fail">{{ goal.goal_status() }}</span>
+
+                        {% endif %}
                     </td>
                 </tr>
 
@@ -164,7 +259,7 @@
 
 
 
-<div id="report-category" class="carousel slide" data-ride="carousel">
+<div id="report-category" class="carousel slide div-reports" data-ride="carousel">
     <h2>Categories</h2>
     <ol class="carousel-indicators">
         <li data-target="#report-category" data-slide-to="0" class="active"></li>
@@ -270,6 +365,6 @@
 
 <div class="report-space"></div>
 
-<script src="static/js/d3.js"></script>
+
 
 {% endblock %}

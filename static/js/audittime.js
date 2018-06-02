@@ -443,6 +443,9 @@ $("#start-button").on("click", startStopwatch);
     });
 
 
+
+
+
 // GOOGLE CALENDAR EVENT - DELETE PENDING EVENT
 $("span.delete-gcal").click(function() {
     let formInputs = {
