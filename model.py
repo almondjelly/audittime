@@ -40,8 +40,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, autoincrement=True,
-                        primary_key=True)
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(64), nullable=False)
@@ -132,6 +131,11 @@ class Goal(db.Model):
             start = datetime(1900, 1, 1, 0, 0)
             end = datetime.now()
 
+
+        elif time_period == 'goal_time':
+            start = self.start_time
+            end = self.end_time
+
         for event in goal_events:
 
             # If the event starts and ends within the time period
@@ -147,6 +151,7 @@ class Goal(db.Model):
                 total_time += event.stop_time - start
 
         return total_time
+
 
     def total_time_str(self, time_period='all_time'):
 

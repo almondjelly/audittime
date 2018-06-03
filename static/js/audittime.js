@@ -39,6 +39,16 @@ function initialize() {
     window.addEventListener('keydown', handleFirstTab);
 
 
+    // Set slick options
+    $('.report-goalie').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  fade: true,
+  asNavFor: '.slider-nav'
+});
+
+
     // Set toastr options
     toastr.options = {
         "closeButton": false,

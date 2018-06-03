@@ -562,24 +562,51 @@ def display_reports():
     return render_template("reports.html", goals=goals, categories=categories,
                            time_periods=time_periods)
 
-@app.route('/report-goal-data')
-def send_goal_data():
+@app.route('/report-goal-at-least-data')
+def send_goal_at_least_data():
     """Sends data to client for displaying goal graph."""
 
     user_id = session['user_id']
-    goals = Goal.query.filter_by(user_id=user_id).order_by('name').all()
+    goals = Goal.query.filter_by(user_id=user_id, status='active', goal_type='at_least').order_by('name').all()
     categories = Category.query.filter_by(user_id=user_id).order_by(
         'name').all()
 
-    goal_report_data = []
+    goal_progress_data = {}
+
     for goal in goals:
-       goal_tup = (goal.name, goal.duration.seconds / 3600, goal.total_time().seconds / 3600)
-       goal_report_data.append(goal_tup)
+        goal_progress_data[goal.name] = {
+            "target": goal.duration.seconds / 3600,
+            "total_time": goal.total_time("goal_time").seconds / 3600,
+            "goal_type": goal.goal_type
+        }
 
-    goal_report_data = jsonify(goal_report_data)
-    print goal_report_data
+    goal_progress_data = jsonify(goal_progress_data)
 
-    return goal_report_data
+    return goal_progress_data
+
+
+@app.route('/report-goal-at-most-data')
+def send_goal_at_most_data():
+    """Sends data to client for displaying goal graph."""
+
+    user_id = session['user_id']
+    goals = Goal.query.filter_by(user_id=user_id, status='active', goal_type='at_most').order_by('name').all()
+    categories = Category.query.filter_by(user_id=user_id).order_by(
+        'name').all()
+
+
+    goal_progress_data = {}
+
+    for goal in goals:
+        goal_progress_data[goal.name] = {
+            "target": goal.duration.seconds / 3600,
+            "total_time": goal.total_time("goal_time").seconds / 3600,
+            "goal_type": goal.goal_type
+        }
+
+    goal_progress_data = jsonify(goal_progress_data)
+
+    return goal_progress_data
 
 
 if __name__ == "__main__":
