@@ -13,6 +13,7 @@ from math import floor
 from gcal import get_last_7_days, update_db
 import json
 import pdb
+import hashlib
 
 
 app = Flask(__name__)
@@ -52,7 +53,7 @@ def submit_signup():
 
     name = request.form.get('name')
     email = request.form.get('email')
-    password = request.form.get('password')
+    password = hashlib.sha256(request.form.get('password')).hexdigest()
 
     new_user = User(name=name, email=email, password=password)
 
@@ -77,7 +78,7 @@ def submit_login():
     """Collect login information and log user in."""
 
     email = request.form.get('email')
-    password = request.form.get('password')
+    password = hashlib.sha256(request.form.get('password')).hexdigest()
 
     try:
         if User.query.filter_by(email=email).one().password == password:

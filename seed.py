@@ -6,7 +6,7 @@ from datetime import datetime, date
 
 from model import connect_to_db, db
 from server import app
-
+import hashlib
 
 def load_users():
     """Load users from user.txt into database."""
@@ -21,6 +21,7 @@ def load_users():
     for row in open("seed_data/user.txt"):
         row = row.rstrip()
         user_id, name, email, password = row.split("|")
+        password = hashlib.sha256(password).hexdigest()
 
         user = User(user_id=user_id, name=name, email=email, password=password)
 
