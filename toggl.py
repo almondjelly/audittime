@@ -3,22 +3,12 @@ import datetime
 from togglwrapper import Toggl
 
 
-# Should ask for user's API token somewhere. This one's Gail's for testing.
-toggl_api_token = 'f085fa351f1ac550e438cdc528ce1504'
-toggl = Toggl(toggl_api_token)
-
-now = datetime.datetime.utcnow()
-now_text = now.isoformat() + 'Z'
-week_ago = now - datetime.timedelta(days=7)
-week_ago = week_ago.isoformat() + 'Z' # 'Z' indicates UTC time
-
-entries = toggl.TimeEntries.get(start_date=week_ago)
-
-
-def toggl_get_last_7_days():
+def toggl_get_last_7_days(api_token):
     """Use Toggl API to grab all calendar events over the last 7
     days that aren't already in the database. Returns a list of toggl_entry
     objects."""
+
+    toggl = Toggl(api_token)
 
     now = datetime.datetime.utcnow()
     now_text = now.isoformat() + 'Z'
@@ -48,10 +38,10 @@ def toggl_get_last_7_days():
     return toggl_entries
 
 
-def toggl_update_db(user_id):
+def toggl_update_db(user_id, api_token):
     """Add newly imported Toggl entries into the database."""
 
-    toggl_entries = toggl_get_last_7_days()
+    toggl_entries = toggl_get_last_7_days(api_token)
 
     for entry in toggl_entries:
         new_entry = TogglEntry(toggl_entry_id=entry['toggl_entry_id'],

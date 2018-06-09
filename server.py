@@ -479,8 +479,11 @@ def archive_event():
 def load_toggl():
     """Displays entries from Toggl."""
 
+    user_id = session['user_id']
+    api_token = User.query.filter_by(user_id=user_id).one().toggl_token
+
     # Grab last 7 days of Toggle entries and update the database.
-    toggl_update_db(session['user_id'])
+    toggl_update_db(user_id, api_token)
 
     categories = db.session.query(Category).filter_by(
         user_id=session['user_id']).order_by('name').all()
@@ -560,6 +563,34 @@ def display_settings():
     """Displays account settings for a user."""
 
     return render_template("settings.html")
+
+
+@app.route('/save_settings', methods=['POST'])
+def save_settings():
+    """Update database with new settings information."""
+
+    name = request.form.get('name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    toggl_token = request.form.get('toggl-token')
+
+    user = User.query.filter_by(user_id=session['user_id']).one()
+
+    if name:
+        user.name = name
+
+    if email:
+        user.email = email
+
+    if password:
+        user.password = hashlib.sha256(password).hexdigest()
+
+    if toggl_token:
+        user.toggl_token = toggl_token
+
+    db.session.commit()
+
+    return redirect('/settings')
 
 
 @app.route('/gcal')
