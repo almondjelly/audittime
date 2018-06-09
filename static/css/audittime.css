@@ -309,6 +309,13 @@
         text-align: center;
     }
 
+/* STOPWATCH RUNNING TIME */
+    #running-time {
+        font-family: "Roboto Condensed";
+        width: 100%;
+        text-align: center;
+    }
+
 /* ------------------------------- INITIALIZE ------------------------------ */
 
 /* FONT FAMILY AND COLOR + BACKGROUND */
@@ -462,3 +469,6 @@ div > small {
     border-radius: 0;
 }
 
+#toggl-entries li{
+    background-color: black;
+}

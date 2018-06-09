@@ -75,6 +75,7 @@ pyOpenSSL==0.13.1
 pyparsing==2.0.1
 python-dateutil==1.5
 pytz==2013.7
+requests==2.7.0
 rsa==3.4.2
 scandir==1.7
 scipy==0.13.0b1
@@ -82,6 +83,7 @@ simplegeneric==0.8.1
 singledispatch==3.4.0.3
 six==1.11.0
 SQLAlchemy==1.2.7
+togglwrapper==1.0.1
 tornado==5.0.2
 traitlets==4.3.2
 uritemplate==3.0.0

@@ -1,4 +1,4 @@
-"""Auditime model and database functions."""
+"""AuditTime model and database functions."""
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta, time
@@ -394,6 +394,28 @@ class GoogleCalendar(db.Model):
     # Define relationship to Event, User
     event = db.relationship("Event", backref=db.backref("gcal_events"))
     user = db.relationship("User", backref=db.backref("gcal_events"))
+
+
+class TogglEntry(db.Model):
+    """Events imported from Toggl."""
+
+    __tablename__ = "toggl_entries"
+
+    toggl_entry_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
+                        nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'),
+                         nullable=True)
+    start_time = db.Column(db.DateTime, nullable=False)
+    stop_time = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.String(64), nullable=False)
+    title = db.Column(db.Text, nullable=False)
+    import_time = db.Column(db.DateTime, server_default=func.now(),
+                            nullable=False)
+
+    # Define relationship to Event, User
+    event = db.relationship("Event", backref=db.backref("toggle_entries"))
+    user = db.relationship("User", backref=db.backref("toggle_entries"))
 
 
 ##############################################################################

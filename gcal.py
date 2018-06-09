@@ -32,7 +32,7 @@ def gail_test():
 
     return events
 
-def get_last_7_days():
+def gcal_get_last_7_days():
     """Use Google Calendar API to grab all calendar events over the last 7
     days that aren't already in the database."""
 
@@ -83,7 +83,7 @@ def get_last_7_days():
     return gcal_events
 
 
-def update_db(user_id):
+def gcal_update_db(user_id):
     """Add newly imported calendar events into the database."""
 
     gcal_events = get_last_7_days()

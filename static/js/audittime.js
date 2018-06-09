@@ -331,7 +331,6 @@ $(".btn-category-save").click(function() {
     });
 
     $("#mode-manual").click(function() {
-        console.log("Hello locker");
         $("#startStop").hide();
         $("#datePickers").show();
         $(this).hide();
@@ -379,14 +378,109 @@ $("#manual-submit").click(function() {
 
 // SUBMIT EVENT - STOPWATCH
 
+class Stopwatch {
+    constructor(display, results) {
+        this.running = false;
+        this.display = display;
+        this.results = results;
+        this.laps = [];
+        this.reset();
+        this.print(this.times);
+    }
+    
+    reset() {
+        this.times = [ 0, 0, 0 ];
+    }
+    
+    start() {
+        if (!this.time) this.time = performance.now();
+        if (!this.running) {
+            this.running = true;
+            requestAnimationFrame(this.step.bind(this));
+        }
+    }
+   
+    stop() {
+        this.running = false;
+        this.time = null;
+    }
+    
+    clear() {
+        clearChildren(this.results);
+    }
+    
+    step(timestamp) {
+        if (!this.running) return;
+        this.calculate(timestamp);
+        this.time = timestamp;
+        this.print();
+        requestAnimationFrame(this.step.bind(this));
+    }
+    
+    calculate(timestamp) {
+        var diff = timestamp - this.time;
+        // Hundredths of a second are 100 ms
+        this.times[2] += diff / 10;
+        // Seconds are 100 hundredths of a second
+        if (this.times[2] >= 100) {
+            this.times[1] += 1;
+            this.times[2] -= 100;
+        }
+        // Minutes are 60 seconds
+        if (this.times[1] >= 60) {
+            this.times[0] += 1;
+            this.times[1] -= 60;
+        }
+    }
+    
+    print() {
+        this.display.innerText = this.format(this.times);
+    }
+    
+    format(times) {
+        return `\
+            ${pad0(times[0], 2)}:${pad0(times[1], 2)}:${pad0(Math.floor(times[2]), 2)}`;
+    }
+}
+
+function pad0(value, count) {
+    var result = value.toString();
+    for (; result.length < count; --count)
+        result = '0' + result;
+    return result;
+}
+
+function clearChildren(node) {
+    while (node.lastChild)
+        node.removeChild(node.lastChild);
+}
+
+let stopwatch = new Stopwatch(
+    document.querySelector('#running-time'),
+    document.querySelector('#running-time-results'));
+
+
+
 function startStopwatch(event) {
 
+    // Start the #running-time stopwatch
+    stopwatch.start()
+
+    // Store the current timestamp
     let startTime = Date.now();
+
     console.log('Starting stopwatch...');
     console.log(startTime);
 
     $("#stop-button").click(function() {
+
+        // Stop the #running-time stopwatch
+        stopwatch.stop();
+
+        // Store the current timestamp
         let stopTime = Date.now();
+
+        $("#running-time").html("00:00:00");
 
         let formInputs = {
             "task": $("#input-new-task-name").val(),
@@ -452,7 +546,34 @@ $("#start-button").on("click", startStopwatch);
         $(this).parents("tr").hide();
     });
 
+// TOGGLE ENTRY - DELETE PENDING ENTRY
+$("span.delete-toggl").click(function() {
+    let formInputs = {
+        togglEntryId: $(this).parents("form").children(".toggl-entry-id").val()
+    };
 
+    toastr.success('Google Calendar Task Deleted');
+
+    $(this).parents("li").hide();
+
+    $.post("/delete_toggl_entry", formInputs)
+});
+
+
+// TOGGLE ENTRY - SAVE PENDING ENTRY
+$("span.save-toggl").click(function() {
+
+    let formInputs = {
+        togglEntryId: $(this).parents("form").children(".toggl-entry-id").val(),
+        categoryName: $(this).parents('form').children('.toggl-entry-categories').children('select').val()
+    };
+
+    toastr.success('Task Saved');
+
+    $(this).parents("li").hide();
+
+    $.post("/save_toggl_entry", formInputs)
+});
 
 
 
@@ -462,7 +583,7 @@ $("span.delete-gcal").click(function() {
         gcalEventId: $(this).parents("form").children(".gcal-event-id").val()
     };
 
-    toastr.success('Google Calendar Task Deleted');
+    toastr.success('Toggl Entry Deleted');
 
     $(this).parents("li").hide();
 

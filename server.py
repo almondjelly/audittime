@@ -5,12 +5,13 @@ from flask import (Flask, render_template, redirect, request, flash, session,
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Category, Event, Task, Goal, \
-                  GoalCategory, GoogleCalendar
+                  GoalCategory, GoogleCalendar, TogglEntry
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from addNew import goal_generate_html, category_generate_html, task_generate_html
 from math import floor
-from gcal import get_last_7_days, update_db
+from gcal import gcal_get_last_7_days, gcal_update_db
+from toggl import toggl_get_last_7_days, toggl_update_db
 import json
 import pdb
 import hashlib
@@ -473,13 +474,92 @@ def archive_event():
 
     return "event archived"
 
+@app.route('/toggl')
+def load_toggl():
+    """Displays entries from Toggl."""
+
+    # Grab last 7 days of Toggle entries and update the database.
+    toggl_update_db(session['user_id'])
+
+    categories = db.session.query(Category).filter_by(
+        user_id=session['user_id']).order_by('name').all()
+
+    goals = db.session.query(Goal).filter_by(
+        user_id=session['user_id']).order_by(
+        'end_time').all()
+
+    toggl_entries = TogglEntry.query.filter_by(status='pending').all()
+
+    return render_template("toggl.html", toggl_entries=toggl_entries,
+                           categories=categories, goals=goals)
+
+
+@app.route('/delete_toggl_entry', methods=['POST'])
+def delete_toggl_entry():
+    """When user imports Google Calendar events and deletes ones, update
+    toggl_entries table status as 'deleted'."""
+
+    toggl_entry_id = request.form.get('togglEntryId')
+
+    toggl_entry = TogglEntry.query.filter_by(toggl_entry_id=toggl_entry_id).one()
+    toggl_entry.status = 'deleted'
+
+    db.session.commit()
+
+    return redirect('/toggl')
+
+
+@app.route('/save_toggl_entry', methods=['POST'])
+def save_toggl_entry():
+    """When user imports Google Calendar events and saves ones, update
+    toggl_entries table status as 'saved', create a new task and new event."""
+
+    toggl_entry_id = request.form.get('togglEntryId')
+    category_name = request.form.get('categoryName')
+    user_id = session['user_id']
+    print category_name
+    category_id = Category.query.filter_by(name=category_name,
+                                           user_id=user_id).one().category_id
+
+    # Update status in toggl_entries table to 'saved'
+    toggl_entry = TogglEntry.query.filter_by(
+        toggl_entry_id=toggl_entry_id).one()
+
+    toggl_entry.status = 'saved'
+
+    # Create new task and add to database
+    new_task = Task(name=toggl_entry.title,
+                    category_id=category_id,
+                    user_id=user_id)
+
+    db.session.add(new_task)
+    db.session.commit()
+
+    # Create new event and add to database
+    task_id = new_task.task_id
+
+    new_event = Event(start_time=toggl_entry.start_time,
+                      stop_time=toggl_entry.stop_time,
+                      user_id=user_id,
+                      task_id=task_id,
+                      status='active')
+
+    db.session.add(new_event)
+
+    # Update toggl_entries table with new event_id
+    toggl_entry.event_id = new_event.event_id
+
+    db.session.commit()
+
+    return redirect('/toggl')
+
 
 @app.route('/settings')
 def account_settings():
     """Displays account information for a user."""
 
     # Grab last 7 days of Google Calendar events and update the database.
-    update_db(session['user_id'])
+    gcal_update_db(session['user_id'])
 
     categories = db.session.query(Category).filter_by(
         user_id=session['user_id']).order_by('name').all()
@@ -540,9 +620,14 @@ def save_gcal_event():
     new_event = Event(start_time=gcal_event.start_time,
                       stop_time=gcal_event.stop_time,
                       user_id=user_id,
-                      task_id=task_id)
+                      task_id=task_id,
+                      status='active')
 
     db.session.add(new_event)
+
+    # Update gcal_events table with new event_id
+    gcal_event.event_id = new_event.event_id
+
     db.session.commit()
 
     return redirect('/account')
