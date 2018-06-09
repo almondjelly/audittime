@@ -556,8 +556,16 @@ def save_toggl_entry():
 
 
 @app.route('/settings')
-def account_settings():
-    """Displays account information for a user."""
+def display_settings():
+    """Displays account settings for a user."""
+
+    return render_template("settings.html")
+
+
+@app.route('/gcal')
+def display_gcal_events():
+    """Shows pending Google Calendar events that aren't yet saved as 
+    tasks."""
 
     # Grab last 7 days of Google Calendar events and update the database.
     gcal_update_db(session['user_id'])
@@ -571,7 +579,7 @@ def account_settings():
 
     gcal_events = GoogleCalendar.query.filter_by(status='pending').all()
 
-    return render_template("settings.html", gcal_events=gcal_events,
+    return render_template("gcal.html", gcal_events=gcal_events,
                            categories=categories, goals=goals)
 
 
