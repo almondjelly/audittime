@@ -5,33 +5,6 @@ from oauth2client import file, client, tools
 from model import GoogleCalendar, db, connect_to_db
 import datetime
 
-
-def gail_test():
-    # Set up the Calendar API
-    SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-    store = file.Storage('credentials.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('calendar', 'v3', http=creds.authorize(Http()))
-
-    # Call the Calendar API
-    now = datetime.datetime.utcnow()
-    now_text = now.isoformat() + 'Z'
-    week_ago = now - datetime.timedelta(days=7)
-    week_ago = week_ago.isoformat() + 'Z' # 'Z' indicates UTC time
-
-    print('Getting all events over the last 7 days')
-    events_result = service.events().list(calendarId='primary',
-                                          timeMin=week_ago,
-                                          timeMax=now_text,
-                                          singleEvents=True,
-                                          orderBy='startTime').execute()
-    events = events_result.get('items', [])
-
-    return events
-
 def gcal_get_last_7_days():
     """Use Google Calendar API to grab all calendar events over the last 7
     days that aren't already in the database."""
@@ -86,7 +59,7 @@ def gcal_get_last_7_days():
 def gcal_update_db(user_id):
     """Add newly imported calendar events into the database."""
 
-    gcal_events = get_last_7_days()
+    gcal_events = gcal_get_last_7_days()
 
     for event in gcal_events:
         new_event = GoogleCalendar(gcal_event_id=event['gcal_event_id'],

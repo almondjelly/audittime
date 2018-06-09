@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>Integrations</h2>
+
+<!-- Add new category -->
+<form method="post" class="form-category">
+    <input type="text" class="categoryName" placeholder="new category">
+    <select multiple class="categoryGoals" id="category-goal-dropdown">
+        {% for goal in goals %}
+            <option value="{{ goal.name }}">{{ goal.name }}</option>
+        {% endfor %}
+    </select> 
+    
+    <span class="categorySubmit">save</span>
+</form>
+
+
+
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <input type="checkbox"> Toggl
+    </li>
+    <li class="list-group-item">
+        <input type="checkbox"> Google Calendar
+    </li>
+</ul>
+
+<ul class="list-group" id="toggl-entries">
+    {% for entry in toggl_entries %}
+    <li class="list-group-item">
+        <form>
+            <input type="hidden" value="{{ entry.toggl_entry_id }}" class="toggl-entry-id">
+
+
+        {{ entry.title }} {{ entry.start_time }} {{ entry.stop_time }}
+
+        <!-- Categories -->
+        <span class="toggl-entry-categories">
+            
+            <!-- Dropdown for multiple selecting categories -->
+            <select class="toggl-categories">
+                {% for category in categories %}
+                    <option>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </span>
+
+        <!-- Save -->
+        <span class="{{ entry.toggl_entry_id }} save-toggl">
+            <span>save</span>
+        </span>
+
+        <!-- Delete -->
+        <span class="{{ entry.toggl_entry_id }} delete-toggl">
+            <span>delete</span>
+        </span>        
+
+
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+

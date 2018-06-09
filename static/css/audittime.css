@@ -1,3 +1,35 @@
+/* -------------------------------- SETTINGS -------------------------------- */
+    
+    #settings-container {
+        font-family: Dosis;
+        font-size: 16pt;
+        line-height: 22px;
+        width: 60%;
+        margin: 50px auto;
+    }
+
+    #form-settings {
+        width: 100%;
+    }
+
+    .col-sm-12 h2 {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    #input-new-password,
+    #fullname,
+    #input-new-email,
+    #input-toggl-api-token {
+        display: inline;
+        width: 90%;
+    }
+
+    i#show-password {
+        margin-left: 4px;
+        vertical-align: middle;
+    }
+
 /* -------------------------------- REPORTS -------------------------------- */
 
     .div-reports h2 {

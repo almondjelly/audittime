@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div id="settings-container">
+<form id="form-settings">
+    <div class="form-group row">
+        <div class="col-sm-12"><h2>Your Info</h2></div>
+    </div>
+    <div class="form-group row">
+        <label for="fullname" class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+            <input type="email" class="form-control" id="fullname" placeholder="Name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="input-new-email" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-9">
+            <input type="email" class="form-control" id="input-new-email" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group row div-new-password">
+        <label for="input-new-password" class="col-sm-3 col-form-label">Update Password</label>
+        <div class="col-sm-9">
+            <input type="password" class="form-control" id="input-new-password" placeholder="New Password">
+            <i class="material-icons" id="show-password">remove_red_eye</i>
+        </div>
+    </div>
+  
+        <div class="form-group row">
+        <div class="col-sm-12"> </div>
+
+        </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12"><h2>Integrations</h2></div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-3">Toggl</div>
+        <div class="col-sm-9">
+            To import your time entries (going back 7 days) from 
+            <a href="https://toggl.com/">Toggl</a> as new tasks, enter
+            and save your Toggl API token below. You can find your Toggl API token by going
+            to your profile settings and scrolling to the bottom of the page.
+        </div>
+    </div>
+   
+    <div class="form-group row">
+        <label for="input-toggl-api-token" class="col-sm-3 col-form-label">API token</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="input-toggl-api-token" placeholder="Toggl API token">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3">
+            Google Calendar
+        </div>
+        <div class="col-sm-9">
+            To import calendar events (going back 7 days) as new tasks from 
+            <a href="https://calendar.google.com/">Google Calendar</a>, use the 
+            import button below.
+            
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-9">
+            <button type="button" class="btn btn-primary">Import</button>
+        </div>
+    </div>
+</form>
+
+
+</div>
+
+{% endblock %}

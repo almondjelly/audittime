@@ -7,23 +7,26 @@
 <div class="subtitle">quit wasting time</div>
 
 <div id="div-login">
-<form class="form-login form-group" method="post">
-    <div class="div-login-email">
-        <label for="input-email">Email Address</label>
-        <input class="form-control" type="email" id="input-email" required autofocus name="email">
-        <small id="email-help">We promise we won't share your email with anyone</small>
-    </div>
+    <form class="form-login form-group" method="post">
+        <div class="div-login-email">
+            <label for="input-email">Email Address</label>
+            <input class="form-control" type="email" id="input-email" required autofocus name="email">
+            <small id="email-help">We promise we won't share your email with anyone</small>
+        </div>
 
-    <div class="div-login-password">
-        <label for="inputPassword">Password</label>
-        <input class="form-control" type="password" id="input-password"  required name="password">
-    </div>
+        <div class="div-login-password">
+            <label for="inputPassword">Password</label>
+            <input class="form-control" type="password" id="input-password"  required name="password">
+        </div>
 
-    <div class="div-login-button">
-        <button type="button" class="btn btn-primary" id="login-button">Log in</button>
-    </div>
+        <div class="div-login-button">
+            <button type="button" class="btn btn-primary" id="login-button">Log in</button>
+        </div>
 
-</form>
+    </form>
+
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
 </div>
 
 {% endblock %}

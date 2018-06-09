@@ -44,6 +44,7 @@ class User(db.Model):
     name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(64), nullable=False)
+    toggl_token = db.Column(db.String(64), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

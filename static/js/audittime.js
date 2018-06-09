@@ -71,6 +71,18 @@ function initialize() {
 
 function addEventListeners(){
 
+    // SETTINGS
+
+        $("#show-password").click(function() {
+            console.log('what on earth')
+            let pass = $("#input-new-password");
+            if (pass.attr("type") === "password") {
+                pass.attr("type", "text");
+            } else {
+                pass.attr("type", "password");
+            }
+        });
+
     // SHOW/HIDE SAVE BUTTONS
 
     // Task
@@ -100,6 +112,17 @@ function addEventListeners(){
             });    
         });
 
+        $("#login-button").keyup(function(event) {
+            event.preventDefault();
+  
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+            
+                // Trigger the button element with a click
+                $("#login-button").click();
+            }
+        });
+
     // Goal
 
         // When the mouse hovers over the list item, show the Save button.
@@ -119,7 +142,6 @@ function addEventListeners(){
 
         // When the mouse hovers over the list item, show the Save button.
         $(".tr-category").hover(function() {
-            console.log("i wolke up");
             $(this).children(".td-category-save").children("span").show();
             $(this).children(".td-category-archive").children("span").show();
 
@@ -455,13 +477,12 @@ function clearChildren(node) {
         node.removeChild(node.lastChild);
 }
 
-let stopwatch = new Stopwatch(
-    document.querySelector('#running-time'),
-    document.querySelector('#running-time-results'));
-
-
 
 function startStopwatch(event) {
+
+    let stopwatch = new Stopwatch(
+        document.querySelector('#running-time'),
+        document.querySelector('#running-time-results'));
 
     // Start the #running-time stopwatch
     stopwatch.start()
@@ -676,3 +697,7 @@ function logIn() {
 $("#login-button").click(function() {
     logIn();
 });
+
+
+
+

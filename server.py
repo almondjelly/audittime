@@ -474,6 +474,7 @@ def archive_event():
 
     return "event archived"
 
+
 @app.route('/toggl')
 def load_toggl():
     """Displays entries from Toggl."""
@@ -570,7 +571,7 @@ def account_settings():
 
     gcal_events = GoogleCalendar.query.filter_by(status='pending').all()
 
-    return render_template("account.html", gcal_events=gcal_events,
+    return render_template("settings.html", gcal_events=gcal_events,
                            categories=categories, goals=goals)
 
 
