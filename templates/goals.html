@@ -4,7 +4,9 @@
 
 
 <!-- Add new goal -->
-<h1>Add A New Goal</h1>
+<h1 id="add-new-goal">Add A New Goal <i class="material-icons" id="add-new-goal-icon">
+add_box
+</i></h1>
 <div id="goal-new">
     <form method="post" action="add_goal" id="form-goal">
         
@@ -59,7 +61,6 @@
 <table class="table table-hover" id="goal-log">
     <thead>
     <tr>
-        <th></th>
         <th scope="col">Goal</th>
         <th scope="col">Type</th>
         <th scope="col">Target</th>
@@ -80,11 +81,10 @@
         <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
 
             <!-- Goal name -->
-            <td data-toggle="modal" data-target="#{{ goal.goal_id }}-modal" class="td-goal-i-want">I want to </td>
             <td class="td-goal-name" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">{{ goal.name }}</td>
 
             <!-- Goal type -->
-            <td class="td-goal-type">for 
+            <td class="td-goal-type" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">for 
                 {% if goal.goal_type == "at_least" %}
                     at least
 

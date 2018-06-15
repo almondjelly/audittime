@@ -2,67 +2,77 @@
 
 {% block body %}
 
-<h2>Integrations</h2>
+<h1>Google Calendar Events</h1>
 
-<!-- Add new category -->
-<form method="post" class="form-category">
-    <input type="text" class="categoryName" placeholder="new category">
-    <select multiple class="categoryGoals" id="category-goal-dropdown">
-        {% for goal in goals %}
-            <option value="{{ goal.name }}">{{ goal.name }}</option>
-        {% endfor %}
-    </select> 
-    
-    <span class="categorySubmit">save</span>
-</form>
+<div id="div-gcal-events">
+<table class="table table-hover" id="gcal-events">
+    <thead>
+        <tr>
+            <th scope="col">Task</th>
+            <th sccope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Category</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
 
-
-
-
-<ul class="list-group">
-    <li class="list-group-item">
-        <input type="checkbox"> Toggl
-    </li>
-    <li class="list-group-item">
-        <input type="checkbox"> Google Calendar
-    </li>
-</ul>
-
-
-<ul class="list-group" id="gcal-events">
+    <tbody>
     {% for event in gcal_events %}
-    <li class="list-group-item">
-        <form>
+    
+        <tr class="tr-gcal-event">
+
+        <!-- Google calendar event id -->
+        <form class="form-gcal-event-id">
             <input type="hidden" value="{{ event.gcal_event_id }}" class="gcal-event-id">
+        </form>
 
+        <!-- Title -->
+        <td class="td-gcal-event-title">
+            {{ event.title }}
+        </td>
 
-        {{ event.title }} {{ event.start_time }} {{ event.stop_time }}
+        <!-- Start -->
+        <td class="td-gcal-event-start">
+            {{ event.start_time }}
+        </td>
 
-        <!-- Categories -->
-        <span class="gcal-event-categories">
+        <!-- End -->
+        <td class="td-gcal-event-end">
+            {{ event.stop_time }}
+        </td>
             
-            <!-- Dropdown for multiple selecting categories -->
-            <select class="gcal-categories">
+        <!-- Categories -->
+        <td class="td-gcal-event-categories">
+            <select class="gcal-event-categories">
+                <option disabled selected>Select a category</option> 
                 {% for category in categories %}
                     <option>{{ category.name }}</option>
                 {% endfor %}
             </select>
-        </span>
+        </td>
 
         <!-- Save -->
-        <span class="{{ event.gcal_event_id }} save-gcal">
-            <span>save</span>
-        </span>
+            <td class="td-gcal-event-save">
+                <span class="span-gcal-event-save">
+                    <button class="btn btn-link btn-gcal-event-save">
+                        save
+                    </button>
+                </span>
+            </td>
 
-        <!-- Delete -->
-        <span class="{{ event.gcal_event_id }} delete-gcal">
-            <span>delete</span>
-        </span>        
-
-
-        </form>
-    </li>
+            <!-- Delete -->
+            <td class="td-gcal-event-remove">
+                <span class="span-gcal-event-remove">
+                    <button class="btn btn-link btn-gcal-event-remove">
+                        x
+                    </button>
+                </span>
+            </td>        
+        </tr>
+        
     {% endfor %}
-</ul>
-
+    </tbody>
+</table>
+</div>
 {% endblock %}

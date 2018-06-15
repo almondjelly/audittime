@@ -60,14 +60,7 @@
     #div-category-new {
         padding: 0;
         margin: 10px 0px 60px 0px;
-        background-color: rgba(255, 255, 255, 0.4);
-        font-size: 30pt;
-        font-family: 'Dosis';
-        color: #4a4a4a;
-        text-transform: uppercase;
     }
-
-
 
 /* TABLE FONTS */
 
@@ -75,7 +68,7 @@
     th,
     .table input {
         font-family: "Roboto Condensed";
-        font-size: 18px;
+        font-size: 16pt;
     }
 
     th {
@@ -87,7 +80,8 @@
 
     .table .tr-goal td,
     .table .tr-category td,
-    .table .tr-event-task td {
+    .table .tr-event-task td,
+    .tr-toggl-entry {
         vertical-align: middle;
         padding: 12px;
         height: 64px;
@@ -112,14 +106,14 @@
 /* TABLE CELL WIDTHS */
 
     .td-goal-i-want{
-        width: 90px;
+        width: 100px;
     }
     .td-goal {
         width: 540px;
     }
 
     .td-goal-type {
-        width: 110px;
+        width: 130px;
     }
 
     .td-goal-duration,
@@ -130,7 +124,7 @@
     }
 
     .td-goal-end-time {
-        width: 270px;
+        width: 250px;
     }
 
     .td-category {
@@ -141,17 +135,49 @@
         width: 47%;
     }
 
-    .td-event-task {
-        width: 200px;
+    .td-event-task,
+    .td-toggl-entry-title,
+    .td-gcal-event-title {
+        width: 300px;
+        vertical-align: middle;
     }    
 
     .td-event-task-categories {
         width: 200px;
     }
 
+    .td-toggl-entry-categories select,
+    .td-gcal-event-categories select {
+        width: 250px;
+        height: 40px;
+        font-family: 'Roboto Condensed';
+        background: transparent;
+        color: white;
+        border: 0;
+    }
+
     .table .tr-event-task .td-event-start-time,
-    .table .tr-event-task .td-event-end-time,{
+    .table .tr-event-task .td-event-end-time,
+    .td-toggl-entry-start,
+    .td-toggl-entry-end,
+    .td-gcal-event-start,
+    .td-gcal-event-end {
         width: 200px;
+    }
+
+    .table th, .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 0px solid #dee2e6;
+    font-size: 16pt;
+}
+
+    #goal-log td {
+        font-size: 14pt;
+    }    
+
+    .td-goal-name {
+        width: 280px;
     }
 
 
@@ -161,7 +187,9 @@
     .table .tr-category .td-category-save,
     .table .tr-category .td-category-archive,
     .table .tr-event-task .td-event-task-save,
-    .table .tr-event-task .td-event-task-remove {
+    .table .tr-event-task .td-event-task-remove,
+    .table .tr-toggl-entry .td-toggl-entry-save,
+    .table .tr-toggl-entry .td-toggl-entry-remove, {
         margin: 0;
         text-align: center;
         font-size: 18px;
@@ -216,27 +244,21 @@
         text-transform: uppercase;
         font-weight: 0;
         color: white;
-        font-size: 60pt !important;
+        font-size: 40pt !important;
         text-align: center;
         margin-top: 100px;
     }
 
-
-/* DIV BOX */
-    
-    /*#goal-new,*/
-    #category-new {
-        border-radius: 10px;
-        padding: 40px;
-        margin: 10px 180px 60px 180px;
-        background-color: #ffffff;
+    #add-new-category-icon,
+    #add-new-goal-icon {
         font-size: 30pt;
-        font-family: 'Dosis';
-        color: #4a4a4a;
-        text-transform: uppercase;
     }
 
-    #goal-new {
+
+    /* DIV BOX */
+
+    #goal-new,
+    #category-new {
         font-family: 'Dosis';
         font-size: 28pt;
         text-transform: uppercase;
@@ -262,14 +284,14 @@
 /* TEXT INPUT */
 
     /*#goal-new input,*/
-    #category-new input {
+   /* #category-new input {
         line-height: 0;
         font-size: 24pt;
         padding: 5px 10px 0px 10px;
         border: 0;
         border-radius: 0;
         border-bottom: 2px solid #FF416C;
-    }
+    }*/
 
     .duration {
         text-transform: lowercase;
@@ -294,17 +316,38 @@
         color: #666;
     }
 
+    .selectize-dropdown, .selectize-input, .selectize-input input {
+    color: #303030;
+    font-family: inherit;
+    font-size: 18pt;
+    line-height: 18px;
+    -webkit-font-smoothing: inherit;
+    }
+
 /* INPUT WIDTH */
 
     #input-goal-name,
+    #input-category-new,
     #start-date,
     #end-date {
         height: 40px;
         width: 400px;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
         background-color: rgba(255, 255, 255, 0);
         color: white;
         border-bottom: 1px solid white;
+        font-size: 30px;
+        padding-left: 8px;
+    }
+
+    #category-new {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    #start-date,
+    #end-date {
+        width: 300px;
     }
 
     #hours,
@@ -319,6 +362,7 @@
     }
 
     #input-goal-name::placeholder,
+    #input-category-new::placeholder,
     #hours::placeholder,
     #minutes::placeholder,
     #start-date::placeholder,
@@ -329,11 +373,6 @@
     #start-date,
     #end-date {
         background: transparent;
-    }
-
-    #input-category-new {
-        width: 100%;
-        margin-bottom: 8px;
     }
 
     #input-new-task-name {
@@ -365,14 +404,15 @@
     #stop-button,
     #manual-submit {
         margin: 60px 0 0 0;
-        width: 100%;
+        width: 200px;
         line-height: 20px;
-        background-color: white;
-        color: #FF416C;
+        background-color: rgba(255, 0, 128, 0.5);
+        color: #ffffff;
         font-family: 'Dosis', sans-serif;
         text-transform: uppercase;
-        font-size: 28pt;
-        border: 0;
+        font-size: 30pt;
+        padding: 20px;
+        border: 2px solid #ffffff;
         border-radius: 0;
     }
 
@@ -416,7 +456,7 @@
 
     .container {
         color: white;
-        margin: 0 0 200px 0;
+        margin: 0 auto 200px auto;
     }
 
 

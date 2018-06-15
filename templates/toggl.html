@@ -20,10 +20,10 @@
     <tbody>
     {% for entry in toggl_entries %}
     
-        <tr class="tr-toggl">
+        <tr class="tr-toggl-entry">
 
         <!-- Toggl entry id -->
-        <form class="form-toggl-id">
+        <form class="form-toggl-entry-id">
             <input type="hidden" value="{{ entry.toggl_entry_id }}" class="toggl-entry-id">
         </form>
 
@@ -45,6 +45,7 @@
             <!-- Categories -->
             <td class="td-toggl-entry-categories">
                 <select class="toggl-categories">
+                    <option disabled selected>Select a category</option> 
                     {% for category in categories %}
                         <option>{{ category.name }}</option>
                     {% endfor %}
@@ -52,19 +53,27 @@
             </td>            
 
             <!-- Save -->
-            <td class="td-toggl-save">
-                save
+            <td class="td-toggl-entry-save">
+                <span class="span-toggl-entry-save">
+                    <button class="btn btn-link btn-toggl-entry-save">
+                        save
+                    </button>
+                </span>
             </td>
 
             <!-- Delete -->
-            <td class="td-toggl-remove">
-                remove
+            <td class="td-toggl-entry-remove">
+                <span class="span-toggl-entry-remove">
+                    <button class="btn btn-link btn-toggl-entry-remove">
+                        x
+                    </button>
+                </span>
             </td>        
         </tr>
         
     {% endfor %}
     </tbody>
 </table>
-
+</div>
 {% endblock %}
 

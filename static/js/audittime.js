@@ -11,21 +11,27 @@ function initialize() {
     $(".span-category-archive").hide();
     $(".span-event-task-save").hide();
     $(".span-event-task-delete").hide();
+    $(".span-toggl-entry-save").hide();
+    $(".span-toggl-entry-remove").hide();
+    $(".span-gcal-event-save").hide();
+    $(".span-gcal-event-remove").hide();
     $("#mode-stopwatch").hide();
     $("#stop-button").hide();
     $(".input-task-start-date-time-picker").hide();
-    $(".input-task-end-date-time-picker").hide();    
+    $(".input-task-end-date-time-picker").hide(); 
+    $("#category-new").hide();
+    $("#goal-new").hide();   
 
 
     $(".td-input-category-goals").selectize();
     // $(".gcal-categories").select2({placeholder: "category"});
 
     // Apply selectize.js to dropdowns
-    $("#select-category-goal").selectize({placeholder: "goals"});
+    $("#select-category-goal").selectize({placeholder: "select your goals"});
     $("#select-task-category").selectize({placeholder: "tv"});
-    // $(".td-input-event-task-categories").selectize();
     $(".goal-modal-input-goal-categories").selectize();
     $(".goal-modal-input-type").selectize();
+
 
 
     // Remove Bootstrap's hideous blue glow
@@ -71,6 +77,16 @@ function initialize() {
 
 function addEventListeners(){
 
+    // ADD NEW STUFF
+
+        $("#add-new-category").click(function() {
+            $("#category-new").slideToggle();
+        });
+
+        $("#add-new-goal").click(function() {
+            $("#goal-new").slideToggle();
+        });
+
     // SETTINGS
 
         $("#show-password").click(function() {
@@ -84,6 +100,35 @@ function addEventListeners(){
         });
 
     // SHOW/HIDE SAVE BUTTONS
+
+    // Google Calendar
+        // When the mouse hovers over the list item, show the Save button.
+        $(".tr-gcal-event").hover(function() {
+            $(this).children(".td-gcal-event-save").children("span").show();
+            $(this).children(".td-gcal-event-remove").children("span").show();
+
+
+        // When the mouse leaves the list item, hide the Save button.
+            $(this).mouseleave(function() {
+            $(this).children(".td-gcal-event-save").children("span").hide();
+            $(this).children(".td-gcal-event-remove").children("span").hide();
+            });    
+        });
+
+    // Toggl
+        // When the mouse hovers over the list item, show the Save button.
+        $(".tr-toggl-entry").hover(function() {
+            $(this).children(".td-toggl-entry-save").children("span").show();
+            $(this).children(".td-toggl-entry-remove").children("span").show();
+
+
+        // When the mouse leaves the list item, hide the Save button.
+            $(this).mouseleave(function() {
+            $(this).children(".td-toggl-entry-save").children("span").hide();
+            $(this).children(".td-toggl-entry-remove").children("span").hide();
+            });    
+        });
+
 
     // Task
 
@@ -567,31 +612,31 @@ $("#start-button").on("click", startStopwatch);
         $(this).parents("tr").hide();
     });
 
-// TOGGLE ENTRY - DELETE PENDING ENTRY
-$("span.delete-toggl").click(function() {
+// TOGGL ENTRY - DELETE PENDING ENTRY
+$("button.btn-toggl-entry-remove").click(function() {
     let formInputs = {
         togglEntryId: $(this).parents("form").children(".toggl-entry-id").val()
     };
 
-    toastr.success('Google Calendar Task Deleted');
+    toastr.success('Task Removed');
 
-    $(this).parents("li").hide();
+    $(this).parents("tr").hide();
 
     $.post("/delete_toggl_entry", formInputs)
 });
 
 
-// TOGGLE ENTRY - SAVE PENDING ENTRY
-$("span.save-toggl").click(function() {
+// TOGGL ENTRY - SAVE PENDING ENTRY
+$("button.btn-toggl-entry-save").click(function() {
 
     let formInputs = {
         togglEntryId: $(this).parents("form").children(".toggl-entry-id").val(),
-        categoryName: $(this).parents('form').children('.toggl-entry-categories').children('select').val()
+        categoryName: $(this).parents('form').children('.td-toggl-entry-categories').children('select').val()
     };
 
     toastr.success('Task Saved');
 
-    $(this).parents("li").hide();
+    $(this).parents("tr").hide();
 
     $.post("/save_toggl_entry", formInputs)
 });
@@ -599,29 +644,29 @@ $("span.save-toggl").click(function() {
 
 
 // GOOGLE CALENDAR EVENT - DELETE PENDING EVENT
-$("span.delete-gcal").click(function() {
+$("button.btn-gcal-event-remove").click(function() {
     let formInputs = {
         gcalEventId: $(this).parents("form").children(".gcal-event-id").val()
     };
 
-    toastr.success('Toggl Entry Deleted');
+    toastr.success('Task Removed');
 
-    $(this).parents("li").hide();
+    $(this).parents("tr").hide();
 
     $.post("/delete_gcal_event", formInputs)
 });
 
 
 // GOOGLE CALENDAR EVENT - SAVE PENDING EVENT
-$("span.save-gcal").click(function() {
+$("button.btn-gcal-event-save").click(function() {
     let formInputs = {
         gcalEventId: $(this).parents('form').children(".gcal-event-id").val(),
-        categoryName: $(this).parents('form').children("span").children("select").val()
+        categoryName: $(this).parents('form').children(".td-gcal-event-categories").children("select").val()
     };
 
     toastr.success('Task Saved');
 
-    $(this).parents("li").hide();
+    $(this).parents("tr").hide();
 
     $.post("/save_gcal_event", formInputs)
 });

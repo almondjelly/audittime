@@ -4,16 +4,19 @@
 
 
 <!-- Add new category -->
-<h1>Add A New Category</h1>
+<h1 id="add-new-category">Add A New Category <i class="material-icons" id="add-new-category-icon">
+add_box
+</i></h1>
 <div id="category-new">
     <form method="post" id="form-category">
         <input type="text" id="input-category-new" placeholder="new category name">
-   
+        <span id="span-select-category-goal">
         <select multiple name="categoryGoals" id="select-category-goal">
             {% for goal in goals %}
                 <option value="{{ goal.name }}">{{ goal.name }}</option>
             {% endfor %}
         </select> 
+        </span>
     
         <button type="button" class="btn btn-primary" id="category-submit">Create</button>
             
