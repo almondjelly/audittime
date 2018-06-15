@@ -40,7 +40,8 @@
 
     #report-goal,
     #report-category,
-    #report-goal-graph {
+    #report-goal-graph,
+    #report-category-chart {
         border-radius: 10px;
         padding: 40px 80px 80px 80px;
         margin: 10px 100px 60px 100px;
@@ -53,6 +54,20 @@
     }
 
 /* ------------------------------- ITEM LOGS ------------------------------- */
+
+/* DIV WRAPPER */
+    #div-goal-log,
+    #div-category-new {
+        padding: 0;
+        margin: 10px 0px 60px 0px;
+        background-color: rgba(255, 255, 255, 0.4);
+        font-size: 30pt;
+        font-family: 'Dosis';
+        color: #4a4a4a;
+        text-transform: uppercase;
+    }
+
+
 
 /* TABLE FONTS */
 
@@ -208,8 +223,8 @@
 
 
 /* DIV BOX */
-
-    #goal-new,
+    
+    /*#goal-new,*/
     #category-new {
         border-radius: 10px;
         padding: 40px;
@@ -219,6 +234,14 @@
         font-family: 'Dosis';
         color: #4a4a4a;
         text-transform: uppercase;
+    }
+
+    #goal-new {
+        font-family: 'Dosis';
+        font-size: 28pt;
+        text-transform: uppercase;
+        text-align: center;
+        padding-top: 30px;
     }
 
     #task-new {
@@ -238,7 +261,7 @@
 
 /* TEXT INPUT */
 
-    #goal-new input,
+    /*#goal-new input,*/
     #category-new input {
         line-height: 0;
         font-size: 24pt;
@@ -273,9 +296,39 @@
 
 /* INPUT WIDTH */
 
-    #input-goal-name {
-        width: 506px;
+    #input-goal-name,
+    #start-date,
+    #end-date {
+        height: 40px;
+        width: 400px;
         margin-bottom: 8px;
+        background-color: rgba(255, 255, 255, 0);
+        color: white;
+        border-bottom: 1px solid white;
+    }
+
+    #hours,
+    #minutes {
+        height: 40px;
+        width: 80px;
+        padding: 0;
+        margin-bottom: 8px;
+        background-color: rgba(255, 255, 255, 0);
+        color: white;
+        border-bottom: 1px solid white;
+    }
+
+    #input-goal-name::placeholder,
+    #hours::placeholder,
+    #minutes::placeholder,
+    #start-date::placeholder,
+    #end-date::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    #start-date,
+    #end-date {
+        background: transparent;
     }
 
     #input-category-new {
@@ -501,6 +554,7 @@ div > small {
     border-radius: 0;
 }
 
-#toggl-entries li{
+#toggl-entries li,
+#gcal-events li {
     background-color: black;
 }

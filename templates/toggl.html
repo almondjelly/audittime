@@ -2,67 +2,69 @@
 
 {% block body %}
 
-<h2>Integrations</h2>
+<h1>Toggl Entries</h1>
 
-<!-- Add new category -->
-<form method="post" class="form-category">
-    <input type="text" class="categoryName" placeholder="new category">
-    <select multiple class="categoryGoals" id="category-goal-dropdown">
-        {% for goal in goals %}
-            <option value="{{ goal.name }}">{{ goal.name }}</option>
-        {% endfor %}
-    </select> 
-    
-    <span class="categorySubmit">save</span>
-</form>
+<div id="div-toggl-entries">
+<table class="table table-hover" id="toggl-entries">
+    <thead>
+        <tr>
+            <th scope="col">Task</th>
+            <th sccope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Category</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
 
-
-
-
-<ul class="list-group">
-    <li class="list-group-item">
-        <input type="checkbox"> Toggl
-    </li>
-    <li class="list-group-item">
-        <input type="checkbox"> Google Calendar
-    </li>
-</ul>
-
-<ul class="list-group" id="toggl-entries">
+    <tbody>
     {% for entry in toggl_entries %}
-    <li class="list-group-item">
-        <form>
+    
+        <tr class="tr-toggl">
+
+        <!-- Toggl entry id -->
+        <form class="form-toggl-id">
             <input type="hidden" value="{{ entry.toggl_entry_id }}" class="toggl-entry-id">
-
-
-        {{ entry.title }} {{ entry.start_time }} {{ entry.stop_time }}
-
-        <!-- Categories -->
-        <span class="toggl-entry-categories">
-            
-            <!-- Dropdown for multiple selecting categories -->
-            <select class="toggl-categories">
-                {% for category in categories %}
-                    <option>{{ category.name }}</option>
-                {% endfor %}
-            </select>
-        </span>
-
-        <!-- Save -->
-        <span class="{{ entry.toggl_entry_id }} save-toggl">
-            <span>save</span>
-        </span>
-
-        <!-- Delete -->
-        <span class="{{ entry.toggl_entry_id }} delete-toggl">
-            <span>delete</span>
-        </span>        
-
-
         </form>
-    </li>
+
+            <!-- Title -->
+            <td class="td-toggl-entry-title">
+                {{ entry.title }}
+            </td>
+
+            <!-- Start -->
+            <td class="td-toggl-entry-start">
+                {{ entry.start_time }}
+            </td>
+
+            <!-- End -->
+            <td class="td-toggl-entry-end">
+                {{ entry.stop_time }}
+            </td>
+
+            <!-- Categories -->
+            <td class="td-toggl-entry-categories">
+                <select class="toggl-categories">
+                    {% for category in categories %}
+                        <option>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>            
+
+            <!-- Save -->
+            <td class="td-toggl-save">
+                save
+            </td>
+
+            <!-- Delete -->
+            <td class="td-toggl-remove">
+                remove
+            </td>        
+        </tr>
+        
     {% endfor %}
-</ul>
+    </tbody>
+</table>
 
 {% endblock %}
 

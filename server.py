@@ -137,7 +137,7 @@ def add_goal():
     end_time = parse(end_time)
 
     new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
-                    goal_type=goal_type, duration=duration, status="Active",
+                    goal_type=goal_type, duration=duration, status="active",
                     user_id=user_id)
 
     db.session.add(new_goal)
@@ -626,7 +626,7 @@ def delete_gcal_event():
 
     db.session.commit()
 
-    return redirect('/account')
+    return redirect('/gcal')
 
 
 @app.route('/save_gcal_event', methods=['POST'])
@@ -636,9 +636,12 @@ def save_gcal_event():
 
     gcal_event_id = request.form.get('gcalEventId')
     category_name = request.form.get('categoryName')
+
+    print category_name
     user_id = session['user_id']
     category_id = Category.query.filter_by(name=category_name,
                                            user_id=user_id).one().category_id
+
 
     # Update status in gcal_events table to 'saved'
     gcal_event = GoogleCalendar.query.filter_by(
@@ -670,7 +673,7 @@ def save_gcal_event():
 
     db.session.commit()
 
-    return redirect('/account')
+    return redirect('/gcal')
 
 
 @app.route('/reports')

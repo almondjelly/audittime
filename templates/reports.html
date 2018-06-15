@@ -71,13 +71,69 @@
     }
 
     $(document).ready(function() {
-        $.get("/report-goal-at-most-data", 
-            printGoalData);
+        $.get("/report-goal-at-most-data", printGoalData);
+        $.get("/report-goal-at-least-data", printGoalData);
     });
 
+
+
+    function printCategoryData(result) {
+        let goalNames = [];
+        let goalDurations = [];
+        let goalTotalTimes = [];
+        let goalData = result;
+        let goalType = goalData[Object.keys(goalData)[0]]["goal_type"];
+
+        for (let goal in goalData) {
+            goalNames.push(goal);
+            goalDurations.push(goalData[goal]["target"]);
+            goalTotalTimes.push(goalData[goal]["total_time"]);
+        }
+
+        var ctx = document.getElementById(goalType);
+
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: goalNames,
+                datasets: [{
+                    label: 'Total # of Hours Spent',
+                    data: goalTotalTimes,
+                    backgroundColor: 'rgba(255, 0, 128, 0.2)',
+                    borderColor: 'rgba(255, 0, 128, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Target # of Hours',
+                    data: goalDurations,
+                    backgroundColor: 'rgba(255, 140, 0, 0.2)',
+                    borderColor: 'rgba(255, 140, 0, 1)',
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: false,
+
+                    }]
+                },
+                responsive: true,
+            }
+        }); 
+
+    }
+
     $(document).ready(function() {
-        $.get("/report-goal-at-least-data", 
-            printGoalData);
+        $.get("/report-category-this-week-data", printCategoryData);
+        $.get("/report-category-last-week-data", printCategoryData);
     });
 
 
@@ -281,6 +337,42 @@
     </a>
     
 </div>
+
+
+
+<div id="report-category-chart" class="carousel slide div-reports" data-ride="carousel" data-interval="false">
+    <h2>Progress</h2>
+    <ol class="carousel-indicators">
+        <li data-target="#report-category-chart" data-slide-to="0" class="active"></li>
+        <li data-target="#report-category-chart" data-slide-to="1"></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <p>This Week</p>
+            <canvas id="category-chart-this-week"></canvas>
+        </div>
+
+        <div class="carousel-item">
+            <p>Last Week</p>
+            <canvas id="category-chart-last-week"></canvas>
+
+        </div>
+    </div>
+
+    <a class="carousel-control-prev" href="#report-category-chart" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#report-category-chart" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+
+</div>
+
+
+
 
 
 

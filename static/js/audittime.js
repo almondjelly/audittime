@@ -207,8 +207,8 @@ flatpickr(".date-time-picker", {
 
     $("#goal-submit").on("click", function() {
         let formInputs = {
-            "goalName": $("#goal-name").val(),
-            "goalType": $("#goal-type").val(),
+            "goalName": $("#input-goal-name").val(),
+            "goalType": $("#select-goal-type").val(),
             "hours": $("#hours").val(),
             "minutes": $("#minutes").val(),
             "startDate": $("#start-date").val(),
@@ -614,10 +614,9 @@ $("span.delete-gcal").click(function() {
 
 // GOOGLE CALENDAR EVENT - SAVE PENDING EVENT
 $("span.save-gcal").click(function() {
-
     let formInputs = {
-        gcalEventId: $(this).parents("form").children(".gcal-event-id").val(),
-        categoryName: $(this).parents('form').children(".gcal-event-categories").children("span").children(".selection").children("span").children(".select2-selection__rendered").attr("title")
+        gcalEventId: $(this).parents('form').children(".gcal-event-id").val(),
+        categoryName: $(this).parents('form').children("span").children("select").val()
     };
 
     toastr.success('Task Saved');

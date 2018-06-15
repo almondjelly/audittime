@@ -74,6 +74,11 @@
                             <a class="nav-link" href="/gcal">Google Calendar</a>
                         </li>
 
+                        <!-- Reports -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reports">Reports</a>
+                        </li>
+
                     </ul>
 
                     <ul class="navbar-nav">
@@ -82,7 +87,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ session.get('user')}}</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/settings">Settings</a>
-                                <a class="dropdown-item" href="/reports">Reports</a>
+                          
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" id="logout" href="/logout">Log out</a>
                             </div>
@@ -93,15 +98,15 @@
                 {% else %}
                     <ul class="navbar-nav mr-auto">
 
-                            <!-- Log in -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="/login">Log in</a>
-                            </li>
-                    
-                            <!-- Sign up -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="/signup">Sign up</a>
-                            </li>
+                        <!-- Log in -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Log in</a>
+                        </li>
+                
+                        <!-- Sign up -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Sign up</a>
+                        </li>
                             
                     </ul>
 
