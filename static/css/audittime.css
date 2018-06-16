@@ -8,8 +8,11 @@
         margin: 50px auto;
     }
 
+    #form-settings,
     #form-settings {
         width: 100%;
+        font-family: "Roboto Condensed";
+        font-size: 14pt;
     }
 
     .col-sm-12 h2 {
@@ -138,7 +141,8 @@
     .td-event-task,
     .td-toggl-entry-title,
     .td-gcal-event-title {
-        width: 300px;
+        width: 260px;
+        font-size: 14pt;
         vertical-align: middle;
     }    
 
@@ -378,7 +382,9 @@
     #input-new-task-name {
         width: 432px;
         margin-bottom: 8px;
+        padding-left: 4px;
         border-bottom: 1px solid #FF0080;
+        font-size: 40px;
     }
 
     #select-goal-type {
