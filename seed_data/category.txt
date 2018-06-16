@@ -9,3 +9,8 @@
 9|solving toy problems|1|current
 10|tv|1|current
 11|movies|1|current
+12|tv|1|current
+13|SoulCycle|1|current
+14|Krav Maga|1|current
+15|video games|1|current
+16|board games|1|current

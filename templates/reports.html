@@ -225,10 +225,10 @@
                     </td>
 
                     <td>
-                        {% if goal.goal_status() == 'Success' %}
+                        {% if goal.goal_status() == 'Success!' %}
                             <span class="success">{{ goal.goal_status() }}</span>
 
-                        {% elif goal.goal_status() == 'Fail' %}
+                        {% elif goal.goal_status() == 'FAILED' %}
                             <span class="fail">{{ goal.goal_status() }}</span>
 
                         {% endif %}

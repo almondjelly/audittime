@@ -10,7 +10,7 @@ function initialize() {
     $(".span-category-save").hide();
     $(".span-category-archive").hide();
     $(".span-event-task-save").hide();
-    $(".span-event-task-delete").hide();
+    $(".span-event-task-remove").hide();
     $(".span-toggl-entry-save").hide();
     $(".span-toggl-entry-remove").hide();
     $(".span-gcal-event-save").hide();
@@ -20,17 +20,19 @@ function initialize() {
     $(".input-task-start-date-time-picker").hide();
     $(".input-task-end-date-time-picker").hide(); 
     $("#category-new").hide();
-    $("#goal-new").hide();   
+    $("#goal-new").hide();
 
+    // Apply tablesorter to tables
+    $("table").tablesorter();
 
-    $(".td-input-category-goals").selectize();
-    // $(".gcal-categories").select2({placeholder: "category"});
+    
 
     // Apply selectize.js to dropdowns
     $("#select-category-goal").selectize({placeholder: "select your goals"});
     $("#select-task-category").selectize({placeholder: "tv"});
     $(".goal-modal-input-goal-categories").selectize();
     $(".goal-modal-input-type").selectize();
+    $(".td-input-category-goals").selectize();
 
 
 
@@ -269,16 +271,24 @@ flatpickr(".date-time-picker", {
 // EDIT GOAL INFO AND SAVE
 $(".goal-edit-save").click(function() {
     console.log("saving goal")
+
+    let newCategoryGoalsArr = $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-categories").children(".td-goal-modal-input").children("select").val()
+    let newCategoryGoals = '';
+
+    for (let category of newCategoryGoalsArr) {
+        newCategoryGoals += (category + '|');
+    }
+
     let formInputs = {
-        "goalId": $(this).parents(".form-goal-id").children(".input-goal-id").val(),
-        "newGoalName": $(this).parents(".modal-form").children(".td-goal-type").val(),
-        "newType": $(this).parents(".modal-form").children(".goal-input-type").val(),
-        "newDays": $(this).parents(".modal-form").children(".days").val(),
-        "newHours": $(this).parents(".modal-form").children(".hours").val(),
-        "newMinutes": $(this).parents(".modal-form").children(".minutes").val(),
-        "newStartTime": $(this).parents(".modal-form").children(".input-goal-start-time").val(),
-        "newEndTime": $(this).parents(".modal-form").children(".input-goal-end-time").val(),
-        "newCategoryGoals": $(this).parents(".modal-form").children(".input-goal-start-time").val()
+        "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+        "newGoalName": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-name").children(".td-goal-modal-input").children("input").val(),
+        "newType": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-type").children(".td-goal-modal-input").children("select").val(),
+        "newDays": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-target").children(".td-goal-modal-input").children(".goal-modal-input-duration.days").val(),
+        "newHours": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-target").children(".td-goal-modal-input").children(".goal-modal-input-duration.hours").val(),
+        "newMinutes": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-target").children(".td-goal-modal-input").children(".goal-modal-input-duration.minutes").val(),
+        "newStartTime": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-start").children(".td-goal-modal-input").children(".input-goal-start-time.time-input").children(".modal-input-goal-date-time-picker.flatpickr-input").val(),
+        "newEndTime":$(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-end").children(".td-goal-modal-input").children(".input-goal-end-time.time-input").children(".modal-input-goal-date-time-picker.flatpickr-input").val(),
+        "newCategoryGoals": newCategoryGoals 
     }
 
     $.post("/edit_goal_info", formInputs);
@@ -321,7 +331,7 @@ $(".goal-edit-save").click(function() {
 
         let categoryGoals = '';
 
-        $(this).parents("form").children("select").change(function() {
+        $("#select-category-goal").change(function() {
             $(this).children("option:selected").each(function() {
                 categoryGoals += $(this).text() + '|';
             });
@@ -329,7 +339,7 @@ $(".goal-edit-save").click(function() {
 
 
         let formInputs = {
-            "categoryName": $(".input-category-new").val(),
+            "categoryName": $("#input-category-new").val(),
             "categoryGoals": categoryGoals
         };
 
@@ -346,7 +356,6 @@ function displayEditCategoryResults(result) {
 
 
 $(".btn-category-save").click(function() {
-        console.log("all i want for christmas");
         let newCategoryGoals = '';
 
         
@@ -415,14 +424,14 @@ $(".btn-category-save").click(function() {
             $(this).children().toggle();    
         });
 
-        $("#event-log-ul > li:first-child .task-input > span").on("click", function() {
-            $(this).parents("form").children("span.event-edit-submit").show();
-            $(this).parents("form").children("span.task-input").children(
-                "span").children("input").on("focusout", function(event) {
-                    $(this).parents("form").children("span.event-edit-submit").hide();
-            });
+        // $("#event-log").children(".on("hover", function() {
+        //     $(this).parents("form").children("span.event-edit-submit").show();
+        //     $(this).parents("form").children("span.task-input").children(
+        //         "span").children("input").on("focusout", function(event) {
+        //             $(this).parents("form").children("span.event-edit-submit").hide();
+        //     });
         
-        });
+        // });
 
         console.log(result)
     }
@@ -615,7 +624,7 @@ $("#start-button").on("click", startStopwatch);
 // TOGGL ENTRY - DELETE PENDING ENTRY
 $("button.btn-toggl-entry-remove").click(function() {
     let formInputs = {
-        togglEntryId: $(this).parents("form").children(".toggl-entry-id").val()
+        togglEntryId: $(this).parents("tr").children(".toggl-entry-id").val()
     };
 
     toastr.success('Task Removed');
@@ -630,8 +639,8 @@ $("button.btn-toggl-entry-remove").click(function() {
 $("button.btn-toggl-entry-save").click(function() {
 
     let formInputs = {
-        togglEntryId: $(this).parents("form").children(".toggl-entry-id").val(),
-        categoryName: $(this).parents('form').children('.td-toggl-entry-categories').children('select').val()
+        togglEntryId: $(this).parents("tr").children(".toggl-entry-id").val(),
+        categoryName: $(this).parents('tr').children('.td-toggl-entry-categories').children('select').val()
     };
 
     toastr.success('Task Saved');
@@ -646,7 +655,7 @@ $("button.btn-toggl-entry-save").click(function() {
 // GOOGLE CALENDAR EVENT - DELETE PENDING EVENT
 $("button.btn-gcal-event-remove").click(function() {
     let formInputs = {
-        gcalEventId: $(this).parents("form").children(".gcal-event-id").val()
+        gcalEventId: $(this).parents("tr").children(".gcal-event-id").val(),
     };
 
     toastr.success('Task Removed');
@@ -659,9 +668,10 @@ $("button.btn-gcal-event-remove").click(function() {
 
 // GOOGLE CALENDAR EVENT - SAVE PENDING EVENT
 $("button.btn-gcal-event-save").click(function() {
+
     let formInputs = {
-        gcalEventId: $(this).parents('form').children(".gcal-event-id").val(),
-        categoryName: $(this).parents('form').children(".td-gcal-event-categories").children("select").val()
+        gcalEventId: $(this).parents("tr").children(".gcal-event-id").val(),
+        categoryName: $(this).parents("tr").children(".td-gcal-event-categories").children("select").val()
     };
 
     toastr.success('Task Saved');

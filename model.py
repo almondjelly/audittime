@@ -132,7 +132,6 @@ class Goal(db.Model):
             start = datetime(1900, 1, 1, 0, 0)
             end = datetime.now()
 
-
         elif time_period == 'goal_time':
             start = self.start_time
             end = self.end_time
@@ -161,12 +160,12 @@ class Goal(db.Model):
     def time_left(self):
         """Calculate the time left to reach goal target."""
 
-        if self.duration >= self.total_time():
-            time_left = self.duration - self.total_time()
+        if self.duration >= self.total_time("goal_time"):
+            time_left = self.duration - self.total_time("goal_time")
             time_left_str = duration_str(time_left)
 
         else:
-            time_left = self.total_time() - self.duration
+            time_left = self.total_time("goal_time") - self.duration
             time_left_str = "-" + duration_str(time_left)
 
         return time_left_str
@@ -175,18 +174,18 @@ class Goal(db.Model):
         """Return goal status."""
 
         # Success conditions
-        if ((self.goal_type == "at_most" and self.total_time() <=
+        if ((self.goal_type == "at_most" and self.total_time("goal_time") <=
             self.duration and datetime.now() >= self.end_time) or
-           (self.goal_type == "at_least" and self.total_time() >=
+           (self.goal_type == "at_least" and self.total_time("goal_time") >=
            self.duration)):
-            time_left_str = "Success"
+            time_left_str = "Success!"
 
         # Fail conditions
-        elif ((self.goal_type == "at_most" and self.total_time() >
+        elif ((self.goal_type == "at_most" and self.total_time("goal_time") >
               self.duration) or (self.goal_type == "at_least" and
-              self.total_time() < self.duration and datetime.now() >=
+              self.total_time("goal_time") < self.duration and datetime.now() >=
               self.end_time)):
-            time_left_str = "Fail"
+            time_left_str = "FAILED"
 
         # Otherwise, show progress
         else:

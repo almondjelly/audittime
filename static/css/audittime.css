@@ -124,7 +124,7 @@
     }
 
     .td-goal-end-time {
-        width: 250px;
+        width: 220px;
     }
 
     .td-category {
@@ -519,10 +519,12 @@
 
     .fail {
         color: #FF0080;
+        font-weight: bold;
     }
 
     .success {
         color: #40E0D0;
+        font-weight: bold;
     }
 
 

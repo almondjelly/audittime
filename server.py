@@ -165,6 +165,7 @@ def add_goal():
 def edit_goal_info():
     """Updates new goal info in the goals table."""
 
+    user_id = session['user_id']
     goal_id = request.form.get('goalId')
     new_goal_name = request.form.get('newGoalName')
     new_days = int(request.form.get('newDays'))
@@ -172,13 +173,35 @@ def edit_goal_info():
     new_minutes = int(request.form.get('newMinutes'))
     new_duration = timedelta(days=new_days, hours=new_hours,
                              minutes=new_minutes)
-
-    # Find the existing goal
+    new_type = request.form.get('newType')
     goal = Goal.query.filter_by(goal_id=goal_id).one()
 
     # Update name and duration
     goal.name = new_goal_name
     goal.duration = new_duration
+    goal.type = new_type
+
+    if request.form.get('newStartTime'):
+        new_start = request.form.get('newStartTime')
+        new_start = datetime.strptime(new_start, "%m/%d at %I:%M %p")
+        goal.start_time = new_start
+
+    if request.form.get('newEndTime'):
+        new_end = request.form.get('newEndTime')
+        new_end = datetime.strptime(new_end, "%m/%d at %I:%M %p")
+        goal.end_time = new_end
+
+    new_category_goals = request.form.get('newCategoryGoals')
+    new_category_goals = new_category_goals.split('|')[:-1]
+
+    # Clear the goal's current categories and add the new ones
+    goal.categories = []
+
+    for category in new_category_goals:
+        new_category = Category.query.filter_by(user_id=user_id, name=category).one()
+        new_goal_category = GoalCategory(goal_id=goal_id,
+                                         category_id=new_category.category_id)
+        db.session.add(new_goal_category)
 
     db.session.commit()
 
@@ -266,6 +289,7 @@ def edit_category_info():
     # Grab data from form via JavaScript
     category_id = request.form.get('categoryId')
     new_category_name = request.form.get('newcategoryName')
+
     new_category_goals = request.form.get('newCategoryGoals')
     new_category_goals = new_category_goals.split('|')[:-1]
     user_id = session['user_id']
@@ -708,6 +732,8 @@ def send_goal_at_least_data():
             "total_time": goal.total_time("goal_time").seconds / 3600,
             "goal_type": goal.goal_type
         }
+
+    print goal_progress_data
 
     goal_progress_data = jsonify(goal_progress_data)
 
