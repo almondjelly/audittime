@@ -139,7 +139,7 @@ class Goal(db.Model):
         for event in goal_events:
 
             # If the event starts and ends within the time period
-            if event.start_time >= start and event.stop_time <= end:
+            if event.start_time >= start and (event.stop_time <= end or event.stop_time > datetime.now()):
                 total_time += event.duration()
 
             # If the the event starts within the time period but ends after
@@ -189,7 +189,7 @@ class Goal(db.Model):
 
         # Otherwise, show progress
         else:
-            time_left_str = ""
+            time_left_str = "In progress"
 
         return time_left_str
 
@@ -259,14 +259,14 @@ class Category(db.Model):
             end = datetime(year, month + 1, 1, 23, 59) - timedelta(1)
 
         elif time_period == 'all_time':
-            start = datetime(1900, 1, 1, 0, 0)
+            start = datetime(1900, 1, 1, 0, 0, 0, 0)
             end = datetime.now()
 
         for task in self.tasks:
             for event in task.events:
 
                 # If the event starts and ends within the time period
-                if event.start_time >= start and event.stop_time <= end:
+                if event.start_time >= start and (event.stop_time <= end or event.stop_time >= datetime.now()):
                     total_time += event.duration()
 
                 # If the the event starts within the time period but ends after

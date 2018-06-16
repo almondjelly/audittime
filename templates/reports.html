@@ -131,10 +131,10 @@
 
     }
 
-    $(document).ready(function() {
-        $.get("/report-category-this-week-data", printCategoryData);
-        $.get("/report-category-last-week-data", printCategoryData);
-    });
+    // $(document).ready(function() {
+    //     $.get("/report-category-this-week-data", printCategoryData);
+    //     $.get("/report-category-last-week-data", printCategoryData);
+    // });
 
 
     </script>
@@ -176,7 +176,7 @@
 
 
 <div id="report-goal" class="carousel slide div-reports" data-ride="carousel" data-interval="false">
-    <h2>Goals</h2>
+    <h2>Active Goals</h2>
     <ol class="carousel-indicators">
         <li data-target="#report-goal" data-slide-to="0" class="active"></li>
         <li data-target="#report-goal" data-slide-to="1"></li>
@@ -230,6 +230,9 @@
 
                         {% elif goal.goal_status() == 'FAILED' %}
                             <span class="fail">{{ goal.goal_status() }}</span>
+
+                        {% elif goal.goal_status() == 'In progress' %}
+                            {{ goal.goal_status() }}
 
                         {% endif %}
                     </td>
@@ -339,7 +342,7 @@
 </div>
 
 
-
+<!-- 
 <div id="report-category-chart" class="carousel slide div-reports" data-ride="carousel" data-interval="false">
     <h2>Progress</h2>
     <ol class="carousel-indicators">
@@ -369,7 +372,7 @@
         <span class="sr-only">Next</span>
     </a>
 
-</div>
+</div> -->
 
 
 
@@ -445,16 +448,12 @@
                     {% if category.duration_str(item[1]) %}
 
                         <tr>
-                            <td>
-                                {{ category.name }}
-                            </td>
+                            <td>{{ category.name }}</td>
 
                             <td>
                             </td>
                     
-                            <td class="duration">
-                                {{ category.duration_str(item[1]) }}
-                            </td>
+                            <td class="duration">{{ category.duration_str(item[1]) }}</td>
                         </tr>
 
                     {% endif %}
