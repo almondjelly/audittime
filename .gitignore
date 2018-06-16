@@ -4,3 +4,4 @@ env/
 *.pyc
 toDo.txt
 node_modules/
+audittime.sql

@@ -445,8 +445,8 @@ def edit_task():
 
     event_id = request.form.get('eventId')
     new_task_name = request.form.get('newTaskName')
-    newStartTime = request.form.get('newStartTime')
-    newStopTime = request.form.get('newStopTime')
+    new_start_time = request.form.get('newStartTime')
+    new_stop_time = request.form.get('newStopTime')
 
     category_id = Event.query.filter_by(event_id=event_id).one(
         ).task.category_id
@@ -471,11 +471,13 @@ def edit_task():
     event.task_id = new_task_id
 
     # If the start/stop times were edited, save them.
-    if newStartTime:
-        event.start_time = newStartTime
+    if new_start_time:
+        new_start_time = datetime.strptime(new_start_time, "%m/%d at %I:%M %p")
+        event.start_time = new_start_time
 
-    if newStopTime:
-        event.stop_time = newStopTime
+    if new_stop_time:
+        new_start_time = datetime.strptime(new_stop_time, "%m/%d at %I:%M %p")
+        event.stop_time = new_stop_time
 
     db.session.commit()
 
@@ -758,6 +760,8 @@ def send_goal_at_most_data():
             "total_time": goal.total_time("goal_time").seconds / 3600,
             "goal_type": goal.goal_type
         }
+
+    print goal_progress_data
 
     goal_progress_data = jsonify(goal_progress_data)
 

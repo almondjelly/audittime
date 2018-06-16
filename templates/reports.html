@@ -77,59 +77,59 @@
 
 
 
-    function printCategoryData(result) {
-        let goalNames = [];
-        let goalDurations = [];
-        let goalTotalTimes = [];
-        let goalData = result;
-        let goalType = goalData[Object.keys(goalData)[0]]["goal_type"];
+    // function printCategoryData(result) {
+    //     let goalNames = [];
+    //     let goalDurations = [];
+    //     let goalTotalTimes = [];
+    //     let goalData = result;
+    //     let goalType = goalData[Object.keys(goalData)[0]]["goal_type"];
 
-        for (let goal in goalData) {
-            goalNames.push(goal);
-            goalDurations.push(goalData[goal]["target"]);
-            goalTotalTimes.push(goalData[goal]["total_time"]);
-        }
+    //     for (let goal in goalData) {
+    //         goalNames.push(goal);
+    //         goalDurations.push(goalData[goal]["target"]);
+    //         goalTotalTimes.push(goalData[goal]["total_time"]);
+    //     }
 
-        var ctx = document.getElementById(goalType);
+    //     var ctx = document.getElementById(goalType);
 
-        var myChart = new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: goalNames,
-                datasets: [{
-                    label: 'Total # of Hours Spent',
-                    data: goalTotalTimes,
-                    backgroundColor: 'rgba(255, 0, 128, 0.2)',
-                    borderColor: 'rgba(255, 0, 128, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Target # of Hours',
-                    data: goalDurations,
-                    backgroundColor: 'rgba(255, 140, 0, 0.2)',
-                    borderColor: 'rgba(255, 140, 0, 1)',
-                    borderWidth: 1
-                }]
-            },
+    //     var myChart = new Chart(ctx, {
+    //         type: 'horizontalBar',
+    //         data: {
+    //             labels: goalNames,
+    //             datasets: [{
+    //                 label: 'Total # of Hours Spent',
+    //                 data: goalTotalTimes,
+    //                 backgroundColor: 'rgba(255, 0, 128, 0.2)',
+    //                 borderColor: 'rgba(255, 0, 128, 1)',
+    //                 borderWidth: 1
+    //             },
+    //             {
+    //                 label: 'Target # of Hours',
+    //                 data: goalDurations,
+    //                 backgroundColor: 'rgba(255, 140, 0, 0.2)',
+    //                 borderColor: 'rgba(255, 140, 0, 1)',
+    //                 borderWidth: 1
+    //             }]
+    //         },
 
-            options: {
-                scales: {
-                    xAxes: [{
-                        stacked: false,
-                        ticks: {
-                            beginAtZero: true,
-                        }
-                    }],
-                    yAxes: [{
-                        stacked: false,
+    //         options: {
+    //             scales: {
+    //                 xAxes: [{
+    //                     stacked: false,
+    //                     ticks: {
+    //                         beginAtZero: true,
+    //                     }
+    //                 }],
+    //                 yAxes: [{
+    //                     stacked: false,
 
-                    }]
-                },
-                responsive: true,
-            }
-        }); 
+    //                 }]
+    //             },
+    //             responsive: true,
+    //         }
+    //     }); 
 
-    }
+    // }
 
     // $(document).ready(function() {
     //     $.get("/report-category-this-week-data", printCategoryData);
@@ -179,11 +179,11 @@
     <h2>Active Goals</h2>
     <ol class="carousel-indicators">
         <li data-target="#report-goal" data-slide-to="0" class="active"></li>
-        <li data-target="#report-goal" data-slide-to="1"></li>
+  <!--       <li data-target="#report-goal" data-slide-to="1"></li>
         <li data-target="#report-goal" data-slide-to="2"></li>
         <li data-target="#report-goal" data-slide-to="3"></li>
         <li data-target="#report-goal" data-slide-to="4"></li>
-        <li data-target="#report-goal" data-slide-to="5"></li>
+        <li data-target="#report-goal" data-slide-to="5"></li> -->
     </ol>
     
     <div class="carousel-inner">
@@ -249,7 +249,7 @@
 
 
 
-        <div class="carousel-item">
+ <!--        <div class="carousel-item">
             <p>This Week</p>
 
         <table class="table table-hover">
@@ -283,10 +283,10 @@
 
         </tbody>
         </table>
-        </div>
+        </div> -->
     
 
-    {% for item in time_periods %}
+<!--     {% for item in time_periods %}
 
         <div class="carousel-item">
             <p>{{ item[0] }}</p>
@@ -324,20 +324,20 @@
                 </tbody>
             </table>
         </div>
-    {% endfor %}
+    {% endfor %} -->
     
 
     </div>
  
 
-    <a class="carousel-control-prev" href="#report-goal" role="button" data-slide="prev">
+<!--     <a class="carousel-control-prev" href="#report-goal" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#report-goal" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
-    </a>
+    </a> -->
     
 </div>
 
