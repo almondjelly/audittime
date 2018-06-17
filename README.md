@@ -8,6 +8,6 @@ easier to track your time.
 ![Goals](./static/img/goal.png)
 
 # Tech
-**Backend:** Python 2.7, Flask, Postgres
-**Frontend:** JavaScript (jQuery), Jinja, chart.js
+**Backend:** Python 2.7, Flask, Postgres\
+**Frontend:** HTMLCSS/JavaScript (jQuery, chart.js, selectize.js, flatpickr.js, tablesorter.js, toastr.js), Jinja, Bootstrap\
 **APIs:** Toggl, Google Calendar
