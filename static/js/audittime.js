@@ -239,7 +239,7 @@ flatpickr(".date-time-picker", {
 
 // ADD NEW GOAL
     function addNewGoal(result){
-        $("tbody").prepend(result);
+        $("#tbody-goal-log").prepend(result);
         $("#form-goal").trigger('reset');
     }
 
@@ -717,7 +717,7 @@ $(".form-signup").click(function() {
 function displayLogInResults(result) {
     if (result === "success") {
         toastr.success("You've successfully logged in.");
-        window.location = "/tasks";
+        window.location = "/goals";
     }
     
     else {

@@ -72,7 +72,7 @@ add_box
     </tr>
     </thead> 
 
-    <tbody>
+    <tbody id="tbody-goal-log">
     {% for goal in goals %}
         
         <tr class="tr-goal">
@@ -131,6 +131,9 @@ add_box
 
                 {% elif goal.goal_status() == 'FAILED' %}
                     <span class="fail">{{ goal.goal_status() }}</span>
+
+                {% elif goal.goal_status() == 'In progress' %}
+                    {{ goal.goal_status() }}
 
                 {% endif %}
             </td>

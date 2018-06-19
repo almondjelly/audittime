@@ -398,7 +398,8 @@
     #m-start,
     #m-stop {
         margin: 0 10px;
-        width: 46%;
+        font-size: 30px;
+        width: 40%;
         border-bottom: 1px solid #FF0080;
     }
 
@@ -406,10 +407,10 @@
 
     #goal-submit,
     #category-submit,
-    #start-button,
     #stop-button,
+    #start-button,
     #manual-submit {
-        margin: 60px 0 0 0;
+        margin: 30px auto 0 auto;
         width: 200px;
         line-height: 20px;
         background-color: rgba(255, 0, 128, 0.5);
@@ -420,6 +421,12 @@
         padding: 20px;
         border: 2px solid #ffffff;
         border-radius: 0;
+    }
+
+    #startStop {
+        margin: 0px auto;
+        width: 100%;
+        text-align: center;
     }
 
     #mode-toggler {

@@ -148,14 +148,17 @@ def add_goal():
 
     goal_id = str(goal.goal_id)
     goal_category = goal.category
-    total_time = goal.total_time()
+    total_time = goal.total_time_str("goal_time")
+    time_left = goal.time_left()
+    goal_status = goal.goal_status()
 
     categories = Category.query.filter_by(user_id=user_id).all()
 
     new_goal_html = goal_generate_html(total_time, goal_id, goal_name,
                                        goal_type,
                                        duration.days, str(hours), str(minutes),
-                                       start_time, end_time, categories,
+                                       start_time, end_time, time_left,
+                                       goal_status, categories,
                                        goal_category)
 
     return new_goal_html
