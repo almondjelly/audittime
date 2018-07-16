@@ -40,14 +40,6 @@ def display_index():
     except:
         return redirect('/login')
 
-
-@app.route('/signup')
-def display_signup():
-    """Display signup form."""
-
-    return render_template('signup.html')
-
-
 @app.route('/signup_submit', methods=['POST'])
 def submit_signup():
     """Collect login information and log user in."""

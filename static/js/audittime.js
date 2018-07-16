@@ -673,33 +673,16 @@ $("button.btn-gcal-event-save").click(function() {
 });
 
 
-
-
-
-// REGISTRATION
-
-function redirectToTasks(result) {
-    toastr.success("You've successfully created your account.")
-    window.location = "/tasks";
-}
-
-function signUp() {
-
-    let formInputs = {
-        "name": $("#register-name").val(),
-        "email": $("#register-email").val(),
-        "password": $("#register-password").val()
-    };
-
-    $.post("/signup_submit", 
-           formInputs,
-           redirectToTasks);
-}
-
-$(".form-signup").click(function() {
-    signUp();
+$(".sidenav .row").hover(function() {
+    $(this).css("background-color", "rgba(255,255,255,0.5)")
+    $(this).mouseleave(function() {
+        $(this).css("background-color", "#66C8E0")
+    });
 });
 
+$(".sidenav .row").click(function() {
+    window.location = $(this).children("a").attr("href");
+});
 
 
 

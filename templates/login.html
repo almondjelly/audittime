@@ -1,15 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'base-login.html' %}
 
 {% block body %}
 
 
 <div class="row">
-    <!-- <p class="title">AuditTime</p> -->
+    
     
     <div class="col-8"></div>
     <div class="col-4" id="div-login">
         <div class="login-top">
         </div>
+
+        <p class="title">AuditTime</p>
 
         <form class="form-login form-group" method="post">
             <div class="div-login-email">
@@ -46,7 +48,7 @@
             </div>
             
             <div class="div-register-button">
-                <button type="button" class="btn btn-primary register-button">Register</button>
+                <button type="button" class="btn btn-primary" id="register-button">Register</button>
                 <p>- OR -</p>
             </div>
 
