@@ -716,8 +716,7 @@ $(".form-signup").click(function() {
 
 function displayLogInResults(result) {
     if (result === "success") {
-        toastr.success("You've successfully logged in.");
-        window.location = "/goals";
+        window.location = "/tasks";
     }
     
     else {

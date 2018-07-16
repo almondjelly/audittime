@@ -31,9 +31,7 @@ def duration_str(duration):
 
     return duration_str
 
-##############################################################################
-# Model definitions
-
+# --------------------------- MODEL DEFINITIONS ---------------------------
 
 class User(db.Model):
     """User."""
@@ -418,9 +416,7 @@ class TogglEntry(db.Model):
     user = db.relationship("User", backref=db.backref("toggle_entries"))
 
 
-##############################################################################
-# Helper functions
-
+# --------------------------- HELPER FUNCTIONS ---------------------------
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""

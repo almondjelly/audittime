@@ -7,3 +7,6 @@ toDo.txt
 node_modules/
 audittime.sql
 oples/
+log
+client_id.json
+*.pem

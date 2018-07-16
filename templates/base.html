@@ -5,10 +5,13 @@
         <title>AuditTime</title>
         
         <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Dosis:300|Sacramento|Roboto+Condensed:300|Source+Sans+Pro:200,300,400,600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:300|Sacramento|Rubik" rel="stylesheet">
         
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="static/css/bootstrap.css">
+        <link href="static/css/bootstrap.css" rel="stylesheet">
+
+        <!-- Materialize -->
+        <!-- <link type="text/css" rel="stylesheet" href="static/css/materialize.min.css"> -->
 
         <!-- Selectize -->
         <link rel="stylesheet" type="text/css" href="static/css/selectize.default.css">
@@ -19,116 +22,42 @@
         <!-- Toastr -->
         <link rel="stylesheet" href="static/css/toastr.min.css">
 
+        <!-- Snackbar -->
+        <link rel="stylesheet" href="static/css/snackbar.css">
+
         <!-- Google Material Design Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- AuditTime -->
-        <link rel="stylesheet" type="text/css" href="static/css/audittime.css">
+        <!-- <link rel="stylesheet" type="text/css" href="static/css/audittime.css"> -->
+
+        <!-- AuditTime Watermelon -->
+        <link rel="stylesheet" href="static/css/watermelon.css">
         
 
     </head>
 
     <body>
         <script src="static/js/Chart.min.js"></script>
-        <!-- Navbar -->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark-weddingdayblues">
-
-            <!-- AuditTime -->
-            <a class="navbar-brand" href="/">AuditTime</a>
-            
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-                <!-- User info -->
-                {% if session.get('user') %}
-                    <ul class="navbar-nav mr-auto">
-
-                        <!-- Goals -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/goals">Goals</a>
-                        </li>
-
-                        <!-- Categories -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/categories">Categories</a>
-                        </li>
-
-                        <!-- Tasks -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/tasks">Tasks</a>
-                        </li>
-
-                        <!-- Toggl -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/toggl">Toggl</a>
-                        </li>
-
-                        <!-- Google Calendar -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/gcal">Google Calendar</a>
-                        </li>
-
-                        <!-- Reports -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/reports">Reports</a>
-                        </li>
-
-                    </ul>
-
-                    <ul class="navbar-nav">
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ session.get('user')}}</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/settings">Settings</a>
-                          
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" id="logout" href="/logout">Log out</a>
-                            </div>
-                        </li>
-                        <li class="nav-item"></li>
-                </ul>
-
-                {% else %}
-                    <ul class="navbar-nav mr-auto">
-
-                        <!-- Log in -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Log in</a>
-                        </li>
-                
-                        <!-- Sign up -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signup">Sign up</a>
-                        </li>
-                            
-                    </ul>
-
-
-                {% endif %}
-
-            </div>
-        </nav>
-
-
-        <div class="container">
+        <div class="bg">    
             <!-- Body -->
             {% block body %}
             {% endblock %}
         </div>
-
         <!-- jQuery -->
         <script src="static/js/jquery-3.3.1.min.js"></script>
+
+        <!-- Popper -->
+        <script src="static/js/popper.js"></script>
 
         <!-- Tablesorter -->
         <script src="static/js/jquery.tablesorter.min.js"></script>
 
         <!-- Bootstrap -->
         <script src="static/js/bootstrap.bundle.min.js"></script>
+    
+        <!-- Materialize -->
+        <!-- <script type="text/javascript" src="static/js/materialize.min.js"></script> -->
 
         <!-- Flatpickr -->
         <script src="static/js/flatpickr.js"></script>

@@ -11,7 +11,7 @@
     #form-settings,
     #form-settings {
         width: 100%;
-        font-family: "Roboto Condensed";
+        font-family: "Rubik";
         font-size: 14pt;
     }
 
@@ -70,7 +70,7 @@
     td,
     th,
     .table input {
-        font-family: "Roboto Condensed";
+        font-family: "Rubik";
         font-size: 16pt;
     }
 
@@ -154,7 +154,7 @@
     .td-gcal-event-categories select {
         width: 250px;
         height: 40px;
-        font-family: 'Roboto Condensed';
+        font-family: 'Rubik';
         background: transparent;
         color: white;
         border: 0;
@@ -449,7 +449,7 @@
 
 /* STOPWATCH RUNNING TIME */
     #running-time {
-        font-family: "Roboto Condensed";
+        font-family: "Rubik";
         width: 100%;
         text-align: center;
     }
@@ -491,7 +491,7 @@
 /* SET NAVBAR FONT */
     
     nav a {
-        font-family: "Roboto Condensed";
+        font-family: "Rubik";
         font-size: 18px;
         text-transform: uppercase;
     }
