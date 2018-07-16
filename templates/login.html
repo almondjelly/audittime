@@ -6,9 +6,7 @@
 <div class="row">
     <!-- <p class="title">AuditTime</p> -->
     
-    <div class="col-8">
-        
-    </div>
+    <div class="col-8"></div>
     <div class="col-4" id="div-login">
         <div class="login-top">
         </div>
@@ -24,9 +22,39 @@
 
             <div class="div-login-button">
                 <button type="button" class="btn btn-primary" id="login-button">Log in</button>
+                <p>- OR -</p>
             </div>
 
+            <div class="div-signup-button">
+                <button type="button" class="btn btn-primary signup-button">Sign up</button>
+            </div>
+            
         </form>
+
+        <form class="form-register form-group" method="post">
+
+            <div class="div-signup-name">
+                <input class="form-control" type="text" id="register-name" required autofocus name="name" placeholder="Name">
+            </div>
+
+            <div class="div-signup-email">
+                <input class="form-control" type="email" id="register-email" required autofocus name="email" placeholder="Email">
+            </div>
+
+            <div class="div-signup-password">
+                <input class="form-control" type="password" id="register-password" required name="password" placeholder="Password">
+            </div>
+            
+            <div class="div-register-button">
+                <button type="button" class="btn btn-primary register-button">Register</button>
+                <p>- OR -</p>
+            </div>
+
+            <div class="div-register-login-button">
+                <button type="button" class="btn btn-primary register-login-button">Log in</button>
+            </div>
+        </form>
+        
     </div>
 </div>
 

@@ -673,18 +673,7 @@ $("button.btn-gcal-event-save").click(function() {
 });
 
 
-// ENABLE TOGGLING BETWEEN LOGIN AND REGISTRATION FORMS
 
-$("#signin-toggler").on("click", function() {
-    $(".form-signin").toggle();
-    $(".form-register").toggle();
-
-    if ($("#signin-toggler").text() == "REGISTER") {
-        $("#signin-toggler").text("SIGN IN");
-    } else if ($("#signin-toggler").text() == "SIGN IN") {
-        $("#signin-toggler").text("REGISTER");
-    }
-});
 
 
 // REGISTRATION
@@ -712,35 +701,7 @@ $(".form-signup").click(function() {
 });
 
 
-// LOG IN FLOW
 
-function displayLogInResults(result) {
-    if (result === "success") {
-        window.location = "/tasks";
-    }
-    
-    else {
-        toastr.warning("Wrong email or password. Try again.")
-    }
-
-}
-
-function logIn() {
-    let formInputs = {
-        "email": $("#input-email").val(),
-        "password": $("#input-password").val()
-    };
-
-    console.log(formInputs)
-
-    $.post("/login_submit", 
-           formInputs,
-           displayLogInResults);
-}
-
-$("#login-button").click(function() {
-    logIn();
-});
 
 
 
