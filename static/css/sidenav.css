@@ -1,0 +1,38 @@
+.sidenav-top {
+  margin-top: 80px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #393A4C;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  font-family: 'Rubik';
+  font-size: 14px;
+}
+
+.sidenav .row,
+.sidenav .top {
+  padding: 14px 0 14px 40px;
+}
+
+.sidenav a:link, 
+.sidenav a:visited,
+.sidenav a:active,
+.sidenav a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Page content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  padding-left: 20px;
+}

@@ -15,7 +15,7 @@ function initialize() {
     $(".span-toggl-entry-remove").hide();
     $(".span-gcal-event-save").hide();
     $(".span-gcal-event-remove").hide();
-    $("#mode-stopwatch").hide();
+    $("#manual-dates").hide();
     $("#stop-button").hide();
     $(".input-task-start-date-time-picker").hide();
     $(".input-task-end-date-time-picker").hide(); 
@@ -28,11 +28,11 @@ function initialize() {
     
 
     // Apply selectize.js to dropdowns
-    $("#select-category-goal").selectize({placeholder: "select your goals"});
-    $("#select-task-category").selectize({placeholder: "tv"});
-    $(".goal-modal-input-goal-categories").selectize();
-    $(".goal-modal-input-type").selectize();
-    $(".td-input-category-goals").selectize();
+    // $("#select-category-goal").selectize({placeholder: "select your goals"});
+    // $("#select-task-category").selectize({placeholder: "tv"});
+    // $(".goal-modal-input-goal-categories").selectize();
+    // $(".goal-modal-input-type").selectize();
+    // $(".td-input-category-goals").selectize();
 
 
 
@@ -390,19 +390,23 @@ $(".btn-category-save").click(function() {
 // ------------------------------ TASKS + EVENTS ------------------------------
 
 // ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
-    $("#mode-stopwatch").click(function() {
-        $("#startStop").show();
-        $("#datePickers").hide();
-        $(this).hide();
-        $('#mode-manual').show();
-    });
+    // $("#mode-stopwatch").click(function() {
+    //     $("#startStop").show();
+    //     $("#datePickers").hide();
+    //     $(this).hide();
+    //     $('#mode-manual').show();
+    // });
 
-    $("#mode-manual").click(function() {
-        $("#startStop").hide();
-        $("#datePickers").show();
-        $(this).hide();
-        $('#mode-stopwatch').show();
-    });
+    // $("#mode-manual").click(function() {
+    //     $("#startStop").hide();
+    //     $("#datePickers").show();
+    //     $(this).hide();
+    //     $('#mode-stopwatch').show();
+    // });
+
+    $("#running-time").click(function() {
+        $("#manual-dates").toggle();
+    })
 
 
 // ADD NEW EVENT
@@ -579,7 +583,7 @@ $("#start-button").on("click", startStopwatch);
         });
     });
 
-    $(".btn-event-task-save").click(function() {
+    $(".span-event-task-save").click(function() {
         console.log('saving task');
 
         let formInputs = {
@@ -601,7 +605,7 @@ $("#start-button").on("click", startStopwatch);
         console.log(result);
     }
 
-    $(".btn-event-task-remove").click(function() {
+    $(".span-event-task-remove").click(function() {
         let formInputs = {
             "eventId": $(this).parents("tr").children(".input-event-id").val()
         };
@@ -674,9 +678,9 @@ $("button.btn-gcal-event-save").click(function() {
 
 
 $(".sidenav .row").hover(function() {
-    $(this).css("background-color", "rgba(255,255,255,0.5)")
+    $(this).css("background-color", "#9B9B9B")
     $(this).mouseleave(function() {
-        $(this).css("background-color", "#66C8E0")
+        $(this).css("background-color", "#393A4C")
     });
 });
 

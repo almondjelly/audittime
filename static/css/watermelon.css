@@ -1,0 +1,137 @@
+body, html {
+    height: 100%;
+     
+    /* The image used */
+    background-image: url("../img/goldengatebridge.jpg");
+
+    /* Full height */
+    height: 100vh; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* -------------------- REMOVE HIDEOUS BLUE GLOW -------------------- */
+.form-control:focus { 
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+}
+
+/* -------------------------------- HEADERS -------------------------------- */
+
+h1 {
+    font-family: 'Dosis';
+    text-transform: uppercase;
+    color: white;
+    padding-top: 60px;
+}
+
+/* -------------------------------- LOG IN -------------------------------- */
+
+.title {
+    font-family: 'Sacramento';
+    text-align: center;
+    font-size: 50px;
+    color: #66C8E0;
+}
+
+.login-top {
+    height: 25vh;
+}
+
+#div-login {
+    height: 100vh;
+    background-color: rgba(255,255,255,0.5);
+}
+
+#input-email, #input-password,
+#register-name, #register-email, #register-password {
+    border: 0;
+    border-radius: 0;
+    background-color: white;
+    height: 50px;
+    margin: 30px 0;
+    color: #009AC0;
+    font-family: 'Rubik';
+}
+
+#input-email::placeholder, #input-password::placeholder,
+#register-name::placeholder, #register-email::placeholder, #register-password::placeholder {
+    color: #9b9b9b;    
+}
+
+
+#input-email:focus, #input-password:focus,
+#register-name:focus, #register-email:focus, #register-password:focus {
+    border: 2px solid #66C8E0;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 40px 0px rgba(184,184,184,0.7);
+    -moz-box-shadow: 0px 0px 40px 0px rgba(184,184,184,0.7);
+    box-shadow: 0px 0px 40px 0px rgba(184,184,184,0.7);
+}
+
+.form-login,
+.form-register {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#login-button,
+.signup-button-hover,
+.login-button-hover,
+#register-button {
+    width: 100%;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #66C8E0;
+    border: 0;
+    margin-bottom: 20px;
+}
+
+.div-login-button,
+.div-register-button {
+    color: #66C8E0;
+    font-family: 'Rubik';
+    text-align: center;
+    font-size: 12px;
+}
+
+.div-signup-button {
+    margin: 20px auto;
+    color: #66C8E0;
+    font-family: 'Rubik';
+    text-align: center;
+    line-height: 0;
+    font-size: 12px;
+}
+
+.signup-button, .register-login-button {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 10px;
+    background: none;
+    border: 2px solid #66C8E0;
+    color: #66C8E0;
+}
+
+.form-signup {
+    visibility: hidden;
+}

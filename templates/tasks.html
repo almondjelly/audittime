@@ -1,70 +1,60 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+<div class="container">
 
 <!-- Start a new task -->
 <h1>Start A New Task</h1>
-<div id="task-new">
 
-    <!-- Event Timer -->
-    <div id="stopwatch">
-        <form id="form-stopwatch" method="post">
-            I'm currently
-           
-            <input type="text" id="input-new-task-name" placeholder="watching Better Call Saul" required autofocus name="task">
+<form id="form-stopwatch" method="post">
+    <table id="task-new">
+        <tr>
+            <td>
+                I'm currently <input type="text" id="input-new-task-name" placeholder="watching Better Call Saul" required autofocus name="task">
+            </td>
+            <td>
+                <select required id="select-task-category">
+                    <option value="Category" disabled selected>Category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.name }}">{{ category.name }}</option>
+                    {% endfor %}
 
-            <select required id="select-task-category">
-                <!-- <option value="Pick a category" disabled selected>Pick a category...</option> -->
-                {% for category in categories %}
-                <option value="{{ category.name }}">{{ category.name }}</option>
-                {% endfor %}
+                </select>
+            </td>
+            <td id="running-time">
+                00:00:00
+            </td>
+            <td>
+                <i id="start-button" class="material-icons">play_circle_filled</i>
+                <i id="stop-button" class="material-icons">stop</i>
+            </td>
+        </tr>
+    </table>
 
-            </select>
-            <span id="startStop">
-                <div id="running-time"></div>
-                <ul id="running-time-results"></ul>
-
-                <button id="start-button" class="btn btn-primary" type="button">start</button>
-
-                <button type="button" class="btn btn-primary" id="stop-button">stop</button>
-
-            </span>
-
-            <span id="datePickers">
-                <input type="datetime-local" id="m-start" class="date-time-picker" required name="startTime" placeholder="START">
-               
-                <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime" placeholder="STOP">
-
-                <button type="button" class="btn btn-primary" id="manual-submit">submit</button>
-            </span>
-
-
-
-
-        </form>
-
-        <div id="duration">
-        </div>
-    </div>
-
-</div>
-    
-<!-- Toggle between stopwatch and manual entry. -->
-<span id="mode-toggler">
-    <button class="btn btn-light" type="button" id="mode-stopwatch">SWITCH TO STOPWATCH MODE</button>
-    <button class="btn btn-light" type="button" id="mode-manual">SWITCH TO MANUAL MODE</button>
-</span>
-
+    <table id="manual-dates">
+        <tr>
+            <td class="td-manual-left"></td>
+            <td class="td-manual">
+                <input type="datetime-local" id="m-start" class="date-time-picker" required name="startTime" placeholder="Start">
+            </td>
+            <td class="td-manual">
+                <input type="datetime-local" id="m-stop" class="date-time-picker" required name="stopTime" placeholder="Stop">
+            </td>
+            <td class="td-manual" id="manual-submit">
+                Submit
+            </td>
+        </tr>
+    </table>
+</form>
 
 <!-- Task Log -->
-<table class="table table-hover" id="event-log">
+<table id="event-log">
     <thead>
     <tr>
-        <th scope="col">Task</th>
+        <th scope="col" class="th-task">Task</th>
         <th scope="col">Category</th>
-        <th scope="col">Start Time</th>
-        <th scope="col">End Time</th>
+        <th scope="col">Times</th>
+        <!-- <th scope="col">End Time</th> -->
         <th scope="col">Duration</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -97,15 +87,8 @@
             </select>
         </td>
 
-        <!-- Start and end times -->
-        <td class="td-event-start-time">
-            {{ event.start_time.strftime('%m/%d at %I:%M %p') }}
-            <input type="datetime-local" class="input-task-start-date-time-picker"> 
-        </td>
-
-        <td class="td-event-end-time">
-            {{ event.stop_time.strftime('%m/%d at %I:%M %p') }}
-            <input type="datetime-local" class="input-task-end-date-time-picker"> 
+        <td class="td-event-times">
+            {{ event.start_time.strftime('%I:%M %p') }} - {{ event.stop_time.strftime('%I:%M %p') }}
         </td>
 
         <!-- Duration -->
@@ -116,14 +99,14 @@
         <!-- Save -->
         <td class="td-event-task-save">
         <span class="span-event-task-save">
-            <button class="btn btn-link btn-event-task-save">save</button>
+            save
         </span>
         </td>
 
         <!-- Delete -->
         <td class="td-event-task-remove">
         <span class="span-event-task-remove">
-            <button class="btn btn-link btn-event-task-remove">x</button>
+            x
         </span>
         </td>
 
@@ -138,4 +121,5 @@
 
 
 
+</div>
 {% endblock %}
