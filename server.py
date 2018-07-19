@@ -22,6 +22,7 @@ app = Flask(__name__)
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
 
+
 # Normally, if you use an undefined variable in Jinja2, it fails
 # silently. This is horrible. Fix this so that, instead, it raises an
 # error.
@@ -47,6 +48,10 @@ def submit_signup():
     name = request.form.get('name')
     email = request.form.get('email')
     password = hashlib.sha256(request.form.get('password')).hexdigest()
+
+    # If the user already exists, show some sort of error.
+    if User.query.filter_by(email=email).one():
+        return 'already_exists'
 
     new_user = User(name=name, email=email, password=password)
 

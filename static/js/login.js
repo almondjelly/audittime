@@ -45,7 +45,8 @@ function logIn() {
            displayLogInResults);
 }
 
-$("#login-button").click(function() {
+$("#login-button").click(function(event) {
+    event.preventDefault();
     logIn();
 });
 
@@ -53,8 +54,18 @@ $("#login-button").click(function() {
 // REGISTRATION
 
 function redirectToTasks(result) {
-    toastr.success("You've successfully created your account.")
-    window.location = "/tasks";
+    if (result === 'success') {
+        toastr.success("You've successfully created your account.");
+        window.location = "/tasks";
+    }
+
+    else if (result === 'already_exists') {
+        toastr.warning("Someone's already signed up with that email address.")
+    }
+
+    else {
+        toastr.warning("Whaaaaa cowabunga, dude!")
+    }
 }
 
 function signUp() {
@@ -70,7 +81,7 @@ function signUp() {
            redirectToTasks);
 }
 
-$("#register-button").click(function() {
+$("#register-button").click(function(event) {
+    event.preventDefault();
     signUp();
 });
-
