@@ -20,7 +20,6 @@ function initialize() {
     $(".input-task-start-date-time-picker").hide();
     $(".input-task-end-date-time-picker").hide(); 
     $("#category-new").hide();
-    $("#goal-new").hide();
 
     // Apply tablesorter to tables
     $("table").tablesorter();
@@ -245,7 +244,7 @@ flatpickr(".date-time-picker", {
 
     $("#goal-submit").on("click", function() {
         let formInputs = {
-            "goalName": $("#input-goal-name").val(),
+            "goalName": $("#input-new-goal-name").val(),
             "goalType": $("#select-goal-type").val(),
             "hours": $("#hours").val(),
             "minutes": $("#minutes").val(),
@@ -294,7 +293,7 @@ $(".goal-edit-save").click(function() {
         console.log(result);
     }
 
-    $(".btn-goal-archive").click(function() {
+    $(".span-goal-archive").click(function() {
         let formInputs = {
             "goalId": $(this).parents("tr").children(".input-goal-id").val()
         };
