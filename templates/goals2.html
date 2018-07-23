@@ -39,56 +39,36 @@
             </td>
         </tr>
     </table>
-
-<!-- Categories -->
-    <h1>Which tags roll up to this goal?</h1>
-    <table>
-        <tr>
-            <td>
-                <input id="new-tag" type="text" placeholder="Create a new tag">
-                <a href="#add" id="submit-new-tag">Create</a>
-                <select multiple id="tag-select">
-                    {% for category in categories %}
-                    <option value="{{ category.name }}">{{ category.name }}</option>
-                    {% endfor %}
-                </select>
-            </td>
-        </tr>
-    </table>
 </form>
+
+<!-- </div> -->
+
 
 
 <!-- Goal Log -->
 <h1>Your Goals</h1>
-
-<!-- Goal Headers -->
-<table class="goal-log">
+<table id="goal-log">
     <thead>
     <tr>
-        <th></th>
-        <th scope="col" class="th-goal td-goal-name">Goal</th>
-        <th scope="col" class="td-goal-type">Type</th>
-        <th scope="col" class="td-goal-duration">Target</th>
-        <th scope="col" class="td-goal-end-time">End Time</th>
-        <th scope="col" class="td-goal-total-time">Spent</th>
-        <th scope="col" class="td-goal-time-left">Time Left</th>
-        <th scope="col" class="td-goal-status">Status</th>
-        <th scope="col" class="td-goal-save"></th>
-        <th scope="col" class="td-goal-archive"></th>
+        <th scope="col" class="th-goal">Goal</th>
+        <th scope="col">Type</th>
+        <th scope="col">Target</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Time Spent</th>
+        <th scope="col">Time Left</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
     </tr>
     </thead> 
-</table>
 
-{% for goal in goals %}
-    <table class="goal-log">
+    <tbody id="tbody-goal-log">
+    {% for goal in goals %}
+        
         <tr class="tr-goal">
 
         <!-- Goal id -->
         <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
-
-            <td class="td-show-tasks">
-                <i class="material-icons expand-more">expand_more</i>
-            </td>
 
             <!-- Goal name -->
             <td class="td-goal-name" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">{{ goal.name }}</td>
@@ -146,13 +126,6 @@
                     {{ goal.goal_status() }}
 
                 {% endif %}
-            </td>
-
-            <!-- Save -->
-            <td class="td-goal-save">
-                <span class="span-goal-save">
-                    save
-                </span>
             </td>
 
             <!-- Archive -->
@@ -287,65 +260,10 @@
 
 
 
-
-
+    {% endfor %}
+    </tbody>
 
 </table>
-
-<div class="div-goal-event-log">
-<table class="goal-event-log">
-    {% for event in events %}
-    {% if goal in event.task.category.goal %}
-    <tr class="tr-event-task">
-
-        <!-- Event id, task id -->
-        <form class="form-event-id">
-            <input type="hidden" class="input-event-id" value="{{ event.event_id }}">
-            <input type="hidden" class="input-task-id" value="{{ event.task.task_id }}">
-        </form>
-
-        <!-- Task name -->
-        <td class="td-event-task">
-            <input type="text" value="{{ event.task.name }}" class="td-input-event-task">
-        </td>
-        
-        <!-- Category dropdown -->
-        <td class="td-event-task-category">
-            {{ event.task.category.name }}
-        </td>
-
-        <td class="td-event-times">
-            {{ event.start_time.strftime('%I:%M %p') }} - {{ event.stop_time.strftime('%I:%M %p') }}
-        </td>
-
-        <!-- Duration -->
-        <td class="td-event-duration">
-            {{ event.duration_str() }}
-        </td>
-
-        <!-- Save -->
-        <td class="td-event-task-save">
-            <span class="span-event-task-save">
-                save
-            </span>
-        </td>
-
-        <!-- Delete -->
-        <td class="td-event-task-remove">
-            <span class="span-event-task-remove">
-                x
-            </span>
-        </td>
-
-    </form>
-    </tr>
-    {% endif %}
-    {% endfor %}
-</table>
-</div>
-
-
-    {% endfor %}
 </div>
 
 

@@ -113,7 +113,16 @@ def display_goals():
     categories = db.session.query(Category).filter_by(
         user_id=session['user_id'], status='current').order_by('name').all()
 
-    return render_template("goals.html", goals=goals, categories=categories)
+    events = db.session.query(Event).filter_by(
+        user_id=session['user_id'], status='active').order_by('stop_time').all()
+
+    # Display log in reverse chronological order.
+    events.reverse()
+
+    return render_template("goals.html",
+                           goals=goals,
+                           categories=categories,
+                           events=events)
 
 
 @app.route('/add_goal', methods=['POST'])

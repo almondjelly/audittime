@@ -20,11 +20,13 @@ function initialize() {
     $(".input-task-start-date-time-picker").hide();
     $(".input-task-end-date-time-picker").hide(); 
     $("#category-new").hide();
+    $(".div-goal-event-log").hide();
 
     // Apply tablesorter to tables
-    $("table").tablesorter();
+    // $("table").tablesorter();
 
-    
+    // Apply multiselect.js
+    $("#tag-select").multiSelect();   
 
     // Apply selectize.js to dropdowns
     // $("#select-category-goal").selectize({placeholder: "select your goals"});
@@ -32,8 +34,6 @@ function initialize() {
     // $(".goal-modal-input-goal-categories").selectize();
     // $(".goal-modal-input-type").selectize();
     // $(".td-input-category-goals").selectize();
-
-
 
     // Remove Bootstrap's hideous blue glow
     function handleFirstTab(e) {
@@ -65,6 +65,8 @@ function initialize() {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
+
+
 }
 
 function addEventListeners(){
@@ -174,6 +176,24 @@ function addEventListeners(){
                 $(this).children(".td-goal-archive").children("span").hide();
             });
         });  
+
+        // Create a new tag
+        $("#submit-new-tag").click(function() {
+
+            $('#tag-select').multiSelect('addOption', {
+                value: $("#new-tag").val(),
+                text: $("#new-tag").val(),
+                index: 0
+            });
+
+            // Reset the input field after creating new tag
+            $("#new-tag").val('');
+        });
+
+        // Expand goal to display associated tasks
+        $(".td-show-tasks").click(function() {
+            $(this).parents("table").next().slideToggle();
+        });
 
     // Category
 

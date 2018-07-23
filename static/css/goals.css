@@ -1,0 +1,142 @@
+/* ---------------------- STOPWATCH ---------------------*/
+
+#goal-new {
+    background-color: rgba(255,255,255,0.8);
+    font-family: 'Roboto';
+    font-size: 16px;
+    color: #393A4C;
+    height: 50px;
+    margin: 0 0 20px 0;
+}
+
+#goal-new td {
+    padding: 4px 14px;
+}
+
+#td-new-goal-name {
+    width: 300px;
+}
+
+#input-new-goal-name {
+    border: 0;
+    background: none;
+    width: 205px;
+}
+
+#target-duration {
+    width: 200px;
+}
+
+.goal-duration {
+    border: 0;
+    background: none;
+    width: 36px;
+    text-align: right;
+}
+
+input#input-new-goal-name::placeholder, {
+    color: #bfbfbf;
+    padding: 2px;
+}
+
+#td-goal-type {
+    width: 160px;
+}
+
+#select-goal-type {
+    width: 100px;
+    background: none;
+    border: none;
+}
+
+.input-goal-date-time-picker {
+    border: 0;
+    background: none;
+    width: 150px;
+    text-align: center;
+}
+
+#goal-submit {
+    padding-top: 7px;
+}
+
+/* --------------------- GOAL LOG -------------------- */
+.goal-log {
+    background-color: rgba(255,255,255,0.8);
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #393A4C;
+    height: 40px;
+    margin-bottom: 6px;
+}
+
+th {
+    font-family: 'Roboto';
+    font-size: 16px;
+    color: #393A4C;
+    text-transform: uppercase;
+    padding: 14px 14px;
+    text-align: left
+}
+
+thead {
+    border-bottom: 1px dashed #bfbfbf; 
+}
+
+.th-goal {
+    padding-left: 42px;
+}
+
+.goal-log td {
+    padding: 14px;
+}
+
+.td-goal-name {
+    border: 0;
+    background: none;
+    width: 280px;
+    padding-left: 30px
+}
+
+.td-goal-type,
+.td-input-goal-type {
+    background: none;
+    border: none;
+    width: 100px;
+    text-align: left;
+}
+
+.td-goal-times {
+    color: #9b9b9b;
+}
+
+.td-goal-duration,
+.td-goal-total-time,
+.td-goal-time-left {
+    text-align: right;
+    width: 110px;
+}
+
+.td-goal-end-time {
+    width: 180px;
+}
+
+.td-goal-status {
+    width: 100px;
+}
+
+.td-goal-save {
+    width: 60px;
+}
+
+.goal-log .td-goal-archive {
+    width: 40px;
+    padding-right: 14px;
+}
+
+.expand-more {
+    margin-top: 7px;
+    font-size: 16px;
+}
+
+
