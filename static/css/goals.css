@@ -134,7 +134,8 @@ thead {
     padding-right: 14px;
 }
 
-.expand-more {
+.expand-more,
+.expand-less {
     margin-top: 7px;
     font-size: 16px;
 }

@@ -5,7 +5,7 @@
 
 function initialize() {
     $(".form-register").hide();
-    $(".span-goal-edit").hide();
+    $(".span-goal-save").hide();
     $(".span-goal-archive").hide();
     $(".span-category-save").hide();
     $(".span-category-archive").hide();
@@ -21,6 +21,7 @@ function initialize() {
     $(".input-task-end-date-time-picker").hide(); 
     $("#category-new").hide();
     $(".div-goal-event-log").hide();
+    $(".expand-less").hide();
 
     // Apply tablesorter to tables
     // $("table").tablesorter();
@@ -167,12 +168,12 @@ function addEventListeners(){
         // When the mouse hovers over the list item, show the Save button.
         $(".tr-goal").hover(function() {
             console.log("i wolke up");
-            $(this).children(".td-goal-edit").children("span").show();
+            $(this).children(".td-goal-save").children("span").show();
             $(this).children(".td-goal-archive").children("span").show();
 
         // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
-                $(this).children(".td-goal-edit").children("span").hide();
+                $(this).children(".td-goal-save").children("span").hide();
                 $(this).children(".td-goal-archive").children("span").hide();
             });
         });  
@@ -192,6 +193,8 @@ function addEventListeners(){
 
         // Expand goal to display associated tasks
         $(".td-show-tasks").click(function() {
+            $(this).children(".expand-more").toggle();
+            $(this).children(".expand-less").toggle();
             $(this).parents("table").next().slideToggle();
         });
 
