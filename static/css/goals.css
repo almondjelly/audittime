@@ -61,98 +61,90 @@ input#input-new-goal-name::placeholder, {
 }
 
 /* --------------------- GOAL LOG -------------------- */
-.goal-log {
+.goal-log td {
     background-color: rgba(255,255,255,0.8);
     font-family: 'Roboto';
     font-size: 14px;
     color: #393A4C;
     height: 40px;
     margin-bottom: 6px;
-}
-
-th {
-    font-family: 'Roboto';
-    font-size: 16px;
-    color: #393A4C;
-    text-transform: uppercase;
-    padding: 14px 14px;
-    text-align: left
-}
-
-thead {
-    border-bottom: 1px dashed #bfbfbf; 
-}
-
-.th-goal {
-    padding-left: 42px;
-}
-
-.th-goal-type {
-    padding-left: 23px;
-}
-
-.goal-log td {
     padding: 14px;
-}
-
-.td-goal-name {
-    border: 0;
-    background: none;
-    width: 270px;
-    padding-left: 30px
-}
-
-.td-input-goal-name {
-    border: 0;
-    background: none;
     width: 100%;
 }
 
-.td-goal-type,
-.td-input-goal-type {
+td.head {
+    font-family: 'Rubik';
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #009AC0;
+    padding-top: 22px;
+}
+
+.goal-log td input,
+select {
+    border: 0;
     background: none;
-    border: none;
-    width: 100px;
-    text-align: left;
 }
 
-.select-goal-type {
-    background: none;
-    border: none;
-}
-
-.td-goal-times {
-    color: #9b9b9b;
-}
-
-.td-goal-duration,
-.td-goal-total-time,
-.td-goal-time-left {
-    text-align: right;
-    width: 110px;
-}
-
-.td-goal-end-time {
-    width: 180px;
-}
-
-.td-goal-status {
-    width: 100px;
-}
-
-.td-goal-save {
-    width: 60px;
-}
-
-.goal-log .td-goal-archive {
-    width: 40px;
-    padding-right: 14px;
+td.td-goal-expand {
+    width: 44px;
 }
 
 .expand-more,
 .expand-less {
     margin-top: 7px;
     font-size: 16px;
+}
+
+td.td-goal-name {
+    width: 220px;
+}
+
+input.td-input-goal-name {
+    width: 192px;
+}
+
+td.td-goal-type {
+    width: 100px;
+}
+
+input.td-input-goal-type {
+    width: 72px;
+}
+
+td.td-goal-range {
+    width: 228px;
+}
+
+input.td-input-goal-range {
+    width: 200px;
+}
+
+td.td-goal-duration,
+td.td-goal-total-time,
+td.td-goal-time-left {
+    text-align: right;
+    width: 110px;
+}
+
+input.td-input-goal-duration,
+input.td-input-goal-total-time,
+input.td-input-goal-time-left {
+    text-align: right;
+    width: 82px;
+}
+
+td.td-goal-status {
+    width: 86px;
+}
+
+td.td-goal-save {
+    width: 60px;
+}
+
+td.td-goal-archive {
+    width: 40px;
 }
 
 

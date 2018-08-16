@@ -63,20 +63,18 @@
 
 <!-- Goal Headers -->
 <table class="goal-log">
-    <thead>
     <tr>
-        <th></th>
-        <th scope="col" class="th-goal td-goal-name">Goal</th>
-        <th scope="col" class="th-goal-type td-goal-type">Type</th>
-        <th scope="col" class="th-goal-duration td-goal-duration">Target</th>
-        <th scope="col" class="th-goal-end-time td-goal-end-time">End Time</th>
-        <th scope="col" class="th-goal-total-time td-goal-total-time">Spent</th>
-        <th scope="col" class="th-goal-time-left td-goal-time-left">Time Left</th>
-        <th scope="col" class="th-goal-status td-goal-status">Status</th>
-        <th scope="col" class="td-goal-save"></th>
-        <th scope="col" class="td-goal-archive"></th>
+        <td class="head td-goal-expand"></td>
+        <td class="head td-goal-name">Goal</td>
+        <td class="head td-goal-type td-goal-type">Type</td>
+        <td class="head td-goal-range">Time Range</td>
+        <td class="head td-goal-duration">Target</td>
+        <td class="head td-goal-total-time">Spent</td>
+        <td class="head td-goal-time-left">Time Left</td>
+        <td class="head td-goal-status">Status</td>
+        <td class="head td-goal-save"></td>
+        <td class="head td-goal-archive"></td>
     </tr>
-    </thead> 
 </table>
 
 {% for goal in goals %}
@@ -86,7 +84,7 @@
         <!-- Goal id -->
         <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
 
-            <td class="td-show-tasks">
+            <td class="td-goal-expand">
                 <i class="material-icons expand-more">expand_more</i>
                 <i class="material-icons expand-less">expand_less</i>
             </td>
@@ -100,7 +98,6 @@
             <td class="td-goal-type">
                 <select class="select-goal-type">
                     <option selected class="option-goal-type-selected">
-                        for 
                         {% if goal.goal_type == "at_least" %}
                             at least
 
@@ -110,7 +107,6 @@
                         {% endif %}
                     </option>
                     <option class="option-goal-type-unselected">
-                        for 
                         {% if goal.goal_type == "at_most" %}
                             at least
 
@@ -120,6 +116,16 @@
                         {% endif %}
                     </option>
                 </select>
+
+            </td>
+
+            <!-- Goal time range -->
+            <td class="td-goal-range">
+                <input hidden value="{{ goal.start_time.strftime('%-m-%d %I:%M %p') }}" class="td-goal-range-start">
+
+                <input hidden value="{{ goal.end_time.strftime('%-m-%d %I:%M %p') }}" class="td-goal-range-end">
+
+                <input name="datetimes" type="text" class="td-input-goal-range">
 
             </td>
 
@@ -147,13 +153,8 @@
 
                 {% set target = days + hours + minutes %}
 
-                <input type="text" value="{{ target }}" class="td-input-goal-name">
+                <input type="text" value="{{ target }}" class="td-input-goal-duration">
 
-            </td>
-
-            <!-- Goal end -->
-            <td class="td-goal-end-time" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
-                by {{ goal.end_time.strftime('%b %d at %I:%M %p') }}
             </td>
 
             <!-- Goal total time progress -->

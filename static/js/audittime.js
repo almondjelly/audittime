@@ -46,8 +46,6 @@ function initialize() {
 
     window.addEventListener('keydown', handleFirstTab);
 
-
-
     // Set toastr options
     toastr.options = {
         "closeButton": false,
@@ -67,9 +65,34 @@ function initialize() {
         "hideMethod": "fadeOut"
     };
 
+    // Set goal range datetime pickers
+        $('input[name="datetimes"]').each(function(i) {
+            let startDateTime = $(this).parents("td").children(".td-goal-range-start").val();
+            let endDateTime = $(this).parents("td").children(".td-goal-range-end").val();
 
-}
+            $(this).daterangepicker({
+                timePicker: true,
+                startDate: startDateTime,
+                endDate: endDateTime,
+                locale: {
+                    format: 'M/DD hh:mm A'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                alwaysShowCalendars: true,
+            });
+        });
+    // };
 
+
+};
+    
 function addEventListeners(){
 
     // ADD NEW STUFF
@@ -126,7 +149,6 @@ function addEventListeners(){
 
 
     // Task
-
         // When the stopwatch START button is clicked, hide the start button
         // and expose the stop button.
         $("#start-button").click(function() {
@@ -192,7 +214,7 @@ function addEventListeners(){
         });
 
         // Expand goal to display associated tasks
-        $(".td-show-tasks").click(function() {
+        $(".td-goal-expand").click(function() {
             $(this).children(".expand-more").toggle();
             $(this).children(".expand-less").toggle();
             $(this).parents("table").next().slideToggle();
@@ -257,6 +279,9 @@ flatpickr(".date-time-picker", {
 });
 
 
+
+
+
 // ---------------------------------- GOALS ----------------------------------
 
 // ADD NEW GOAL
@@ -282,6 +307,8 @@ flatpickr(".date-time-picker", {
 
 
 // EDIT GOAL INFO AND SAVE
+
+
 $(".td-goal-save").click(function() {
     console.log("saving goal")
 
