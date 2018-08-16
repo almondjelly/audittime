@@ -95,14 +95,30 @@
             <td class="td-goal-name"><input type="text" value="{{ goal.name }}" class="td-input-goal-name"></td>
 
             <!-- Goal type -->
-            <td class="td-goal-type" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">for 
-                {% if goal.goal_type == "at_least" %}
-                    at least
+            <td class="td-goal-type">
+                <select class="select-goal-type">
+                    <option selected class="option-goal-type-selected">
+                        for 
+                        {% if goal.goal_type == "at_least" %}
+                            at least
 
-                {% else %}
-                    at most
+                        {% else %}
+                            at most
 
-                {% endif %}
+                        {% endif %}
+                    </option>
+                    <option class="option-goal-type-unselected">
+                        for 
+                        {% if goal.goal_type == "at_most" %}
+                            at least
+
+                        {% else %}
+                            at most
+
+                        {% endif %}
+                    </option>
+                </select>
+
             </td>
 
             <!-- Goal duration target -->

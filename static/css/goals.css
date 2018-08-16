@@ -116,6 +116,12 @@ thead {
     text-align: left;
 }
 
+.select-goal-type {
+    background: none;
+    border: none;
+    padding-right: 100px;
+}
+
 .td-goal-times {
     color: #9b9b9b;
 }
