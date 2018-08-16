@@ -176,41 +176,57 @@ def edit_goal_info():
 
     user_id = session['user_id']
     goal_id = request.form.get('goalId')
-    new_goal_name = request.form.get('newGoalName')
-    new_duration = request.form.get('newTarget')
-    # new_duration = timedelta(days=new_days, hours=new_hours,
-    #                          minutes=new_minutes)
-    new_type = request.form.get('newType')
-    goal = Goal.query.filter_by(goal_id=goal_id).one()
+    print goal_id
+    goal = Goal.query.filter_by(goal_id=goal_id, user_id=user_id).one()
 
-    # Update name and duration
-    goal.name = new_goal_name
-    goal.duration = new_duration
-    goal.type = new_type
+    if request.form.get('newGoalName'):
+        new_goal_name = request.form.get('newGoalName')
+        goal.name = new_goal_name
+        print goal.name
+    
+    # new_type = request.form.get('newType')
+    # new_duration = request.form.get('newTarget')
+    # # new_duration = timedelta(days=new_days, hours=new_hours,
+    # #                          minutes=new_minutes)
+    # new_time_range = request.form.get('newTimeRange')
+    # new_time_range = new_time_range.split(" - ")
+    # print new_time_range
+    # new_start = datetime.strptime(new_time_range[0], "%m/%d %I:%M %p")
+    # new_end = datetime.strptime(new_time_range[1], "%m/%d %I:%M %p")
 
-    if request.form.get('newStartTime'):
-        new_start = request.form.get('newStartTime')
-        new_start = datetime.strptime(new_start, "%m/%d at %I:%M %p")
-        goal.start_time = new_start
+    # print new_start
+    # print new_end
+    # # 
 
-    if request.form.get('newEndTime'):
-        new_end = request.form.get('newEndTime')
-        new_end = datetime.strptime(new_end, "%m/%d at %I:%M %p")
-        goal.end_time = new_end
+    # Update name, type, and duration
+    # goal.name = new_goal_name
+    # goal.type = new_type
+    # goal.duration = new_duration
 
-    new_category_goals = request.form.get('newCategoryGoals')
-    new_category_goals = new_category_goals.split('|')[:-1]
+    # Update time range
+    # if request.form.get('newStartTime'):
+    #     new_start = request.form.get('newStartTime')
+    #     new_start = datetime.strptime(new_start, "%m/%d at %I:%M %p")
+    #     goal.start_time = new_start
+
+    # if request.form.get('newEndTime'):
+    #     new_end = request.form.get('newEndTime')
+    #     new_end = datetime.strptime(new_end, "%m/%d at %I:%M %p")
+    #     goal.end_time = new_end
+
+    # new_category_goals = request.form.get('newCategoryGoals')
+    # new_category_goals = new_category_goals.split('|')[:-1]
 
     # Clear the goal's current categories and add the new ones
-    goal.categories = []
+    # goal.categories = []
 
-    for category in new_category_goals:
-        new_category = Category.query.filter_by(user_id=user_id, name=category).one()
-        new_goal_category = GoalCategory(goal_id=goal_id,
-                                         category_id=new_category.category_id)
-        db.session.add(new_goal_category)
+    # for category in new_category_goals:
+    #     new_category = Category.query.filter_by(user_id=user_id, name=category).one()
+    #     new_goal_category = GoalCategory(goal_id=goal_id,
+    #                                      category_id=new_category.category_id)
+    #     db.session.add(new_goal_category)
 
-    db.session.commit()
+    # db.session.commit()
 
     return redirect('/goals')
 

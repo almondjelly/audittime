@@ -66,30 +66,28 @@ function initialize() {
     };
 
     // Set goal range datetime pickers
-        $('input[name="datetimes"]').each(function(i) {
-            let startDateTime = $(this).parents("td").children(".td-goal-range-start").val();
-            let endDateTime = $(this).parents("td").children(".td-goal-range-end").val();
+    $('input[name="datetimes"]').each(function(i) {
+        let startDateTime = $(this).parents("td").children(".td-goal-range-start").val();
+        let endDateTime = $(this).parents("td").children(".td-goal-range-end").val();
 
-            $(this).daterangepicker({
-                timePicker: true,
-                startDate: startDateTime,
-                endDate: endDateTime,
-                locale: {
-                    format: 'M/DD hh:mm A'
-                },
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                alwaysShowCalendars: true,
-            });
+        $(this).daterangepicker({
+            timePicker: true,
+            startDate: startDateTime,
+            endDate: endDateTime,
+            locale: {
+                format: 'M/DD hh:mm A'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            alwaysShowCalendars: true,
         });
-    // };
-
+    });
 
 };
     
@@ -308,26 +306,37 @@ flatpickr(".date-time-picker", {
 
 // EDIT GOAL INFO AND SAVE
 
+    $(".td-input-goal-name").focusout(function() {
+        let formInputs = {
+            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "newGoalName": $(this).val()
+        }
 
-$(".td-goal-save").click(function() {
-    console.log("saving goal")
+        $.post("/edit_goal_info", formInputs);
+    });
 
-debugger;
 
-    let formInputs = {
-        "goalId": $(this).parents("tr").children(".input-goal-id").val(),
-        "newGoalName": $(this).parents("tr").children(".td-goal-name").children().val(),
-        "newType": $(this).parents("tr").children(".td-goal-type").children("select").val(),
-        "newTarget": $(this).parents("tr").children(".td-goal-duration").children("input").val(),
-        "newStartTime": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-start").children(".td-goal-modal-input").children(".input-goal-start-time.time-input").children(".modal-input-goal-date-time-picker.flatpickr-input").val(),
-        "newEndTime":$(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-end").children(".td-goal-modal-input").children(".input-goal-end-time.time-input").children(".modal-input-goal-date-time-picker.flatpickr-input").val(),
-    }
+// $(".td-goal-save").click(function() {
+//     console.log("saving goal")
 
-    $.post("/edit_goal_info", formInputs);
+//     $(this).parents("tr").children(".td-goal-range").children(".td-input-goal-range").on('apply.daterangepicker', function(ev, picker) {
+//         console.log(picker.startDate.format('YYYY-MM-DD hh:mm A'));
+//         console.log(picker.endDate.format('YYYY-MM-DD hh:mm A'));
+//     });
 
-    toastr.success("Goal Updated")
+//     let formInputs = {
+//         "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+//         "newGoalName": $(this).parents("tr").children(".td-goal-name").children().val(),
+//         "newType": $(this).parents("tr").children(".td-goal-type").children("select").val(),
+//         "newTarget": $(this).parents("tr").children(".td-goal-duration").children("input").val(),
+//         "newTimeRange": $(this).parents("tr").children(".td-goal-range").children(".td-input-goal-range").val()    
+//     }
 
-});
+//     $.post("/edit_goal_info", formInputs);
+
+//     toastr.success("Goal Updated")
+
+// });
 
 // ARCHIVE Goal
 
