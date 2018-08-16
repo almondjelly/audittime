@@ -315,6 +315,15 @@ flatpickr(".date-time-picker", {
         $.post("/edit_goal_info", formInputs);
     });
 
+    $(".select-goal-type").change(function() {
+        let formInputs = {
+            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "newType": $(this).val()
+        }
+
+        $.post("/edit_goal_info", formInputs);
+    });
+
 
 // $(".td-goal-save").click(function() {
 //     console.log("saving goal")
@@ -326,7 +335,6 @@ flatpickr(".date-time-picker", {
 
 //     let formInputs = {
 //         "goalId": $(this).parents("tr").children(".input-goal-id").val(),
-//         "newGoalName": $(this).parents("tr").children(".td-goal-name").children().val(),
 //         "newType": $(this).parents("tr").children(".td-goal-type").children("select").val(),
 //         "newTarget": $(this).parents("tr").children(".td-goal-duration").children("input").val(),
 //         "newTimeRange": $(this).parents("tr").children(".td-goal-range").children(".td-input-goal-range").val()    

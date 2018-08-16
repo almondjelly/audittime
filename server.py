@@ -183,6 +183,11 @@ def edit_goal_info():
         new_goal_name = request.form.get('newGoalName')
         goal.name = new_goal_name
         print goal.name
+
+    if request.form.get('newType'):
+        new_goal_type = request.form.get('newType')
+        goal.type = new_goal_type
+        print goal.type
     
     # new_type = request.form.get('newType')
     # new_duration = request.form.get('newTarget')
