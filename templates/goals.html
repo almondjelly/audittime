@@ -67,12 +67,12 @@
     <tr>
         <th></th>
         <th scope="col" class="th-goal td-goal-name">Goal</th>
-        <th scope="col" class="td-goal-type">Type</th>
-        <th scope="col" class="td-goal-duration">Target</th>
-        <th scope="col" class="td-goal-end-time">End Time</th>
-        <th scope="col" class="td-goal-total-time">Spent</th>
-        <th scope="col" class="td-goal-time-left">Time Left</th>
-        <th scope="col" class="td-goal-status">Status</th>
+        <th scope="col" class="th-goal-type td-goal-type">Type</th>
+        <th scope="col" class="th-goal-duration td-goal-duration">Target</th>
+        <th scope="col" class="th-goal-end-time td-goal-end-time">End Time</th>
+        <th scope="col" class="th-goal-total-time td-goal-total-time">Spent</th>
+        <th scope="col" class="th-goal-time-left td-goal-time-left">Time Left</th>
+        <th scope="col" class="th-goal-status td-goal-status">Status</th>
         <th scope="col" class="td-goal-save"></th>
         <th scope="col" class="td-goal-archive"></th>
     </tr>
@@ -92,7 +92,7 @@
             </td>
 
             <!-- Goal name -->
-            <td class="td-goal-name" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">{{ goal.name }}</td>
+            <td class="td-goal-name"><input type="text" value="{{ goal.name }}" class="td-input-goal-name"></td>
 
             <!-- Goal type -->
             <td class="td-goal-type" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">for 
@@ -161,136 +161,8 @@
                 <span class="span-goal-archive">
                     x
                 </span>
-
-            <!-- Edit modal -->
-            <div class="modal fade" id="{{ goal.goal_id }}-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Edit Goal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                <form class="modal-form">
-
-                <table>
-
-                <!-- Goal name -->
-                <tr class="tr-goal-modal-name">
-                    <td class="goal-modal">Goal</td>
-                    <td class="td-goal-modal-input">
-                        <input class="goal-modal-input-name" type="text" value="{{ goal.name }}" name="{{ goal.goal_id }}">
-                    </td>
-                </tr>
-
-                <!-- Goal type -->
-                <tr class="tr-goal-modal-type">
-                <td class="goal-modal">Type</td>
-                <td class="td-goal-modal-input">
-                    <select class="goal-modal-input-type">
-                        {% if goal.goal_type == "at_least" %}
-                            <option value="at_least" selected>at least</option>
-                            <option value="at_most">at most</option>
-
-                        {% else %}
-                            <option value="at_least">at least</option>
-                            <option value="at_most" selected>at most</option>
-                        
-                        {% endif %}
-                    </select>
-                </td>
-                </tr>
-
-                <!-- Goal target duration -->
-                <tr class="tr-goal-modal-target">
-                <td class="goal-modal">Target</td>
-                <td class="td-goal-modal-input">
-                
-                <!-- Days -->
-                <input class="goal-modal-input-duration days" type="text" value="{{ goal.duration.days }}" name="days-{{ goal.goal_id }}"> days<br>
-
-                <!-- Hours -->
-                <input class="goal-modal-input-duration hours" type="text" value="{{ goal.duration.seconds // 3600 }}" name="hours-{{ goal.goal_id }}"> hours and<br>
-
-                <!-- Minutes -->
-                <input class="goal-modal-input-duration minutes" type="text" value="{{ goal.duration.seconds // 60 % 60 }}" name="
-                minutes-{{ goal.goal_id }}"> minutes
-
-                </td>
-                </tr>
-
-                <!-- Goal start -->
-                <tr class="tr-goal-modal-start">
-                <td class="goal-modal">Start</td>
-                <td class="td-goal-modal-input">
-                    <span class="goal-start-time time-text">
-                        {{ goal.start_time.strftime('%b %d at %I:%M %p') }}
-                    </span>
-                    <span class="input-goal-start-time time-input">
-                        <input type="datetime-local" class="modal-input-goal-date-time-picker"> 
-                    </span>
-                </td>
-                </tr>
-                
-                <!-- Goal end -->
-                <tr class="tr-goal-modal-end">
-                    <td class="goal-modal">End</td>
-                    <td class="td-goal-modal-input">
-                        <span class="goal-end-time time-text">
-                            {{ goal.end_time.strftime('%b %d at %I:%M %p') }}
-                        </span>
-                        <span class="input-goal-end-time time-input">
-                            <input type="datetime-local" name="endDate" class="modal-input-goal-date-time-picker"> 
-                        </span>
-                    </td>
-                </tr>
-
-                <!-- Goal categories -->
-                <tr class="tr-goal-modal-categories">
-                    <td class="goal-modal">Categories</td>
-                    <td class="td-goal-modal-input">
-                        <select multiple class="goal-modal-input-goal-categories"> 
-                            {% for category in categories %}
-                                {% if category in goal.category %}
-                                    <option selected>{{ category.name }}</option>
-
-                                {% else %}
-                                    <option>{{ category.name }}</option>
-
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-
-                </table>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link goal-edit-save">Save</button>
-                </div>
-            </form>
-
-            </div>
-            </div>
-            </div>
-            </div>
-
-
             </td>
         </tr>
-
-    
-
-
-
-
-
-
-
 </table>
 
 <div class="div-goal-event-log">

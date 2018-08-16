@@ -87,6 +87,10 @@ thead {
     padding-left: 42px;
 }
 
+.th-goal-type {
+    padding-left: 23px;
+}
+
 .goal-log td {
     padding: 14px;
 }
@@ -94,8 +98,14 @@ thead {
 .td-goal-name {
     border: 0;
     background: none;
-    width: 280px;
+    width: 270px;
     padding-left: 30px
+}
+
+.td-input-goal-name {
+    border: 0;
+    background: none;
+    width: 100%;
 }
 
 .td-goal-type,
