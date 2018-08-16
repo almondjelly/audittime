@@ -177,11 +177,9 @@ def edit_goal_info():
     user_id = session['user_id']
     goal_id = request.form.get('goalId')
     new_goal_name = request.form.get('newGoalName')
-    new_days = int(request.form.get('newDays'))
-    new_hours = int(request.form.get('newHours'))
-    new_minutes = int(request.form.get('newMinutes'))
-    new_duration = timedelta(days=new_days, hours=new_hours,
-                             minutes=new_minutes)
+    new_duration = request.form.get('newTarget')
+    # new_duration = timedelta(days=new_days, hours=new_hours,
+    #                          minutes=new_minutes)
     new_type = request.form.get('newType')
     goal = Goal.query.filter_by(goal_id=goal_id).one()
 

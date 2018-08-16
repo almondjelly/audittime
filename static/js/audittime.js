@@ -291,9 +291,7 @@ debugger;
         "goalId": $(this).parents("tr").children(".input-goal-id").val(),
         "newGoalName": $(this).parents("tr").children(".td-goal-name").children().val(),
         "newType": $(this).parents("tr").children(".td-goal-type").children("select").val(),
-        "newDays": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-target").children(".td-goal-modal-input").children(".goal-modal-input-duration.days").val(),
-        "newHours": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-target").children(".td-goal-modal-input").children(".goal-modal-input-duration.hours").val(),
-        "newMinutes": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-target").children(".td-goal-modal-input").children(".goal-modal-input-duration.minutes").val(),
+        "newTarget": $(this).parents("tr").children(".td-goal-duration").children("input").val(),
         "newStartTime": $(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-start").children(".td-goal-modal-input").children(".input-goal-start-time.time-input").children(".modal-input-goal-date-time-picker.flatpickr-input").val(),
         "newEndTime":$(this).parents(".modal-content").children(".modal-body").children("form").children("table").children("tbody").children(".tr-goal-modal-end").children(".td-goal-modal-input").children(".input-goal-end-time.time-input").children(".modal-input-goal-date-time-picker.flatpickr-input").val(),
     }

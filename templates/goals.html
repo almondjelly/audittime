@@ -92,7 +92,9 @@
             </td>
 
             <!-- Goal name -->
-            <td class="td-goal-name"><input type="text" value="{{ goal.name }}" class="td-input-goal-name"></td>
+            <td class="td-goal-name">
+                <input type="text" value="{{ goal.name }}" class="td-input-goal-name">
+            </td>
 
             <!-- Goal type -->
             <td class="td-goal-type">
@@ -122,16 +124,30 @@
             </td>
 
             <!-- Goal duration target -->
-            <td class="td-goal-duration" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
+            <td class="td-goal-duration">
+
+
                 {% if goal.duration.days > 0 %}
-                    {{ goal.duration.days }}d 
+                    {% set days = (goal.duration.days)|string + "d " %}
+                {% else %}
+                    {% set days = '' %}
                 {% endif %} 
+
                 {% if (goal.duration.seconds // 3600) > 0 %}
-                    {{ goal.duration.seconds // 3600 }}h 
-                {% endif %} 
+                    {% set hours = (goal.duration.seconds // 3600)|string + "h " %}
+                {% else %}
+                    {% set hours = '' %}
+                {% endif %}
+
                 {% if (goal.duration.seconds // 60 % 60) > 0 %}
-                    {{ goal.duration.seconds // 60 % 60 }}min
-                {% endif %} 
+                    {% set minutes = (goal.duration.seconds // 60 % 60)|string + "min" %}
+                {% else %}
+                    {% set minutes = '' %}
+                {% endif %}
+
+                {% set target = days + hours + minutes %}
+
+                <input type="text" value="{{ target }}" class="td-input-goal-name">
 
             </td>
 
