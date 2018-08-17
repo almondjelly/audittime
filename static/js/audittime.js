@@ -29,13 +29,6 @@ function initialize() {
     // Apply multiselect.js
     $("#tag-select").multiSelect();   
 
-    // Apply selectize.js to dropdowns
-    // $("#select-category-goal").selectize({placeholder: "select your goals"});
-    // $("#select-task-category").selectize({placeholder: "tv"});
-    // $(".goal-modal-input-goal-categories").selectize();
-    // $(".goal-modal-input-type").selectize();
-    // $(".td-input-category-goals").selectize();
-
     // Remove Bootstrap's hideous blue glow
     function handleFirstTab(e) {
         if (e.keyCode === 9) { // the "I am a keyboard user" key
@@ -235,48 +228,8 @@ function addEventListeners(){
 
 $(document).ready(function() {
    initialize(); 
-   $("#datePickers").hide();
    addEventListeners();
 });
-
-
-// CUSTOMIZE DATEPICKERS WITH FLATPICKR
-flatpickr(".input-goal-date-time-picker", {
-    enableTime: true,
-    dateFormat: "M j \\at h:i K",
-    allowInput: true,
-    altFormat: "F j, Y"
-});
-
-flatpickr(".input-task-start-date-time-picker", {
-    enableTime: true,
-    dateFormat: "m/d \\at h:i K",
-    allowInput: true,
-    altFormat: "F j, Y"
-});
-
-flatpickr(".modal-input-goal-date-time-picker", {
-    enableTime: true,
-    dateFormat: "m/d \\at h:i K",
-    allowInput: true,
-    altFormat: "F j, Y"
-});
-
-flatpickr(".input-task-end-date-time-picker", {
-    enableTime: true,
-    dateFormat: "m/d \\at h:i K",
-    allowInput: true,
-    altFormat: "F j, Y"
-});
-
-flatpickr(".date-time-picker", {
-    enableTime: true,
-    dateFormat: "m/d \\at h:i K",
-    allowInput: true,
-    altFormat: "F j, Y"
-});
-
-
 
 
 
@@ -306,6 +259,7 @@ flatpickr(".date-time-picker", {
 
 // EDIT GOAL INFO AND SAVE
 
+    // Update goal name
     $(".td-input-goal-name").focusout(function() {
         let formInputs = {
             "goalId": $(this).parents("tr").children(".input-goal-id").val(),
@@ -315,6 +269,7 @@ flatpickr(".date-time-picker", {
         $.post("/edit_goal_info", formInputs);
     });
 
+    // Update goal type
     $(".select-goal-type").change(function() {
         let formInputs = {
             "goalId": $(this).parents("tr").children(".input-goal-id").val(),
@@ -324,14 +279,18 @@ flatpickr(".date-time-picker", {
         $.post("/edit_goal_info", formInputs);
     });
 
-    $(".td-input-goal-duration").focusout(function() {
+    // Update goal time range
+    $("input[name='datetimes']").on('apply.daterangepicker', function(ev, picker) {
+        console.log('whatevss')
         let formInputs = {
             "goalId": $(this).parents("tr").children(".input-goal-id").val(),
-            "newTarget": $(this).val()
-        }
-
+            "newStart": picker.startDate.format('YYYY-MM-DD hh:mm A'),
+            "newEnd": picker.endDate.format('YYYY-MM-DD hh:mm A')
+        };
+        
         $.post("/edit_goal_info", formInputs);
     });
+ 
 
 
 // $(".td-goal-save").click(function() {

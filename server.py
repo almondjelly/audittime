@@ -179,11 +179,13 @@ def edit_goal_info():
     print goal_id
     goal = Goal.query.filter_by(goal_id=goal_id, user_id=user_id).one()
 
+    # Update goal name
     if request.form.get('newGoalName'):
         new_goal_name = request.form.get('newGoalName')
         goal.name = new_goal_name
         print goal.name
 
+    # Update goal type
     if request.form.get('newType'):
         new_goal_type = request.form.get('newType')
         if new_goal_type == "at most":
@@ -197,10 +199,20 @@ def edit_goal_info():
 
         print goal.goal_type
     
-    if request.form.get('newTarget'):
-        new_duration = request.form.get('newTarget')
-        new_duration = new_duration.split(' ')
-        print new_duration
+    # Update goal time range
+    if request.form.get('newStart'):
+        new_start = request.form.get('newStart')
+        new_start = datetime.strptime(new_start, "%Y-%m-%d %I:%M %p")
+        goal.start_time = new_start
+        print new_start
+
+    if request.form.get('newEnd'):
+        new_end = request.form.get('newEnd')
+        new_end = datetime.strptime(new_end, "%Y-%m-%d %I:%M %p")
+        goal.end_time = new_end
+        print new_end
+
+
     # # new_duration = timedelta(days=new_days, hours=new_hours,
     # #                          minutes=new_minutes)
     # new_time_range = request.form.get('newTimeRange')
