@@ -128,7 +128,7 @@ td.td-goal-time-left {
     width: 110px;
 }
 
-input.td-input-goal-duration,
+input.td-input-goal-target,
 input.td-input-goal-total-time,
 input.td-input-goal-time-left {
     text-align: right;

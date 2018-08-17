@@ -129,7 +129,6 @@
             <!-- Goal duration target -->
             <td class="td-goal-duration">
 
-
                 {% if goal.duration.days > 0 %}
                     {% set days = (goal.duration.days)|string + "d " %}
                 {% else %}
@@ -150,7 +149,7 @@
 
                 {% set target = days + hours + minutes %}
 
-                <input type="text" value="{{ target }}" class="td-input-goal-duration">
+                <input type="text" value="{{ target }}" class="td-input-goal-target">
 
             </td>
 

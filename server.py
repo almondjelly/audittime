@@ -15,6 +15,7 @@ from toggl import toggl_get_last_7_days, toggl_update_db
 import json
 import pdb
 import hashlib
+import re
 
 
 app = Flask(__name__)
@@ -212,32 +213,37 @@ def edit_goal_info():
         goal.end_time = new_end
         print new_end
 
+    # Update goal target duration
+    if request.form.get('newTarget'):
+        new_target = request.form.get('newTarget')
+        new_target = new_target.split(' ')
+        day_set = {'d', 'day'}
+        hour_set = {'h', 'hr', 'hrs', 'hour'}
+        minute_set = {'m', 'min', 'minute'}
+        new_days = 0
+        new_hours = 0
+        new_minutes = 0
 
-    # # new_duration = timedelta(days=new_days, hours=new_hours,
-    # #                          minutes=new_minutes)
-    # new_time_range = request.form.get('newTimeRange')
-    # new_time_range = new_time_range.split(" - ")
-    # print new_time_range
-    # new_start = datetime.strptime(new_time_range[0], "%m/%d %I:%M %p")
-    # new_end = datetime.strptime(new_time_range[1], "%m/%d %I:%M %p")
+        for unit in new_target:
+            if unit:
+                for abbreviation in day_set:
+                    if abbreviation in unit:
+                        new_days = int(re.sub('[^0-9]','', unit))
 
-    # print new_start
-    # print new_end
-    # # 
+                for abbreviation in hour_set:
+                    if abbreviation in unit:
+                        new_hours = int(re.sub('[^0-9]','', unit))
 
-    # Update name, type, and duration
-    # goal.duration = new_duration
+                for abbreviation in minute_set:
+                    if abbreviation in unit:
+                        new_minutes = int(re.sub('[^0-9]','', unit))
 
-    # Update time range
-    # if request.form.get('newStartTime'):
-    #     new_start = request.form.get('newStartTime')
-    #     new_start = datetime.strptime(new_start, "%m/%d at %I:%M %p")
-    #     goal.start_time = new_start
+        new_target = timedelta(days=new_days, hours=new_hours,
+                                 minutes=new_minutes)
 
-    # if request.form.get('newEndTime'):
-    #     new_end = request.form.get('newEndTime')
-    #     new_end = datetime.strptime(new_end, "%m/%d at %I:%M %p")
-    #     goal.end_time = new_end
+        goal.duration = new_target
+        print new_target
+
 
     # new_category_goals = request.form.get('newCategoryGoals')
     # new_category_goals = new_category_goals.split('|')[:-1]

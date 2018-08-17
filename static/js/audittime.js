@@ -291,6 +291,15 @@ $(document).ready(function() {
         $.post("/edit_goal_info", formInputs);
     });
  
+    // Update goal target duration
+    $(".td-input-goal-target").focusout(function() {
+        let formInputs = {
+            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "newTarget": $(this).val()
+        }
+
+        $.post("/edit_goal_info", formInputs);
+    });
 
 
 // $(".td-goal-save").click(function() {
