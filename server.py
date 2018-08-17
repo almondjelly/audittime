@@ -186,11 +186,21 @@ def edit_goal_info():
 
     if request.form.get('newType'):
         new_goal_type = request.form.get('newType')
-        goal.type = new_goal_type
-        print goal.type
+        if new_goal_type == "at most":
+            goal.goal_type = "at_most"
+
+        elif new_goal_type == "at least":
+            goal.goal_type = "at_least"
+
+        else:
+            print "Invalid goal type (should either be at_most or at_least)"
+
+        print goal.goal_type
     
-    # new_type = request.form.get('newType')
-    # new_duration = request.form.get('newTarget')
+    if request.form.get('newTarget'):
+        new_duration = request.form.get('newTarget')
+        new_duration = new_duration.split(' ')
+        print new_duration
     # # new_duration = timedelta(days=new_days, hours=new_hours,
     # #                          minutes=new_minutes)
     # new_time_range = request.form.get('newTimeRange')
@@ -204,8 +214,6 @@ def edit_goal_info():
     # # 
 
     # Update name, type, and duration
-    # goal.name = new_goal_name
-    # goal.type = new_type
     # goal.duration = new_duration
 
     # Update time range
@@ -231,7 +239,7 @@ def edit_goal_info():
     #                                      category_id=new_category.category_id)
     #     db.session.add(new_goal_category)
 
-    # db.session.commit()
+    db.session.commit()
 
     return redirect('/goals')
 

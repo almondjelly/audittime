@@ -324,6 +324,15 @@ flatpickr(".date-time-picker", {
         $.post("/edit_goal_info", formInputs);
     });
 
+    $(".td-input-goal-duration").focusout(function() {
+        let formInputs = {
+            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "newTarget": $(this).val()
+        }
+
+        $.post("/edit_goal_info", formInputs);
+    });
+
 
 // $(".td-goal-save").click(function() {
 //     console.log("saving goal")
