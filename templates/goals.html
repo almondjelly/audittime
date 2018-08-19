@@ -51,21 +51,6 @@
         </tr>
     </table>
 
-<!-- Categories -->
-    <h1></h1>
-    
-                   
-    <table>
-        <tr>
-            <td>
-                <input id="new-tag" type="text" placeholder="Create a new tag">
-                <a href="#add" id="submit-new-tag">Create</a>
-                
-            </td>
-        </tr>
-    </table>
-</form>
-
 
 <!-- Goal Log -->
 <h1>Your Goals</h1>
@@ -75,13 +60,12 @@
     <tr>
         <td class="head td-goal-expand"></td>
         <td class="head td-goal-name">Goal</td>
-        <td class="head td-goal-type td-goal-type">Type</td>
+        <td class="head td-goal-type">Type</td>
         <td class="head td-goal-range">Time Range</td>
         <td class="head td-goal-duration">Target</td>
         <td class="head td-goal-total-time">Spent</td>
         <td class="head td-goal-time-left">Time Left</td>
         <td class="head td-goal-status">Status</td>
-        <td class="head td-goal-save"></td>
         <td class="head td-goal-archive"></td>
     </tr>
 </table>
@@ -90,8 +74,8 @@
     <table class="goal-log">
         <tr class="tr-goal">
 
-        <!-- Goal id -->
-        <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
+            <!-- Goal id -->
+            <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{{ goal.goal_id }}"></form>
 
             <td class="td-goal-expand">
                 <i class="material-icons expand-more">expand_more</i>
@@ -185,13 +169,6 @@
                     {{ goal.goal_status() }}
 
                 {% endif %}
-            </td>
-
-            <!-- Save -->
-            <td class="td-goal-save">
-                <span class="span-goal-save">
-                    save
-                </span>
             </td>
 
             <!-- Archive -->

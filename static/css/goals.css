@@ -129,11 +129,11 @@ td.td-goal-expand {
 }
 
 td.td-goal-name {
-    width: 200px;
+    width: 248px;
 }
 
 input.td-input-goal-name {
-    width: 172px;
+    width: 220px;
 }
 
 td.td-goal-type {
@@ -172,6 +172,10 @@ td.td-goal-status {
 }
 
 td.td-goal-save {
+    width: 60px;
+}
+
+td.head.td-goal-archive { 
     width: 60px;
 }
 
