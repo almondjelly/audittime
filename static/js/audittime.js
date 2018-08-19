@@ -26,8 +26,18 @@ function initialize() {
     // Apply tablesorter to tables
     // $("table").tablesorter();
 
-    // Apply multiselect.js
-    $("#tag-select").multiSelect();   
+    // Apply selectize.js
+    $("#goal-category-select").selectize({
+        delimiter: ',',
+        persist: false,
+        create: function(input) {
+            return {
+                value: input,
+                text: input
+            }
+        },
+    });   
+
 
     // Remove Bootstrap's hideous blue glow
     function handleFirstTab(e) {
@@ -59,6 +69,24 @@ function initialize() {
     };
 
     // Set goal range datetime pickers
+    $('input[name="newgoal-datetimes"]').daterangepicker({
+        timePicker: true,
+        startDate: new Date(),
+        endDate: new Date(),
+        locale: {
+            format: 'M/DD hh:mm A'
+        },
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        alwaysShowCalendars: true,
+    });
+
     $('input[name="datetimes"]').each(function(i) {
         let startDateTime = $(this).parents("td").children(".td-goal-range-start").val();
         let endDateTime = $(this).parents("td").children(".td-goal-range-end").val();
@@ -192,17 +220,19 @@ function addEventListeners(){
         });  
 
         // Create a new tag
-        $("#submit-new-tag").click(function() {
+        // $("#submit-new-tag").click(function() {
 
-            $('#tag-select').multiSelect('addOption', {
-                value: $("#new-tag").val(),
-                text: $("#new-tag").val(),
-                index: 0
-            });
+        //     $('#tag-select').multiSelect('addOption', {
+        //         value: $("#new-tag").val(),
+        //         text: $("#new-tag").val(),
+        //         index: 0
+        //     });
 
-            // Reset the input field after creating new tag
-            $("#new-tag").val('');
-        });
+        //     // Reset the input field after creating new tag
+        //     $("#new-tag").val('');
+        // });
+
+
 
         // Expand goal to display associated tasks
         $(".td-goal-expand").click(function() {

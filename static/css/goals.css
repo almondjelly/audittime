@@ -60,7 +60,37 @@ input#input-new-goal-name::placeholder, {
     padding-top: 7px;
 }
 
-/* --------------------- GOAL LOG -------------------- */
+/* --------------------- GOALS -------------------- */
+#goal-new {
+    font-family: 'Rubik';
+    font-size: 15px;
+}
+
+#goal-new input,
+#goal-new select {
+    color: #009AC0;
+}
+
+#td-new-goal-name {
+    width: 420px;
+}
+
+#input-new-goal-name{
+    width: 320px;
+}
+
+#target-duration {
+    width: 180px;
+}
+
+#td-newgoal-range {
+    width: 300px;
+}
+
+input#newgoal-range {
+    padding-left: 4px;
+}
+
 .goal-log td {
     background-color: rgba(255,255,255,0.8);
     font-family: 'Roboto';
@@ -81,6 +111,7 @@ td.head {
     padding-top: 22px;
 }
 
+input#newgoal-range,
 .goal-log td input,
 select {
     border: 0;
@@ -98,11 +129,11 @@ td.td-goal-expand {
 }
 
 td.td-goal-name {
-    width: 220px;
+    width: 200px;
 }
 
 input.td-input-goal-name {
-    width: 192px;
+    width: 172px;
 }
 
 td.td-goal-type {
@@ -117,8 +148,9 @@ td.td-goal-range {
     width: 228px;
 }
 
+input#newgoal-range,
 input.td-input-goal-range {
-    width: 200px;
+    width: 220px;
 }
 
 td.td-goal-duration,

@@ -21,16 +21,13 @@
                 </select>
             </td>
             <td id="target-duration">
-                <input class="goal-duration" id="hours" type="number" placeholder="0" required> hours
+                <input class="goal-duration" id="hours" placeholder="0" required> hours
 
-                <input class="goal-duration" type="number" id="minutes" placeholder="0" required> min
+                <input class="goal-duration" id="minutes" placeholder="0" required> min
             </td>
-            <td>
-                from 
-                <input type="datetime-local" id="start-date" name="startDate" class="input-goal-date-time-picker" placeholder="May 1 at 12:00 AM" required>
-
-                to
-                <input type="datetime-local" name="endDate" id="end-date" class="input-goal-date-time-picker" placeholder="May 31 at 11:59 PM" required>
+            <td id="td-newgoal-range">
+                during 
+                <input name="newgoal-datetimes" type="text" id="newgoal-range">
             </td>
             <td>
                 <i id="goal-submit" class="material-icons">
@@ -38,20 +35,32 @@
                 </i>
             </td>
         </tr>
+        <tr>
+            <td colspan=5>
+                Which categories should we count towards this goal?
+            </td>
+        </tr>
+        <tr>
+            <td colspan=5>
+                <select multiple id="goal-category-select">
+                    {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
     </table>
 
 <!-- Categories -->
-    <h1>Which tags roll up to this goal?</h1>
+    <h1></h1>
+    
+                   
     <table>
         <tr>
             <td>
                 <input id="new-tag" type="text" placeholder="Create a new tag">
                 <a href="#add" id="submit-new-tag">Create</a>
-                <select multiple id="tag-select">
-                    {% for category in categories %}
-                    <option value="{{ category.name }}">{{ category.name }}</option>
-                    {% endfor %}
-                </select>
+                
             </td>
         </tr>
     </table>
