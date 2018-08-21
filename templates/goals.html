@@ -62,6 +62,7 @@
             <i class="material-icons expand-more">expand_more</i>
         </td>
         <td class="head td-goal-name">Goal</td>
+        <td></td>
         <td class="head td-goal-type">Type</td>
         <td class="head td-goal-range">Time Range</td>
         <td class="head td-goal-duration">Target</td>
@@ -76,6 +77,7 @@
     </tr>
 </table>
 
+<div id="div-goal-log">
 {% for goal in goals %}
     <table class="goal-log">
         <tr class="tr-goal">
@@ -91,6 +93,20 @@
             <!-- Goal name -->
             <td class="td-goal-name">
                 <input type="text" value="{{ goal.name }}" class="td-input-goal-name">
+            </td>
+
+            <!-- Goal categories -->
+            <td class="td-goal-categories">
+                <select class="td-select-goal-categories" multiple>
+                    {% for category in categories %}
+                        {% if category in goal.categories %}
+                            <option value="{{ category.name }}" selected="selected">{{ category.name }}</option>
+                        {% else %}
+                        <option value="{{ category.name }}">{{ category.name }} </option>
+                        }
+                        {% endif %}
+                    {% endfor %}
+                </select>
             </td>
 
             <!-- Goal type -->
@@ -153,18 +169,18 @@
             </td>
 
             <!-- Goal total time progress -->
-            <td class="td-goal-total-time" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
+            <td class="td-goal-total-time">
                 {{ goal.total_time_str("goal_time") }}
             </td>
 
             <!-- Goal time left -->
-            <td class="td-goal-time-left" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
+            <td class="td-goal-time-left">
                 {{ goal.time_left() }}
 
             </td>
 
             <!-- Goal status -->
-            <td class="td-goal-status" data-toggle="modal" data-target="#{{ goal.goal_id }}-modal">
+            <td class="td-goal-status">
                 {% if goal.goal_status() == 'Success!' %}
                     <span class="success">{{ goal.goal_status() }}</span>
 
@@ -184,7 +200,7 @@
                 </span>
             </td>
         </tr>
-</table>
+    </table>
 
 <div class="div-goal-event-log">
 <table class="goal-event-log">

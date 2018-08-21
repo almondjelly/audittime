@@ -35,8 +35,29 @@ function initialize() {
                 text: input
             }
         },
-    });   
+    });
 
+    $(".td-select-goal-categories").multiselect({
+        enableFiltering: true,
+        filterBehavior: 'value',
+        includeSelectAllOption: true,
+        buttonText: function(options, select) {
+            if (options.length === 0) { return 'No Categories'; } 
+            else if (options.length > 1) { return options.length + ' Categories'; } 
+            else {
+                var labels = [];
+                options.each(function() {
+                    if ($(this).attr('label') !== undefined) {
+                        labels.push($(this).attr('label'));
+                    } else {
+                        labels.push($(this).html());
+                    }
+                });
+                
+                return labels.join(', ') + '';
+            }  
+        }
+    });
 
     // Remove Bootstrap's hideous blue glow
     function handleFirstTab(e) {
@@ -71,14 +92,15 @@ function initialize() {
     $('input[name="newgoal-datetimes"]').daterangepicker({
         timePicker: true,
         autoUpdateInput: false,
+        opens: 'left',
         locale: {
             format: 'YYYY-MM-DD hh:mm A',
             // cancelLabel: 'Clear'
         },
         ranges: {
-            'Today': [moment(), moment()],
-            'Next 7 Days': [moment(), moment().add(7, 'days')],
-            'Next 30 Days': [moment(), moment().add(30, 'days')],
+            'Today': [moment().startOf('day'), moment().endOf('day')],
+            'Next 7 Days': [moment().startOf('day'), moment().add(7, 'days')],
+            'Next 30 Days': [moment().startOf('day'), moment().add(30, 'days')],
             'This Week': [moment().startOf('week'), moment().endOf('week')],
             'This Month': [moment().startOf('month'), moment().endOf('month')]
         },
@@ -99,20 +121,24 @@ function initialize() {
 
         $(this).daterangepicker({
             timePicker: true,
+            autoUpdateInput: true,
             startDate: startDateTime,
             endDate: endDateTime,
+            opens: 'center',
             locale: {
-                format: 'M/DD hh:mm A'
+                format: 'M/DD'
             },
             ranges: {
-             'Today': [moment(), moment()],
-            'Next 7 Days': [moment(), moment().add(7, 'days')],
-            'Next 30 Days': [moment(), moment().add(30, 'days')],
+            'Today': [moment().startOf('day'), moment().endOf('day')],
+            'Next 7 Days': [moment().startOf('day'), moment().add(7, 'days')],
+            'Next 30 Days': [moment().startOf('day'), moment().add(30, 'days')],
             'This Week': [moment().startOf('week'), moment().endOf('week')],
             'This Month': [moment().startOf('month'), moment().endOf('month')]
             },
-            alwaysShowCalendars: true,
-        });
+            alwaysShowCalendars: true
+        }
+            
+        );
     });
 
 };
@@ -245,7 +271,7 @@ $(document).ready(function() {
 
 // ADD NEW GOAL
     function addNewGoal(result){
-        // $("#tbody-goal-log").prepend(result);
+        $("#div-goal-log").prepend(result);
         $("#form-goal").trigger('reset');
         $("#goal-category-select")[0].selectize.clear();   
     }

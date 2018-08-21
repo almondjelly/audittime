@@ -166,25 +166,33 @@ def add_goal():
 
     db.session.commit()
 
-
-
-    # goal_id = str(goal.goal_id)
-    # total_time = goal.total_time_str("goal_time")
-    # time_left = goal.time_left()
-    # goal_status = goal.goal_status()
+    # Prep arguments for goal_generate_html()
+    goal_id = str(goal.goal_id)
+    start_time = start_time.strftime('%Y-%m-%d at %I:%M %p'),
+    end_time = end_time.strftime('%Y-%m-%d at %I:%M %p'),
+    days = target.days
+    hours = target.seconds // 3600
+    minutes = target.seconds // 60 % 60
+    total_time = goal.total_time_str("goal_time")
+    time_left = goal.time_left()
+    goal_status = goal.goal_status()
 
     # categories = Category.query.filter_by(user_id=user_id).all()
 
-    # new_goal_html = goal_generate_html(total_time, goal_id, goal_name,
-    #                                    goal_type,
-    #                                    duration.days, str(hours), str(minutes),
-    #                                    start_time, end_time, time_left,
-    #                                    goal_status, categories,
-    #                                    goal_category)
-
-    # return new_goal_html
-
-    return 'i like fishes'
+    new_goal_html = goal_generate_html(goal_id, 
+                                       goal_name, 
+                                       goal_type, 
+                                       start_time, 
+                                       end_time,
+                                       days, 
+                                       hours,
+                                       minutes,
+                                       target,
+                                       total_time,
+                                       time_left, 
+                                       goal_status)
+    
+    return new_goal_html
 
 
 @app.route('/edit_goal_info', methods=['POST'])

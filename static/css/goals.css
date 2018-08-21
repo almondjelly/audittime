@@ -124,6 +124,10 @@ input.td-input-goal-name {
     width: 190px;
 }
 
+select.td-select-goal-categories {
+    max-width: 100px;
+}
+
 td.td-goal-type,
 td.head.td-goal-type {
     width: 104px;
@@ -160,7 +164,6 @@ input.td-input-goal-time-left {
 }
 
 
-
 td.td-goal-status,
 td.head.td-goal-status {
     width: 96px;
@@ -175,6 +178,88 @@ td.td-goal-archive {
     width: 40px;
 }
 
+
+/* GOAL CATEGORIES */
+
+.multiselect-container>li>a>label.checkbox {
+    padding-left: 8px;
+}
+
+.multiselect-container>li>a {
+    color: #393A4C;
+}
+
+.multiselect-container,
+.multiselect-selected-text {
+    font-size: 12px;
+    font-family: 'Roboto';
+    padding-left: 0;
+}
+
+.multiselect.btn {
+    padding: 0 4px;
+}
+
+.multiselect-search {
+    font-size: 12px;
+    font-family: 'Roboto';
+    padding-left: 4px;
+}
+/*multiselect-filter
+multiselect-all
+multiselect-item
+multiselect-group 
+disabled
+active
+multiselect-filter-hidden
+multiselect-collapsible-hidden
+*/
+
+
+/*
+<ul class="multiselect-container dropdown-menu">
+    <!-- Filter -->
+    <li class="multiselect-item multiselect-filter" value="0">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input class="form-control multiselect-search" type="text" placeholder="Search">
+            <span class="input-group-btn">
+                <button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
+            </span>
+        </div>
+    </li>
+    <!-- Select all -->
+    <li class="multiselect-item multiselect-all" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(234, 234, 234); background: rgb(243, 243, 243);">
+        <a tabindex="0" class="multiselect-all"><label class="checkbox" style="padding: 3px 20px 3px 35px;"><input type="checkbox" value="multiselect-all">  Select all</label></a>
+    </li>
+    <!-- Collapsible and clickable opt group -->
+    <li class="multiselect-item multiselect-group">
+        <a href="javascript:void(0);">
+            <label><input type="checkbox" value="undefined"><b> Group 1</b></label>
+            <span class="caret-container"><b class="caret"></b></span>
+        </a>
+    </li>
+    <!-- Disabled and hidden option (hidden because of collapsible opt groups) -->
+    <li class="disabled hidden">
+        <a tabindex="-1"><label class="checkbox"><input type="checkbox" value="1-1" disabled=""> Option 1.1</label></a>
+    </li>
+    <!-- Hidden but select option -->
+    <li class="active hidden">
+        <a tabindex="0"><label class="checkbox"><input type="checkbox" value="1-2"> Option 1.2</label></a>
+    </li>
+    <!-- ... -->
+    <!-- Another opt group -->
+    <li class="multiselect-item multiselect-group">
+        <a href="javascript:void(0);">
+            <label><input type="checkbox" value="undefined"><b> Group 2</b></label>
+            <span class="caret-container"><b class="caret"></b></span>
+        </a>
+    </li>
+    <!-- Visible but not selected option -->
+    <li>
+        <a tabindex="0"><label class="checkbox"><input type="checkbox" value="2-1"> Option 2.1</label></a>
+    </li>
+</ul>*/
 
 /* --------------------- GOAL EVENTS -------------------- */
 
@@ -228,5 +313,4 @@ td.goal-event-head {
 .td-goal-event-task-save,
 .td-goal-event-task-remove {
     width: 40px;
-}
 }
