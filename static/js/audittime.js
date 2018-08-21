@@ -247,6 +247,7 @@ $(document).ready(function() {
     function addNewGoal(result){
         // $("#tbody-goal-log").prepend(result);
         $("#form-goal").trigger('reset');
+        $("#goal-category-select")[0].selectize.clear();   
     }
 
     $("#goal-submit").on("click", function() {
@@ -283,18 +284,26 @@ $(document).ready(function() {
             ($("#newgoal-range").val() != "") &&
             ($("#goal-category-select").val().length > 0)
         ) {
+
+            let goalCategories = '';
+
+            for (let category of $("#goal-category-select").val()) {
+                goalCategories += category;
+                goalCategories += "|";
+            }
+
             let formInputs = {
             "goalName": $("#input-new-goal-name").val(),
             "goalType": $("#select-goal-type").val(),
             "hours": $("#hours").val(),
             "minutes": $("#minutes").val(), 
             "timeRange": $("#newgoal-range").val(),
-            "goalCategories": $("#goal-category-select").val()
+            "goalCategories": goalCategories
             };
 
             console.log(formInputs)
 
-            // $.post("/add_goal", formInputs, addNewGoal);
+            $.post("/add_goal", formInputs, addNewGoal);
 
             toastr.success("New Goal Added")
         }

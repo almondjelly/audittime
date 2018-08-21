@@ -136,10 +136,16 @@ def add_goal():
     minutes = int(request.form.get('minutes'))
     duration = timedelta(hours=hours, minutes=minutes)
     time_range = request.form.get('timeRange').split(" - ")
-
-    start_time = datetime.strptime(time_range, "%Y-%m-%d %I:%M %p")
-
-    print time_range
+    start_time = datetime.strptime(time_range[0], "%Y-%m-%d %I:%M %p")
+    end_time = datetime.strptime(time_range[1], "%Y-%m-%d %I:%M %p")
+    goal_categories = request.form.get('goalCategories').split("|")[:-1]
+ 
+    print ""
+    print ""
+    print start_time, end_time
+    print goal_categories
+    print ""
+    print ""
 
 
     # start_time = request.form.get('startDate')
