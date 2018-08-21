@@ -259,32 +259,45 @@ $(document).ready(function() {
             toastr.error("Choose a type of goal")
         } 
 
-        if ($("#hours").val() === "") {
-            toastr.error("Enter how many hours you want to budget for this goal")
+        if (Number.isInteger(parseInt($("#hours").val())) === false) {
+            toastr.error("Enter number of hours")
         }
 
-        if ($("#minutes").val() === "") {
-            toastr.error("Enter how many minutes you want to budget for this goal")
+        if (Number.isInteger(parseInt($("#minutes").val())) === false) {
+            toastr.error("Enter number of minutes")
         }
 
-        else {
+        if ($("#newgoal-range").val() === "") {
+            toastr.error("Pick a time range")
+        }
+
+        if ($("#goal-category-select").val().length === 0) {
+            toastr.error("Add at least one category")
+        }
+
+        if (
+            ($("#input-new-goal-name").val() != "") &&
+            ($("#select-goal-type").val() != null) &&
+            (Number.isInteger(parseInt($("#hours").val())) != false) && 
+            (Number.isInteger(parseInt($("#minutes").val())) != false) &&
+            ($("#newgoal-range").val() != "") &&
+            ($("#goal-category-select").val().length > 0)
+        ) {
             let formInputs = {
             "goalName": $("#input-new-goal-name").val(),
             "goalType": $("#select-goal-type").val(),
             "hours": $("#hours").val(),
             "minutes": $("#minutes").val(), 
-            "timeRange": $("#newgoal-range").val()
-        };
+            "timeRange": $("#newgoal-range").val(),
+            "goalCategories": $("#goal-category-select").val()
+            };
 
-        console.log(formInputs)
-        console.log(hallo)
+            console.log(formInputs)
 
-        // $.post("/add_goal", formInputs, addNewGoal);
+            // $.post("/add_goal", formInputs, addNewGoal);
 
-        toastr.success("New Goal Added")
+            toastr.success("New Goal Added")
         }
-
-        
 
     });
 
