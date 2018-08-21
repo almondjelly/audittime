@@ -131,43 +131,44 @@ def add_goal():
     """Adds a goal to the goals table."""
 
     goal_name = str(request.form.get('goalName'))
-    goal_type = request.form.get('goalType')
-    hours = int(request.form.get('hours'))
-    minutes = int(request.form.get('minutes'))
-    duration = timedelta(hours=hours, minutes=minutes)
     time_range = request.form.get('timeRange').split(" - ")
     start_time = datetime.strptime(time_range[0], "%Y-%m-%d %I:%M %p")
     end_time = datetime.strptime(time_range[1], "%Y-%m-%d %I:%M %p")
-    goal_categories = request.form.get('goalCategories').split("|")[:-1]
- 
-    print ""
-    print ""
-    print start_time, end_time
-    print goal_categories
-    print ""
-    print ""
-
-
-    # start_time = request.form.get('startDate')
-    # end_time = request.form.get('endDate')
+    goal_type = request.form.get('goalType')
+    hours = int(request.form.get('hours'))
+    minutes = int(request.form.get('minutes'))
+    target = timedelta(hours=hours, minutes=minutes)
     user_id = session['user_id']
 
-    # Convert start and end times to correct format
-    # start_time = parse(start_time)
-    # end_time = parse(end_time)
+    # Create the new goal
+    new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
+                    goal_type=goal_type, duration=target, status="active",
+                    user_id=user_id)
 
-    # new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
-                    # goal_type=goal_type, duration=duration, status="active",
-                    # user_id=user_id)
+    db.session.add(new_goal)
+    db.session.commit()
 
-    # db.session.add(new_goal)
-    # db.session.commit()
+    # Add goal categories
+    goal = Goal.query.filter_by(name=goal_name, end_time=end_time,
+                                user_id=user_id).one()
+    goal_id = goal.goal_id
 
-    # goal = Goal.query.filter_by(name=goal_name, end_time=end_time,
-    #                             user_id=user_id).one()
+    goal_categories = request.form.get('goalCategories').split("|")[:-1]
+
+    # Clear the goal's current categories and add the new ones
+    goal.categories = []
+
+    for category in goal_categories:
+        new_category = Category.query.filter_by(user_id=user_id, name=category).one()
+        new_goal_category = GoalCategory(goal_id=goal_id,
+                                         category_id=new_category.category_id)
+        db.session.add(new_goal_category)
+
+    db.session.commit()
+
+
 
     # goal_id = str(goal.goal_id)
-    # goal_category = goal.category
     # total_time = goal.total_time_str("goal_time")
     # time_left = goal.time_left()
     # goal_status = goal.goal_status()
