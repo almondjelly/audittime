@@ -27,7 +27,7 @@
             </td>
             <td id="td-newgoal-range">
                 during 
-                <input name="newgoal-datetimes" type="text" id="newgoal-range">
+                <input name="newgoal-datetimes" type="text" id="newgoal-range" placeholder="pick a time range">
             </td>
             <td>
                 <i id="goal-submit" class="material-icons">
@@ -56,9 +56,11 @@
 <h1>Your Goals</h1>
 
 <!-- Goal Headers -->
-<table class="goal-log">
+<table class="goal-log" id="goal-headers">
     <tr>
-        <td class="head td-goal-expand"></td>
+        <td class="head td-goal-expand">
+            <i class="material-icons expand-more">expand_more</i>
+        </td>
         <td class="head td-goal-name">Goal</td>
         <td class="head td-goal-type">Type</td>
         <td class="head td-goal-range">Time Range</td>
@@ -66,7 +68,11 @@
         <td class="head td-goal-total-time">Spent</td>
         <td class="head td-goal-time-left">Time Left</td>
         <td class="head td-goal-status">Status</td>
-        <td class="head td-goal-archive"></td>
+        <td class="head td-goal-archive">
+            <span>
+                x
+            </span>
+        </td>
     </tr>
 </table>
 
@@ -182,6 +188,24 @@
 
 <div class="div-goal-event-log">
 <table class="goal-event-log">
+    <tr>
+        <td class="goal-event-head td-goal-event-task">
+            Event
+        </td>
+        <td class="goal-event-head td-goal-event-task-category">
+            Category
+        </td>
+        <td class="goal-event-head td-goal-event-times">
+            Start Time - Stop Time
+        </td>
+        <td class="goal-event-head td-goal-event-duration">
+            Duration
+        </td>
+        <td class="td-goal-event-task-save">
+        </td>
+        <td class="td-goal-event-task-remove">
+        </td>
+    </tr>
     {% for event in events %}
     {% if goal in event.task.category.goal %}
     <tr class="tr-event-task">
@@ -193,33 +217,33 @@
         </form>
 
         <!-- Task name -->
-        <td class="td-event-task">
-            <input type="text" value="{{ event.task.name }}" class="td-input-event-task">
+        <td class="td-goal-event-task">
+            <input type="text" value="{{ event.task.name }}" class="td-goal-input-event-task">
         </td>
         
         <!-- Category dropdown -->
-        <td class="td-event-task-category">
+        <td class="td-goal-event-task-category">
             {{ event.task.category.name }}
         </td>
 
-        <td class="td-event-times">
+        <td class="td-goal-event-times">
             {{ event.start_time.strftime('%I:%M %p') }} - {{ event.stop_time.strftime('%I:%M %p') }}
         </td>
 
         <!-- Duration -->
-        <td class="td-event-duration">
+        <td class="td-goal-event-duration">
             {{ event.duration_str() }}
         </td>
 
         <!-- Save -->
-        <td class="td-event-task-save">
+        <td class="td-goal-event-task-save">
             <span class="span-event-task-save">
                 save
             </span>
         </td>
 
         <!-- Delete -->
-        <td class="td-event-task-remove">
+        <td class="td-goal-event-task-remove">
             <span class="span-event-task-remove">
                 x
             </span>

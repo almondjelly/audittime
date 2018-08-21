@@ -1,30 +1,50 @@
-/* ---------------------- STOPWATCH ---------------------*/
+/* --------------------- ADD A NEW GOAL -------------------- */
 
 #goal-new {
     background-color: rgba(255,255,255,0.8);
-    font-family: 'Roboto';
-    font-size: 16px;
+    font-family: 'Rubik';
+    font-size: 13px;
     color: #393A4C;
     height: 50px;
     margin: 0 0 20px 0;
+}
+
+#goal-new ::placeholder {
+    color: #c2c2c2;
+    padding: 2px;
 }
 
 #goal-new td {
     padding: 4px 14px;
 }
 
+#goal-new input,
+#goal-new select {
+    color: #009AC0;
+}
+
 #td-new-goal-name {
     width: 300px;
 }
 
-#input-new-goal-name {
+#input-new-goal-name{
+    width: 212px;
     border: 0;
     background: none;
-    width: 205px;
+}
+
+#td-goal-type {
+    width: 130px;
+}
+
+#select-goal-type {
+    width: 80px;
+    background: none;
+    border: none;
 }
 
 #target-duration {
-    width: 200px;
+    width: 180px;
 }
 
 .goal-duration {
@@ -34,81 +54,42 @@
     text-align: right;
 }
 
-input#input-new-goal-name::placeholder, {
-    color: #bfbfbf;
-    padding: 2px;
-}
-
-#td-goal-type {
-    width: 160px;
-}
-
-#select-goal-type {
-    width: 100px;
-    background: none;
-    border: none;
-}
-
-.input-goal-date-time-picker {
-    border: 0;
-    background: none;
-    width: 150px;
-    text-align: center;
-}
-
-#goal-submit {
-    padding-top: 7px;
-}
-
-/* --------------------- GOALS -------------------- */
-#goal-new {
-    font-family: 'Rubik';
-    font-size: 15px;
-}
-
-#goal-new input,
-#goal-new select {
-    color: #009AC0;
-}
-
-#td-new-goal-name {
-    width: 420px;
-}
-
-#input-new-goal-name{
-    width: 320px;
-}
-
-#target-duration {
-    width: 180px;
-}
-
 #td-newgoal-range {
-    width: 300px;
+    width: 366px;
 }
 
 input#newgoal-range {
+    width: 290px;
     padding-left: 4px;
 }
+
+#goal-submit {
+    padding-top: 5px;
+}
+
+/* --------------------- GOAL LOG -------------------- */
 
 .goal-log td {
     background-color: rgba(255,255,255,0.8);
     font-family: 'Roboto';
-    font-size: 14px;
+    font-size: 12px;
     color: #393A4C;
     height: 40px;
     margin-bottom: 6px;
     padding: 14px;
-    width: 100%;
 }
 
 td.head {
     font-family: 'Rubik';
     font-weight: bold;
-    font-size: 16px;
+    font-size: 13px;
     text-transform: uppercase;
     color: #009AC0;
-    padding-top: 22px;
+    padding: 14px;
+}
+
+input#newgoal-range, {
+    width: 320px;    
 }
 
 input#newgoal-range,
@@ -118,7 +99,13 @@ select {
     background: none;
 }
 
-td.td-goal-expand {
+td.head.td-goal-expand {
+    color: rgba(0,0,0,0);
+}
+
+td.td-goal-expand,
+td.head.td-goal-expand,
+ {
     width: 44px;
 }
 
@@ -128,55 +115,60 @@ td.td-goal-expand {
     font-size: 16px;
 }
 
-td.td-goal-name {
-    width: 248px;
+td.td-goal-name,
+td.head.td-goal-name {
+    width: 218px;
 }
 
 input.td-input-goal-name {
-    width: 220px;
+    width: 190px;
 }
 
-td.td-goal-type {
-    width: 100px;
+td.td-goal-type,
+td.head.td-goal-type {
+    width: 104px;
 }
 
 input.td-input-goal-type {
-    width: 72px;
+    width: 76px;
 }
 
-td.td-goal-range {
-    width: 228px;
+td.td-goal-range,
+td.head.td-goal-range {
+    width: 218px;
 }
 
-input#newgoal-range,
 input.td-input-goal-range {
-    width: 220px;
+    width: 190px;
 }
 
 td.td-goal-duration,
 td.td-goal-total-time,
-td.td-goal-time-left {
+td.td-goal-time-left,
+td.head.td-goal-duration,
+td.head.td-goal-total-time,
+td.head.td-goal-time-left {
     text-align: right;
-    width: 110px;
+    width: 100px;
 }
 
 input.td-input-goal-target,
 input.td-input-goal-total-time,
 input.td-input-goal-time-left {
     text-align: right;
-    width: 82px;
+    width: 80px;
 }
 
-td.td-goal-status {
-    width: 86px;
+
+
+td.td-goal-status,
+td.head.td-goal-status {
+    width: 96px;
 }
 
-td.td-goal-save {
-    width: 60px;
-}
-
-td.head.td-goal-archive { 
-    width: 60px;
+td.head.td-goal-archive {
+    color: rgba(0,0,0,0) !important;
+    width: 48px;
 }
 
 td.td-goal-archive {
@@ -184,3 +176,57 @@ td.td-goal-archive {
 }
 
 
+/* --------------------- GOAL EVENTS -------------------- */
+
+.goal-event-log {
+    margin: 4px 0 4px 50px;
+}
+
+.goal-event-log td {
+    background-color: rgba(255,255,255,0.8);
+    padding: 0 12px;
+    font-size: 12px;
+}
+
+td.goal-event-head {
+    font-family: 'Rubik';
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #009AC0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.td-goal-event-task {
+    width: 350px;
+}
+
+.td-goal-input-event-task {
+    width: 330px;
+    background: none;
+    border: 0;
+}
+
+.td-goal-event-task-category {
+    width: 200px;
+}
+
+.td-goal-input-event-task-category {
+    width: 180px;
+}
+
+.td-goal-event-times {
+    width: 200px;
+    color: #9b9b9b;
+}
+
+.td-goal-event-duration {
+    width: 80px;
+}
+
+.td-goal-event-task-save,
+.td-goal-event-task-remove {
+    width: 40px;
+}
+}

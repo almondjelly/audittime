@@ -135,40 +135,49 @@ def add_goal():
     hours = int(request.form.get('hours'))
     minutes = int(request.form.get('minutes'))
     duration = timedelta(hours=hours, minutes=minutes)
-    start_time = request.form.get('startDate')
-    end_time = request.form.get('endDate')
+    time_range = request.form.get('timeRange').split(" - ")
+
+    start_time = datetime.strptime(time_range, "%Y-%m-%d %I:%M %p")
+
+    print time_range
+
+
+    # start_time = request.form.get('startDate')
+    # end_time = request.form.get('endDate')
     user_id = session['user_id']
 
     # Convert start and end times to correct format
-    start_time = parse(start_time)
-    end_time = parse(end_time)
+    # start_time = parse(start_time)
+    # end_time = parse(end_time)
 
-    new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
-                    goal_type=goal_type, duration=duration, status="active",
-                    user_id=user_id)
+    # new_goal = Goal(name=goal_name, start_time=start_time, end_time=end_time,
+                    # goal_type=goal_type, duration=duration, status="active",
+                    # user_id=user_id)
 
-    db.session.add(new_goal)
-    db.session.commit()
+    # db.session.add(new_goal)
+    # db.session.commit()
 
-    goal = Goal.query.filter_by(name=goal_name, end_time=end_time,
-                                user_id=user_id).one()
+    # goal = Goal.query.filter_by(name=goal_name, end_time=end_time,
+    #                             user_id=user_id).one()
 
-    goal_id = str(goal.goal_id)
-    goal_category = goal.category
-    total_time = goal.total_time_str("goal_time")
-    time_left = goal.time_left()
-    goal_status = goal.goal_status()
+    # goal_id = str(goal.goal_id)
+    # goal_category = goal.category
+    # total_time = goal.total_time_str("goal_time")
+    # time_left = goal.time_left()
+    # goal_status = goal.goal_status()
 
-    categories = Category.query.filter_by(user_id=user_id).all()
+    # categories = Category.query.filter_by(user_id=user_id).all()
 
-    new_goal_html = goal_generate_html(total_time, goal_id, goal_name,
-                                       goal_type,
-                                       duration.days, str(hours), str(minutes),
-                                       start_time, end_time, time_left,
-                                       goal_status, categories,
-                                       goal_category)
+    # new_goal_html = goal_generate_html(total_time, goal_id, goal_name,
+    #                                    goal_type,
+    #                                    duration.days, str(hours), str(minutes),
+    #                                    start_time, end_time, time_left,
+    #                                    goal_status, categories,
+    #                                    goal_category)
 
-    return new_goal_html
+    # return new_goal_html
+
+    return 'i like fishes'
 
 
 @app.route('/edit_goal_info', methods=['POST'])
@@ -833,6 +842,6 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')

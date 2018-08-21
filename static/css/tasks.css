@@ -67,7 +67,6 @@ input#m-stop::placeholder {
 }
 
 /* --------------------- EVENT LOG -------------------- */
-.goal-event-log, 
 #event-log {
     background-color: rgba(255,255,255,0.8);
 }
@@ -98,7 +97,6 @@ thead {
     padding-left: 42px;
 }
 
-.goal-event-log td, 
 #event-log td {
     padding: 14px;
 }
@@ -129,15 +127,8 @@ thead {
     width: 60px;
 }
 
-.goal-event-log .td-event-task-remove,
+.td-event-task-remove,
 #event-log .td-event-task-remove {
     width: 40px;
     padding-right: 14px;
-}
-
-.goal-event-log {
-    margin-bottom: 12px;
-    margin-left: 20px;
-    margin-right: 20px;
-    width: 1070px;
 }

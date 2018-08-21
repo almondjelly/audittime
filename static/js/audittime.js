@@ -5,7 +5,6 @@
 
 function initialize() {
     $(".form-register").hide();
-    $(".span-goal-save").hide();
     $(".span-goal-archive").hide();
     $(".span-category-save").hide();
     $(".span-category-archive").hide();
@@ -71,20 +70,27 @@ function initialize() {
     // Set goal range datetime pickers
     $('input[name="newgoal-datetimes"]').daterangepicker({
         timePicker: true,
-        startDate: new Date(),
-        endDate: new Date(),
+        autoUpdateInput: false,
         locale: {
-            format: 'M/DD hh:mm A'
+            format: 'YYYY-MM-DD hh:mm A',
+            // cancelLabel: 'Clear'
         },
         ranges: {
             'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            'Next 7 Days': [moment(), moment().add(7, 'days')],
+            'Next 30 Days': [moment(), moment().add(30, 'days')],
+            'This Week': [moment().startOf('week'), moment().endOf('week')],
+            'This Month': [moment().startOf('month'), moment().endOf('month')]
         },
         alwaysShowCalendars: true,
+    });
+
+    $('input[name="newgoal-datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY-MM-DD hh:mm A') + ' - ' + picker.endDate.format('YYYY-MM-DD hh:mm A'));
+    });
+
+    $('input[name="newgoal-datetimes"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
     });
 
     $('input[name="datetimes"]').each(function(i) {
@@ -99,12 +105,11 @@ function initialize() {
                 format: 'M/DD hh:mm A'
             },
             ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+             'Today': [moment(), moment()],
+            'Next 7 Days': [moment(), moment().add(7, 'days')],
+            'Next 30 Days': [moment(), moment().add(30, 'days')],
+            'This Week': [moment().startOf('week'), moment().endOf('week')],
+            'This Month': [moment().startOf('month'), moment().endOf('month')]
             },
             alwaysShowCalendars: true,
         });
@@ -113,16 +118,6 @@ function initialize() {
 };
     
 function addEventListeners(){
-
-    // ADD NEW STUFF
-
-        $("#add-new-category").click(function() {
-            $("#category-new").slideToggle();
-        });
-
-        $("#add-new-goal").click(function() {
-            $("#goal-new").slideToggle();
-        });
 
     // SETTINGS
 
@@ -209,30 +204,13 @@ function addEventListeners(){
         // When the mouse hovers over the list item, show the Save button.
         $(".tr-goal").hover(function() {
             console.log("i wolke up");
-            $(this).children(".td-goal-save").children("span").show();
             $(this).children(".td-goal-archive").children("span").show();
 
         // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
-                $(this).children(".td-goal-save").children("span").hide();
                 $(this).children(".td-goal-archive").children("span").hide();
             });
         });  
-
-        // Create a new tag
-        // $("#submit-new-tag").click(function() {
-
-        //     $('#tag-select').multiSelect('addOption', {
-        //         value: $("#new-tag").val(),
-        //         text: $("#new-tag").val(),
-        //         index: 0
-        //     });
-
-        //     // Reset the input field after creating new tag
-        //     $("#new-tag").val('');
-        // });
-
-
 
         // Expand goal to display associated tasks
         $(".td-goal-expand").click(function() {
@@ -267,24 +245,50 @@ $(document).ready(function() {
 
 // ADD NEW GOAL
     function addNewGoal(result){
-        $("#tbody-goal-log").prepend(result);
+        // $("#tbody-goal-log").prepend(result);
         $("#form-goal").trigger('reset');
     }
 
     $("#goal-submit").on("click", function() {
-        let formInputs = {
+
+        if ($("#input-new-goal-name").val() === "") {
+            toastr.error("Enter a title for your goal")
+        } 
+
+        if ($("#select-goal-type").val() === null) {
+            toastr.error("Choose a type of goal")
+        } 
+
+        if ($("#hours").val() === "") {
+            toastr.error("Enter how many hours you want to budget for this goal")
+        }
+
+        if ($("#minutes").val() === "") {
+            toastr.error("Enter how many minutes you want to budget for this goal")
+        }
+
+        else {
+            let formInputs = {
             "goalName": $("#input-new-goal-name").val(),
             "goalType": $("#select-goal-type").val(),
             "hours": $("#hours").val(),
-            "minutes": $("#minutes").val(),
-            "startDate": $("#start-date").val(),
-            "endDate": $("#end-date").val()
+            "minutes": $("#minutes").val(), 
+            "timeRange": $("#newgoal-range").val()
         };
 
-        $.post("/add_goal", formInputs, addNewGoal);
+        console.log(formInputs)
+        console.log(hallo)
+
+        // $.post("/add_goal", formInputs, addNewGoal);
 
         toastr.success("New Goal Added")
+        }
+
+        
+
     });
+
+
 
 
 // EDIT GOAL INFO AND SAVE
