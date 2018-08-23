@@ -520,43 +520,79 @@ def add_event():
 
 @app.route('/edit_timer', methods=['POST'])
 def edit_timer():
-    """Updates timer"""
+    """Update timer
+    """
 
-    event_id = request.form.get('eventId')
-    new_timer_name = request.form.get('newtimerName')
-    new_start_time = request.form.get('newStartTime')
-    new_stop_time = request.form.get('newStopTime')
-
-    category_id = Event.query.filter_by(event_id=event_id).one(
-        ).timer.category_id
     user_id = session['user_id']
+    event_id = request.form.get('eventId')
+    current_event = Event.query.filter_by(event_id=event_id).one()
+    timer_id = request.form.get('timerId')
+    current_timer = Timer.query.filter_by(timer_id=timer_id).one()
 
-    # If the new timer already exists, find its id.
-    if Timer.query.filter_by(name=new_timer_name).first():
-        new_timer_id = Timer.query.filter_by(name=new_timer_name).first().timer_id
+    # >> UPDATE TIMER NAME
+    if request.form.get('newTimerName'):
+        new_timer_name = request.form.get('newTimerName')
+        
+        # If the new timer name already exists, find its ID;
+        # otherwise, create a new timer
+        if Timer.query.filter_by(name=new_timer_name).first():
+            new_timer_id = Timer.query.filter_by(name=new_timer_name).first().timer_id
 
-    else:
-        # Create a new timer.
-        new_timer = timer(name=new_timer_name, category_id=category_id,
-                        user_id=user_id)
+        else:
+            new_timer = Timer(name=new_timer_name,
+                              category_id=current_timer.category_id,
+                              user_id=user_id)
 
-        db.session.add(new_timer)
-        db.session.commit()
+            db.session.add(new_timer)
+            db.session.commit()
 
-        new_timer_id = Timer.query.filter_by(name=new_timer_name).one().timer_id
+            new_timer_id = Timer.query.filter_by(name=new_timer_name).one().timer_id
 
-    # Reassign event's timer id to the new timer id.
-    event = Event.query.filter_by(event_id=event_id).one()
-    event.timer_id = new_timer_id
+        # Update current event with new timer ID
+        current_event.timer_id = new_timer_id
 
-    # If the start/stop times were edited, save them.
-    if new_start_time:
-        new_start_time = datetime.strptime(new_start_time, "%m/%d at %I:%M %p")
-        event.start_time = new_start_time
 
-    if new_stop_time:
-        new_start_time = datetime.strptime(new_stop_time, "%m/%d at %I:%M %p")
-        event.stop_time = new_stop_time
+    # >> UPDATE TIMER CATEGORY
+    if request.form.get('newTimerCategory'):
+        new_timer_category = request.form.get('newTimerCategory')
+        new_timer_category = Category.query.filter_by(user_id=user_id,
+                                                      name=new_timer_category).one()
+        current_timer.category_id = new_timer_category.category_id
+
+
+    db.session.commit()
+
+
+
+
+
+
+
+
+
+
+
+    # new_start_time = request.form.get('newStartTime')
+    # new_stop_time = request.form.get('newStopTime')
+
+    # category_id = Event.query.filter_by(event_id=event_id).one(
+    #     ).timer.category_id
+    # user_id = session['user_id']
+
+    
+
+    # # Reassign event's timer id to the new timer id.
+    # event = Event.query.filter_by(event_id=event_id).one()
+    # event.timer_id = new_timer_id
+
+    # # If the start/stop times were edited, save them.
+    # if new_start_time:
+    #     new_start_time = datetime.strptime(new_start_time, "%m/%d at %I:%M %p")
+    #     event.start_time = new_start_time
+
+    # if new_stop_time:
+    #     new_start_time = datetime.strptime(new_stop_time, "%m/%d at %I:%M %p")
+    #     event.stop_time = new_stop_time
 
     db.session.commit()
 
