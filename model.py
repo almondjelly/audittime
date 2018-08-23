@@ -51,7 +51,7 @@ class User(db.Model):
 
 
 class Goal(db.Model):
-    """Task."""
+    """timer."""
 
     __tablename__ = "goals"
 
@@ -77,15 +77,15 @@ class Goal(db.Model):
     def total_time(self, time_period="all_time"):
         """Calculate total time spent on a goal."""
 
-        goal_tasks = []
+        goal_timers = []
         for category in self.category:
-            goal_tasks.extend(Task.query.filter_by(
+            goal_timers.extend(timer.query.filter_by(
                 category_id=category.category_id))
 
         goal_events = []
-        for task in goal_tasks:
+        for timer in goal_timers:
             goal_events.extend(Event.query.filter_by(
-                task_id=task.task_id).all())
+                timer_id=timer.timer_id).all())
 
         total_time = timedelta(0)
         today = datetime.today().date()
@@ -260,8 +260,8 @@ class Category(db.Model):
             start = datetime(1900, 1, 1, 0, 0, 0, 0)
             end = datetime.now()
 
-        for task in self.tasks:
-            for event in task.events:
+        for timer in self.timers:
+            for event in timer.events:
 
                 # If the event starts and ends within the time period
                 if event.start_time >= start and (event.stop_time <= end or event.stop_time >= datetime.now()):
@@ -313,12 +313,12 @@ class GoalCategory(db.Model):
             self.category_id)
 
 
-class Task(db.Model):
-    """Task."""
+class Timer(db.Model):
+    """Timer."""
 
-    __tablename__ = "tasks"
+    __tablename__ = "timers"
 
-    task_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    timer_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     category_id = db.Column(db.Integer,
                             db.ForeignKey('categories.category_id'),
@@ -327,14 +327,14 @@ class Task(db.Model):
                         nullable=False)
 
     # Define relationship to Category, User.
-    category = db.relationship("Category", backref=db.backref("tasks"))
-    user = db.relationship("User", backref=db.backref("tasks"))
+    category = db.relationship("Category", backref=db.backref("timers"))
+    user = db.relationship("User", backref=db.backref("timers"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Task task_id={} name={} user_id={}>".format(
-            self.task_id, self.name, self.user_id)
+        return "<Timer timer_id={} name={} user_id={}>".format(
+            self.timer_id, self.name, self.user_id)
 
 
 class Event(db.Model):
@@ -347,12 +347,12 @@ class Event(db.Model):
     stop_time = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
                         nullable=False)
-    task_id = db.Column(db.Integer, db.ForeignKey('tasks.task_id'),
+    timer_id = db.Column(db.Integer, db.ForeignKey('timers.timer_id'),
                         nullable=False)
     status = db.Column(db.String(64), nullable=True)
 
-    # Define relationship to Task, User
-    task = db.relationship("Task", backref=db.backref("events"))
+    # Define relationship to timer, User
+    timer = db.relationship("Timer", backref=db.backref("events"))
     user = db.relationship("User", backref=db.backref("events"))
 
     def duration(self):
@@ -368,8 +368,8 @@ class Event(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Event event_id={} task_id={} user_id={}>".format(
-            self.event_id, self.task_id, self.user_id)
+        return "<Event event_id={} timer_id={} user_id={}>".format(
+            self.event_id, self.timer_id, self.user_id)
 
 
 class GoogleCalendar(db.Model):
@@ -412,8 +412,8 @@ class TogglEntry(db.Model):
                             nullable=False)
 
     # Define relationship to Event, User
-    event = db.relationship("Event", backref=db.backref("toggle_entries"))
-    user = db.relationship("User", backref=db.backref("toggle_entries"))
+    event = db.relationship("Event", backref=db.backref("toggl_entries"))
+    user = db.relationship("User", backref=db.backref("toggl_entries"))
 
 
 # --------------------------- HELPER FUNCTIONS ---------------------------

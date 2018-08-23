@@ -4,11 +4,11 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, redirect, request, flash, session,
                    jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, User, Category, Event, Task, Goal, \
+from model import connect_to_db, db, User, Category, Event, Timer, Goal, \
                   GoalCategory, GoogleCalendar, TogglEntry
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from addNew import goal_generate_html, category_generate_html, task_generate_html
+from addNew import goal_generate_html, category_generate_html, timer_generate_html
 from math import floor
 from gcal import gcal_get_last_7_days, gcal_update_db
 from toggl import toggl_get_last_7_days, toggl_update_db
@@ -37,7 +37,7 @@ def display_index():
 
     try:
         if session['user']:
-            return redirect('/tasks')
+            return redirect('/timers')
 
     except:
         return redirect('/login')
@@ -410,11 +410,11 @@ def archive_category():
     return "category archived"
 
 
-# ---------------------------------- TASKS ---------------------------------
+# ---------------------------------- TIMERS ---------------------------------
 
-@app.route('/tasks')
-def display_tasks():
-    """Display tasks page."""
+@app.route('/timers')
+def display_timers():
+    """Display timers page."""
 
     categories = db.session.query(Category).filter_by(
         user_id=session['user_id']).order_by('name').all()
@@ -425,7 +425,7 @@ def display_tasks():
     # Display log in reverse chronological order.
     events.reverse()
 
-    return render_template("tasks.html", events=events,
+    return render_template("timers.html", events=events,
                            categories=categories)
 
 
@@ -450,17 +450,17 @@ def add_event():
         start_time = datetime.utcfromtimestamp(start_time)
         stop_time = datetime.utcfromtimestamp(stop_time)
 
-    task_name = form_data['task']
+    timer_name = form_data['timer']
     category_name = form_data['category']
     status = 'active'
     user_id = User.query.filter_by(email=session['user']).one().user_id
 
-    # If the task already exists, find its id.
-    if Task.query.filter_by(name=task_name).first():
-        task_id = Task.query.filter_by(name=task_name).first().task_id
+    # If the timer already exists, find its id.
+    if Timer.query.filter_by(name=timer_name).first():
+        timer_id = Timer.query.filter_by(name=timer_name).first().timer_id
 
     else:
-        # Create a new task.
+        # Create a new timer.
         # If the category already exists, find its id.
         try:
             if int(Category.query.filter_by(name=category_name).first(
@@ -482,35 +482,35 @@ def add_event():
 
             category_id = new_category.category_id
 
-        # With the category_id, we now have enough info to create the new task.
-        new_task = Task(name=task_name, category_id=category_id,
+        # With the category_id, we now have enough info to create the new timer.
+        new_timer = timer(name=timer_name, category_id=category_id,
                         user_id=user_id)
 
-        db.session.add(new_task)
+        db.session.add(new_timer)
         db.session.commit()
 
-        # Find the newly created task's id.
-        task_id = Task.query.filter_by(name=task_name).first().task_id
-        task_id = new_task.task_id
+        # Find the newly created timer's id.
+        timer_id = Timer.query.filter_by(name=timer_name).first().timer_id
+        timer_id = new_timer.timer_id
 
-    # With the task_id, we now have enough info to create the new event.
+    # With the timer_id, we now have enough info to create the new event.
     new_event = Event(start_time=start_time, stop_time=stop_time,
-                      user_id=user_id, task_id=task_id, status=status)
+                      user_id=user_id, timer_id=timer_id, status=status)
 
     db.session.add(new_event)
     db.session.commit()
 
-    event = Event.query.filter_by(task_id=task_id, stop_time=stop_time).one()
+    event = Event.query.filter_by(timer_id=timer_id, stop_time=stop_time).one()
 
     categories = Category.query.filter_by(user_id=user_id).all()
     start = event.start_time.strftime('%m/%d at %I:%M %p')
     stop = event.stop_time.strftime('%m/%d at %I:%M %p')
     duration = event.duration_str()
 
-    form_html = task_generate_html(event_id=event.event_id,
-                                   task_id=event.task.task_id,
-                                   task_name=event.task.name,
-                                   category_name=event.task.category.name,
+    form_html = timer_generate_html(event_id=event.event_id,
+                                   timer_id=event.timer.timer_id,
+                                   timer_name=event.timer.name,
+                                   category_name=event.timer.category.name,
                                    all_categories=categories,
                                    start=start, stop=stop,
                                    duration=duration)
@@ -518,36 +518,36 @@ def add_event():
     return form_html
 
 
-@app.route('/edit_task', methods=['POST'])
-def edit_task():
-    """Updates task"""
+@app.route('/edit_timer', methods=['POST'])
+def edit_timer():
+    """Updates timer"""
 
     event_id = request.form.get('eventId')
-    new_task_name = request.form.get('newTaskName')
+    new_timer_name = request.form.get('newtimerName')
     new_start_time = request.form.get('newStartTime')
     new_stop_time = request.form.get('newStopTime')
 
     category_id = Event.query.filter_by(event_id=event_id).one(
-        ).task.category_id
+        ).timer.category_id
     user_id = session['user_id']
 
-    # If the new task already exists, find its id.
-    if Task.query.filter_by(name=new_task_name).first():
-        new_task_id = Task.query.filter_by(name=new_task_name).first().task_id
+    # If the new timer already exists, find its id.
+    if Timer.query.filter_by(name=new_timer_name).first():
+        new_timer_id = Timer.query.filter_by(name=new_timer_name).first().timer_id
 
     else:
-        # Create a new task.
-        new_task = Task(name=new_task_name, category_id=category_id,
+        # Create a new timer.
+        new_timer = timer(name=new_timer_name, category_id=category_id,
                         user_id=user_id)
 
-        db.session.add(new_task)
+        db.session.add(new_timer)
         db.session.commit()
 
-        new_task_id = Task.query.filter_by(name=new_task_name).one().task_id
+        new_timer_id = Timer.query.filter_by(name=new_timer_name).one().timer_id
 
-    # Reassign event's task id to the new task id.
+    # Reassign event's timer id to the new timer id.
     event = Event.query.filter_by(event_id=event_id).one()
-    event.task_id = new_task_id
+    event.timer_id = new_timer_id
 
     # If the start/stop times were edited, save them.
     if new_start_time:
@@ -560,7 +560,7 @@ def edit_task():
 
     db.session.commit()
 
-    return redirect('/tasks')
+    return redirect('/timers')
 
 
 @app.route('/archive_event', methods=['POST'])
@@ -621,7 +621,7 @@ def delete_toggl_entry():
 @app.route('/save_toggl_entry', methods=['POST'])
 def save_toggl_entry():
     """When user imports Google Calendar events and saves ones, update
-    toggl_entries table status as 'saved', create a new task and new event."""
+    toggl_entries table status as 'saved', create a new timer and new event."""
 
     toggl_entry_id = request.form.get('togglEntryId')
     category_name = request.form.get('categoryName')
@@ -636,21 +636,21 @@ def save_toggl_entry():
 
     toggl_entry.status = 'saved'
 
-    # Create new task and add to database
-    new_task = Task(name=toggl_entry.title,
+    # Create new timer and add to database
+    new_timer = timer(name=toggl_entry.title,
                     category_id=category_id,
                     user_id=user_id)
 
-    db.session.add(new_task)
+    db.session.add(new_timer)
     db.session.commit()
 
     # Create new event and add to database
-    task_id = new_task.task_id
+    timer_id = new_timer.timer_id
 
     new_event = Event(start_time=toggl_entry.start_time,
                       stop_time=toggl_entry.stop_time,
                       user_id=user_id,
-                      task_id=task_id,
+                      timer_id=timer_id,
                       status='active')
 
     db.session.add(new_event)
@@ -720,7 +720,7 @@ def save_settings():
 @app.route('/gcal')
 def display_gcal_events():
     """Shows pending Google Calendar events that aren't yet saved as 
-    tasks."""
+    timers."""
 
     # Grab last 7 days of Google Calendar events and update the database.
     gcal_update_db(session['user_id'])
@@ -756,7 +756,7 @@ def delete_gcal_event():
 @app.route('/save_gcal_event', methods=['POST'])
 def save_gcal_event():
     """When user imports Google Calendar events and saves ones, update
-    gcal_events table status as 'saved', create a new task and new event."""
+    gcal_events table status as 'saved', create a new timer and new event."""
 
     gcal_event_id = request.form.get('gcalEventId')
     category_name = request.form.get('categoryName')
@@ -773,21 +773,21 @@ def save_gcal_event():
 
     gcal_event.status = 'saved'
 
-    # Create new task and add to database
-    new_task = Task(name=gcal_event.title,
+    # Create new timer and add to database
+    new_timer = timer(name=gcal_event.title,
                     category_id=category_id,
                     user_id=user_id)
 
-    db.session.add(new_task)
+    db.session.add(new_timer)
     db.session.commit()
 
     # Create new event and add to database
-    task_id = new_task.task_id
+    timer_id = new_timer.timer_id
 
     new_event = Event(start_time=gcal_event.start_time,
                       stop_time=gcal_event.stop_time,
                       user_id=user_id,
-                      task_id=task_id,
+                      timer_id=timer_id,
                       status='active')
 
     db.session.add(new_event)

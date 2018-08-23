@@ -192,64 +192,64 @@ def category_generate_html(category_id, category_name, all_goals,
     return new_category_html
 
 
-def task_generate_html(event_id, task_id, task_name, category_name,
+def timer_generate_html(event_id, timer_id, timer_name, category_name,
                        all_categories, start, stop, duration):
 
-    new_task_html = '<tr class="tr-event-task"> \
+    new_timer_html = '<tr class="tr-event-timer"> \
 \
-        <!-- Event id, task id --> \
+        <!-- Event id, timer id --> \
         <form class="form-event-id"> \
             <input type="hidden" class="input-event-id" value={}>\
-            <input type="hidden" class="input-task-id" value={}>\
-        </form>'.format(event_id, task_id)
+            <input type="hidden" class="input-timer-id" value={}>\
+        </form>'.format(event_id, timer_id)
 
-    new_task_html += '<!-- Task name -->\
-        <td class="td-event-task">\
-            <input type="text" value="{}" class="td-input-event-task">\
-        </td>'.format(task_name)
+    new_timer_html += '<!-- Task name -->\
+        <td class="td-event-timer">\
+            <input type="text" value="{}" class="td-input-event-timer">\
+        </td>'.format(timer_name)
 
-    new_task_html += '<!-- Category dropdown -->\
-        <td class="td-event-task-categories">\
-            <select class="td-input-event-task-categories">\
+    new_timer_html += '<!-- Category dropdown -->\
+        <td class="td-event-timer-categories">\
+            <select class="td-input-event-timer-categories">\
                 <option selected>{}</option>'.format(category_name)
 
     for category in all_categories:
-        new_task_html += '<option>{}</option>'.format(category.name)
+        new_timer_html += '<option>{}</option>'.format(category.name)
 
-    new_task_html += '</select>\
+    new_timer_html += '</select>\
         </td>\
 \
         <!-- Start and end times -->\
         <td class="td-event-start-time">\
             {}\
-            <input type="datetime-local" class="input-task-start-date-time-picker">\
+            <input type="datetime-local" class="input-timer-start-date-time-picker">\
         </td>\
 \
         <td class="td-event-end-time">\
             {}\
-            <input type="datetime-local" class="input-task-end-date-time-picker">\
+            <input type="datetime-local" class="input-timer-end-date-time-picker">\
         </td>'.format(start, stop)
 
-    new_task_html += '<!-- Duration -->\
+    new_timer_html += '<!-- Duration -->\
         <td class="td-event-duration">\
             {}\
         </td>\
 \
         <!-- Save -->\
-        <td class="td-event-task-save">\
-        <span class="span-event-task-save">\
-            <button class="btn btn-link btn-event-task-save">save</button>\
+        <td class="td-event-timer-save">\
+        <span class="span-event-timer-save">\
+            <button class="btn btn-link btn-event-timer-save">save</button>\
         </span>\
         </td>\
 \
         <!-- Delete -->\
-        <td class="td-event-task-remove">\
-        <span class="span-event-task-remove">\
-            <button class="btn btn-link btn-event-task-remove">x</button>\
+        <td class="td-event-timer-remove">\
+        <span class="span-event-timer-remove">\
+            <button class="btn btn-link btn-event-timer-remove">x</button>\
         </span>\
         </td>\
 \
     </form>\
     </tr>'.format(duration)
 
-    return new_task_html
+    return new_timer_html

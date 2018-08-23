@@ -4,6 +4,14 @@
     // EVENT EDIT SUBMIT BUTTON 
 
 function initialize() {
+
+    // TIMERS
+    $("input.new-timer-manual").hide();
+    $("button.timer-mode-stopwatch").hide();
+    $("span.timer-archive").hide();
+
+
+
     $(".form-register").hide();
     $(".span-goal-archive").hide();
     $(".span-category-save").hide();
@@ -15,7 +23,7 @@ function initialize() {
     $(".span-gcal-event-save").hide();
     $(".span-gcal-event-remove").hide();
     $("#manual-dates").hide();
-    $("#stop-button").hide();
+    $("i.stop-button").hide();
     $(".input-task-start-date-time-picker").hide();
     $(".input-task-end-date-time-picker").hide(); 
     $("#category-new").hide();
@@ -90,13 +98,12 @@ function initialize() {
     };
 
     // Set goal range datetime pickers
-    $('input[name="newgoal-datetimes"]').daterangepicker({
+    $('input[name="new-timer-datetimes"]').daterangepicker({
         timePicker: true,
-        autoUpdateInput: false,
+        autoUpdateInput: true,
         opens: 'left',
         locale: {
-            format: 'YYYY-MM-DD hh:mm A',
-            // cancelLabel: 'Clear'
+            format: 'MM/DD hh:mm A',
         },
         ranges: {
             'Today': [moment().startOf('day'), moment().endOf('day')],
@@ -108,11 +115,28 @@ function initialize() {
         alwaysShowCalendars: true,
     });
 
-    $('input[name="newgoal-datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+    $('input[name="new-goal-datetimes"]').daterangepicker({
+        timePicker: true,
+        autoUpdateInput: false,
+        opens: 'left',
+        locale: {
+            format: 'YYYY-MM-DD hh:mm A',
+        },
+        ranges: {
+            'Today': [moment().startOf('day'), moment().endOf('day')],
+            'Next 7 Days': [moment().startOf('day'), moment().add(7, 'days')],
+            'Next 30 Days': [moment().startOf('day'), moment().add(30, 'days')],
+            'This Week': [moment().startOf('week'), moment().endOf('week')],
+            'This Month': [moment().startOf('month'), moment().endOf('month')]
+        },
+        alwaysShowCalendars: true,
+    });
+
+    $('input[name="new-goal-datetimes"]').on('apply.daterangepicker', function(ev, picker) {
         $(this).val(picker.startDate.format('YYYY-MM-DD hh:mm A') + ' - ' + picker.endDate.format('YYYY-MM-DD hh:mm A'));
     });
 
-    $('input[name="newgoal-datetimes"]').on('cancel.daterangepicker', function(ev, picker) {
+    $('input[name="new-goal-datetimes"]').on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
     });
 
@@ -142,9 +166,75 @@ function initialize() {
         );
     });
 
+    $('input[name="timer-datetimes"]').each(function(i) {
+        let startDateTime = $(this).parents("div").children(".timer-range-start").val();
+        let endDateTime = $(this).parents("div").children(".timer-range-end").val();
+
+        $(this).daterangepicker({
+            timePicker: true,
+            autoUpdateInput: true,
+            startDate: startDateTime,
+            endDate: endDateTime,
+            opens: 'center',
+            locale: {
+                format: 'MM/DD hh:mm A'
+            },
+            ranges: {
+            'Today': [moment().startOf('day'), moment().endOf('day')],
+            'Next 7 Days': [moment().startOf('day'), moment().add(7, 'days').endOf('day')],
+            'Next 30 Days': [moment().startOf('day'), moment().add(30, 'days').endOf('day')],
+            'This Week': [moment().startOf('week'), moment().endOf('week')],
+            'This Month': [moment().startOf('month'), moment().endOf('month')]
+            },
+            alwaysShowCalendars: true
+        }
+            
+        );
+    });
+
 };
     
-function addEventListeners(){
+function addEventListeners() {
+
+    // TIMERS
+    $("button.timer-mode-manual").click(function() {
+        $(this).hide();
+        $("button.timer-mode-stopwatch").show();
+        $("input.new-timer-running").hide();
+        $("input.new-timer-manual").show();
+        $("div.start-button").hide();
+        $("div.mid-spacer").removeClass("col-sm-4").addClass("col-sm-2");
+        $("div.running-time").removeClass("col-sm-3").addClass("col-sm-6");
+    });
+
+    $("button.timer-mode-stopwatch").click(function() {
+        $(this).hide();
+        $("button.timer-mode-manual").show();
+        $("input.new-timer-manual").hide();
+        $("input.new-timer-running").show();
+        $("div.start-button").show();
+        $("div.mid-spacer").removeClass("col-sm-2").addClass("col-sm-4");
+        $("div.running-time").removeClass("col-sm-6").addClass("col-sm-3"); 
+    });
+
+    $("div.timer-row").hover(function() {
+        $(this).children("div.timer-archive").children("span.timer-archive").show();
+        $(this).mouseleave(function() {
+            $(this).children("div.timer-archive").children("span.timer-archive").hide();
+        });
+    });
+    
+    $("i.start-button").click(function() {
+            console.log('what')
+            $(this).hide();
+            $("i.stop-button").show();
+        });
+
+         $("i.stop-button").click(function() {
+            $(this).hide();
+            $("i.start-button").show();
+        });
+
 
     // SHOW/HIDE SAVE BUTTONS
 
@@ -177,18 +267,10 @@ function addEventListeners(){
         });
 
 
-    // Task
+    // Timer
         // When the stopwatch START button is clicked, hide the start button
         // and expose the stop button.
-        $("#start-button").click(function() {
-            $(this).hide();
-            $("#stop-button").show();
-        });
 
-         $("#stop-button").click(function() {
-            $(this).hide();
-            $("#start-button").show();
-        });
 
         // When the mouse hovers over the list item, show the Save button.
         $(".tr-event-task").hover(function() {
@@ -698,7 +780,7 @@ function startStopwatch(event) {
     console.log('Starting stopwatch...');
     console.log(startTime);
 
-    $("#stop-button").click(function() {
+    $("i.stop-button").click(function() {
 
         // Stop the #running-time stopwatch
         stopwatch.stop();
@@ -721,7 +803,7 @@ function startStopwatch(event) {
     });
 }
 
-$("#start-button").on("click", startStopwatch);
+$("i.start-button").on("click", startStopwatch);
 
 
 // UPDATE TASK (EVENT) NAME AND SAVE
@@ -843,10 +925,3 @@ $(".sidenav .row").hover(function() {
 $(".sidenav .row").click(function() {
     window.location = $(this).children("a").attr("href");
 });
-
-
-
-
-// UPDATE SETTINGS PAGE
-
-

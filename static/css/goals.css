@@ -46,7 +46,7 @@ input.new-goal-target {
 }
 
 input.new-goal-name,
-input#newgoal-range {
+input#new-goal-range {
     width: 100%;
 }
 
@@ -65,7 +65,7 @@ h1.goal-log {
 }
 
 div#div-goal-log {
-    margin: 0 32px 0 14px;
+    margin: 0 32px 60px 14px;
 }
 
 div.goal-row {

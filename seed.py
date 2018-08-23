@@ -1,7 +1,7 @@
 """Utility file to seed ratings database from MovieLens data in seed_data/"""
 
 from sqlalchemy import func
-from model import User, Category, Event, Task, Goal, GoalCategory
+from model import User, Category, Event, Timer, Goal, GoalCategory
 from datetime import datetime, date
 
 from model import connect_to_db, db
@@ -99,24 +99,24 @@ def load_goals_categories():
     db.session.commit()
 
 
-def load_tasks():
+def load_timers():
     """Load goals from goal.txt into database."""
 
-    print "Seeding tasks"
+    print "Seeding timers"
 
     # Delete all rows in table, so if we need to run this a second time,
     # we won't be trying to add duplicate users
-    Task.query.delete()
+    Timer.query.delete()
 
     # Read u.user file and insert data
-    for row in open("seed_data/task.txt"):
+    for row in open("seed_data/timer.txt"):
         row = row.rstrip()
-        task_id, name, category_id, user_id = row.split("|")
+        timer_id, name, category_id, user_id = row.split("|")
 
-        task = Task(task_id=task_id, name=name,
+        timer = Timer(timer_id=timer_id, name=name,
                     category_id=category_id, user_id=user_id)
 
-        db.session.add(task)
+        db.session.add(timer)
 
     db.session.commit()
 
@@ -133,12 +133,12 @@ def load_events():
     # Read u.user file and insert data
     for row in open("seed_data/event.txt"):
         row = row.rstrip()
-        event_id, start_time, stop_time, user_id, task_id \
+        event_id, start_time, stop_time, user_id, timer_id \
             = row.split("|")
 
         event = Event(event_id=event_id, start_time=start_time,
                       stop_time=stop_time, user_id=user_id,
-                      task_id=task_id, status='active')
+                      timer_id=timer_id, status='active')
 
         db.session.add(event)
 
@@ -149,7 +149,7 @@ class_list = [(User.user_id, 'user_id'),
               (Goal.goal_id, 'goal_id'),
               (Category.category_id, 'category_id'),
               (GoalCategory.goal_category_id, 'goal_category_id'),
-              (Task.task_id, 'task_id'),
+              (Timer.timer_id, 'timer_id'),
               (Event.event_id, 'event_id')]
 
 
@@ -188,12 +188,12 @@ def set_val_user_id():
     query = "SELECT setval('goals_categories_goal_category_id_seq', :new_id)"
     db.session.execute(query, {'new_id': max_id + 1})
 
-    # Get the Max task_id in the database
-    result = db.session.query(func.max(Task.task_id)).one()
+    # Get the Max timer_id in the database
+    result = db.session.query(func.max(Timer.timer_id)).one()
     max_id = int(result[0])
 
-    # Set the value for the next task_id to be max_id + 1
-    query = "SELECT setval('tasks_task_id_seq', :new_id)"
+    # Set the value for the next timer_id to be max_id + 1
+    query = "SELECT setval('timers_timer_id_seq', :new_id)"
     db.session.execute(query, {'new_id': max_id + 1})
 
     # Get the Max event_id in the database
@@ -226,6 +226,6 @@ if __name__ == "__main__":
     load_goals()
     load_categories()
     load_goals_categories()
-    load_tasks()
+    load_timers()
     load_events()
     set_val_user_id()
