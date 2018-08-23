@@ -168,8 +168,10 @@ def add_goal():
 
     # Prep arguments for goal_generate_html()
     goal_id = str(goal.goal_id)
-    start_time = start_time.strftime('%Y-%m-%d at %I:%M %p'),
-    end_time = end_time.strftime('%Y-%m-%d at %I:%M %p'),
+    goal_categories = goal.category
+    categories = Category.query.filter_by(user_id=user_id).all()
+    start_time = start_time.strftime('%m/%d at %I:%M %p'),
+    end_time = end_time.strftime('%m/%d at %I:%M %p'),
     days = target.days
     hours = target.seconds // 3600
     minutes = target.seconds // 60 % 60
@@ -177,10 +179,10 @@ def add_goal():
     time_left = goal.time_left()
     goal_status = goal.goal_status()
 
-    # categories = Category.query.filter_by(user_id=user_id).all()
-
     new_goal_html = goal_generate_html(goal_id, 
-                                       goal_name, 
+                                       goal_name,
+                                       categories,
+                                       goal_categories,
                                        goal_type, 
                                        start_time, 
                                        end_time,
@@ -209,6 +211,18 @@ def edit_goal_info():
         new_goal_name = request.form.get('newGoalName')
         goal.name = new_goal_name
         print goal.name
+
+    # Update goal categories
+    if request.form.get('newCategories'):
+        new_category_goals = request.form.get('newCategories')
+        new_category_goals = new_category_goals.split('|')[:-1]
+    
+        goal.categories = []
+        for category in new_category_goals:
+            new_category = Category.query.filter_by(user_id=user_id, name=category).one()
+            new_goal_category = GoalCategory(goal_id=goal_id,
+                                             category_id=new_category.category_id)
+            db.session.add(new_goal_category)
 
     # Update goal type
     if request.form.get('newType'):
@@ -267,19 +281,6 @@ def edit_goal_info():
 
         goal.duration = new_target
         print new_target
-
-
-    # new_category_goals = request.form.get('newCategoryGoals')
-    # new_category_goals = new_category_goals.split('|')[:-1]
-
-    # Clear the goal's current categories and add the new ones
-    # goal.categories = []
-
-    # for category in new_category_goals:
-    #     new_category = Category.query.filter_by(user_id=user_id, name=category).one()
-    #     new_goal_category = GoalCategory(goal_id=goal_id,
-    #                                      category_id=new_category.category_id)
-    #     db.session.add(new_goal_category)
 
     db.session.commit()
 

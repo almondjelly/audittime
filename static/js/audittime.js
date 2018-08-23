@@ -19,14 +19,15 @@ function initialize() {
     $(".input-task-start-date-time-picker").hide();
     $(".input-task-end-date-time-picker").hide(); 
     $("#category-new").hide();
-    $(".div-goal-event-log").hide();
+    $("div.goal-event-log").hide();
     $(".expand-less").hide();
+    $("span.goal-event-archive").hide();
 
     // Apply tablesorter to tables
     // $("table").tablesorter();
 
     // Apply selectize.js
-    $("#goal-category-select").selectize({
+    $("select.new-goal-categories").selectize({
         delimiter: ',',
         persist: false,
         create: function(input) {
@@ -37,7 +38,7 @@ function initialize() {
         },
     });
 
-    $(".td-select-goal-categories").multiselect({
+    $("select.goal-categories").multiselect({
         enableFiltering: true,
         filterBehavior: 'value',
         includeSelectAllOption: true,
@@ -116,8 +117,8 @@ function initialize() {
     });
 
     $('input[name="datetimes"]').each(function(i) {
-        let startDateTime = $(this).parents("td").children(".td-goal-range-start").val();
-        let endDateTime = $(this).parents("td").children(".td-goal-range-end").val();
+        let startDateTime = $(this).parents("div").children(".goal-range-start").val();
+        let endDateTime = $(this).parents("div").children(".goal-range-end").val();
 
         $(this).daterangepicker({
             timePicker: true,
@@ -126,12 +127,12 @@ function initialize() {
             endDate: endDateTime,
             opens: 'center',
             locale: {
-                format: 'M/DD'
+                format: 'MM/DD hh:mm A'
             },
             ranges: {
             'Today': [moment().startOf('day'), moment().endOf('day')],
-            'Next 7 Days': [moment().startOf('day'), moment().add(7, 'days')],
-            'Next 30 Days': [moment().startOf('day'), moment().add(30, 'days')],
+            'Next 7 Days': [moment().startOf('day'), moment().add(7, 'days').endOf('day')],
+            'Next 30 Days': [moment().startOf('day'), moment().add(30, 'days').endOf('day')],
             'This Week': [moment().startOf('week'), moment().endOf('week')],
             'This Month': [moment().startOf('month'), moment().endOf('month')]
             },
@@ -228,21 +229,28 @@ function addEventListeners(){
     // Goal
 
         // When the mouse hovers over the list item, show the Save button.
-        $(".tr-goal").hover(function() {
+        $("div.goal-row").hover(function() {
             console.log("i wolke up");
-            $(this).children(".td-goal-archive").children("span").show();
+            $(this).children().children().children().children("div").children("div.col-sm-1.goal-archive").children().children().show()
 
         // When the mouse leaves the list item, hide the Save button.
             $(this).mouseleave(function() {
-                $(this).children(".td-goal-archive").children("span").hide();
+                $(this).children().children().children().children("div").children("div.col-sm-1.goal-archive").children().children().hide()
             });
         });  
 
         // Expand goal to display associated tasks
-        $(".td-goal-expand").click(function() {
+        $(".goal-expand").click(function() {
             $(this).children(".expand-more").toggle();
             $(this).children(".expand-less").toggle();
-            $(this).parents("table").next().slideToggle();
+            $(this).parents("div.goal-row.row").next("div.goal-event-log").slideToggle();
+        });
+
+        $("div.goal-events.row").hover(function() {
+            $(this).children("div.goal-event-archive").children("span").show();
+            $(this).mouseleave(function() {
+                $(this).children("div.goal-event-archive").children("span").hide();
+            });
         });
 
     // Category
@@ -271,18 +279,64 @@ $(document).ready(function() {
 
 // ADD NEW GOAL
     function addNewGoal(result){
-        $("#div-goal-log").prepend(result);
+        $(".individual-goals").prepend(result);
         $("#form-goal").trigger('reset');
-        $("#goal-category-select")[0].selectize.clear();   
+        $("select.new-goal-categories")[0].selectize.clear();
+        $("select.goal-categories").multiselect({
+            enableFiltering: true,
+            filterBehavior: 'value',
+            includeSelectAllOption: true,
+            buttonText: function(options, select) {
+                if (options.length === 0) { return 'No Categories'; } 
+                else if (options.length > 1) { return options.length + ' Categories'; } 
+                else {
+                    var labels = [];
+                    options.each(function() {
+                        if ($(this).attr('label') !== undefined) {
+                            labels.push($(this).attr('label'));
+                        } else {
+                            labels.push($(this).html());
+                        }
+                    });
+                    
+                    return labels.join(', ') + '';
+                }  
+            }
+        });
+        $('input[name="datetimes"]').each(function(i) {
+            let startDateTime = $(this).parents("div").children(".goal-range-start").val();
+            let endDateTime = $(this).parents("div").children(".goal-range-end").val();
+
+            $(this).daterangepicker({
+                timePicker: true,
+                autoUpdateInput: true,
+                startDate: startDateTime,
+                endDate: endDateTime,
+                opens: 'center',
+                locale: {
+                    format: 'MM/DD hh:mm A'
+                },
+                ranges: {
+                'Today': [moment().startOf('day'), moment().endOf('day')],
+                'Next 7 Days': [moment().startOf('day'), moment().add(7, 'days').endOf('day')],
+                'Next 30 Days': [moment().startOf('day'), moment().add(30, 'days').endOf('day')],
+                'This Week': [moment().startOf('week'), moment().endOf('week')],
+                'This Month': [moment().startOf('month'), moment().endOf('month')]
+                },
+                alwaysShowCalendars: true
+            }
+                
+            );
+        });        
     }
 
     $("#goal-submit").on("click", function() {
 
-        if ($("#input-new-goal-name").val() === "") {
+        if ($("input.new-goal-name").val() === "") {
             toastr.error("Enter a title for your goal")
         } 
 
-        if ($("#select-goal-type").val() === null) {
+        if ($("select.new-goal-type").val() === null) {
             toastr.error("Choose a type of goal")
         } 
 
@@ -294,36 +348,36 @@ $(document).ready(function() {
             toastr.error("Enter number of minutes")
         }
 
-        if ($("#newgoal-range").val() === "") {
+        if ($("input.new-goal-range").val() === "") {
             toastr.error("Pick a time range")
         }
 
-        if ($("#goal-category-select").val().length === 0) {
+        if ($("select.new-goal-categories").val().length === 0) {
             toastr.error("Add at least one category")
         }
 
         if (
-            ($("#input-new-goal-name").val() != "") &&
-            ($("#select-goal-type").val() != null) &&
+            ($("input.new-goal-name").val() != "") &&
+            ($("select.new-goal-type").val() != null) &&
             (Number.isInteger(parseInt($("#hours").val())) != false) && 
             (Number.isInteger(parseInt($("#minutes").val())) != false) &&
-            ($("#newgoal-range").val() != "") &&
-            ($("#goal-category-select").val().length > 0)
+            ($("input.new-goal-range").val() != "") &&
+            ($("select.new-goal-categories").val().length > 0)
         ) {
 
             let goalCategories = '';
 
-            for (let category of $("#goal-category-select").val()) {
+            for (let category of $("select.new-goal-categories").val()) {
                 goalCategories += category;
                 goalCategories += "|";
             }
 
             let formInputs = {
-            "goalName": $("#input-new-goal-name").val(),
-            "goalType": $("#select-goal-type").val(),
+            "goalName": $("input.new-goal-name").val(),
+            "goalType": $("select.new-goal-type").val(),
             "hours": $("#hours").val(),
             "minutes": $("#minutes").val(), 
-            "timeRange": $("#newgoal-range").val(),
+            "timeRange": $("input.new-goal-range").val(),
             "goalCategories": goalCategories
             };
 
@@ -342,19 +396,38 @@ $(document).ready(function() {
 // EDIT GOAL INFO AND SAVE
 
     // Update goal name
-    $(".td-input-goal-name").focusout(function() {
+    $("input.goal-name").focusout(function() {
         let formInputs = {
-            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "goalId": $(this).parents("div.col-sm-12").children("form").children("input").val(),
             "newGoalName": $(this).val()
         }
 
         $.post("/edit_goal_info", formInputs);
     });
 
-    // Update goal type
-    $(".select-goal-type").change(function() {
+    // Update goal categories
+     $("select.goal-categories").change(function() {
+        let goalCategories = '';
+        
+        for (let category of $(this).val()) {
+                goalCategories += category;
+                goalCategories += "|";
+        };
+
         let formInputs = {
-            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "goalId": $(this).parents("div.col-sm-12").children("form").children("input").val(),
+            "newCategories": goalCategories
+        };
+
+        console.log(formInputs)
+
+        $.post("/edit_goal_info", formInputs);
+    });
+
+    // Update goal type
+    $("select.goal-type").change(function() {
+        let formInputs = {
+            "goalId": $(this).parents("div.col-sm-12").children("form").children("input").val(),
             "newType": $(this).val()
         }
 
@@ -363,9 +436,8 @@ $(document).ready(function() {
 
     // Update goal time range
     $("input[name='datetimes']").on('apply.daterangepicker', function(ev, picker) {
-        console.log('whatevss')
         let formInputs = {
-            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "goalId": $(this).parents("div.col-sm-12").children("form").children("input").val(),
             "newStart": picker.startDate.format('YYYY-MM-DD hh:mm A'),
             "newEnd": picker.endDate.format('YYYY-MM-DD hh:mm A')
         };
@@ -374,36 +446,15 @@ $(document).ready(function() {
     });
  
     // Update goal target duration
-    $(".td-input-goal-target").focusout(function() {
+    $("input.goal-target").focusout(function() {
         let formInputs = {
-            "goalId": $(this).parents("tr").children(".input-goal-id").val(),
+            "goalId": $(this).parents("div.col-sm-12").children("form").children("input").val(),
             "newTarget": $(this).val()
         }
 
         $.post("/edit_goal_info", formInputs);
     });
 
-
-// $(".td-goal-save").click(function() {
-//     console.log("saving goal")
-
-//     $(this).parents("tr").children(".td-goal-range").children(".td-input-goal-range").on('apply.daterangepicker', function(ev, picker) {
-//         console.log(picker.startDate.format('YYYY-MM-DD hh:mm A'));
-//         console.log(picker.endDate.format('YYYY-MM-DD hh:mm A'));
-//     });
-
-//     let formInputs = {
-//         "goalId": $(this).parents("tr").children(".input-goal-id").val(),
-//         "newType": $(this).parents("tr").children(".td-goal-type").children("select").val(),
-//         "newTarget": $(this).parents("tr").children(".td-goal-duration").children("input").val(),
-//         "newTimeRange": $(this).parents("tr").children(".td-goal-range").children(".td-input-goal-range").val()    
-//     }
-
-//     $.post("/edit_goal_info", formInputs);
-
-//     toastr.success("Goal Updated")
-
-// });
 
 // ARCHIVE Goal
 

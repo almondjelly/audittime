@@ -1,182 +1,128 @@
 /* --------------------- ADD A NEW GOAL -------------------- */
 
+h1.new-goal {
+    font-family: 'Dosis';
+    text-transform: uppercase;
+    color: white;
+    padding-top: 60px;
+}
+
 #goal-new {
     background-color: rgba(255,255,255,0.8);
     font-family: 'Rubik';
     font-size: 13px;
     color: #393A4C;
-    height: 50px;
-    margin: 0 0 20px 0;
+    margin: 0 16px 0 0;
+    padding: 14px;
 }
 
-#goal-new ::placeholder {
-    color: #c2c2c2;
-    padding: 2px;
+div.new-goal-name div div.col-sm-3,
+div.new-goal-range.col-sm-8 div div.col-sm-2,
+div.new-goal-type.col-sm-3 {
+    margin-top: 1px;
 }
 
-#goal-new td {
-    padding: 4px 14px;
-}
-
-#goal-new input,
-#goal-new select {
-    color: #009AC0;
-}
-
-#td-new-goal-name {
-    width: 300px;
-}
-
-#input-new-goal-name{
-    width: 212px;
-    border: 0;
-    background: none;
-}
-
-#td-goal-type {
-    width: 130px;
-}
-
-#select-goal-type {
-    width: 80px;
-    background: none;
-    border: none;
-}
-
-#target-duration {
-    width: 180px;
-}
-
-.goal-duration {
-    border: 0;
-    background: none;
-    width: 36px;
+div.new-goal-range.col-sm-8 div div.col-sm-2 {
     text-align: right;
 }
 
-#td-newgoal-range {
-    width: 366px;
+div.new-goal-name div div.col-sm-3,
+div#goal-new div div.col-sm-5 {
+    padding-right: 0;
 }
 
+div.new-goal-name div div.col-sm-9,
+div#goal-new div div.col-sm-7,
+div.new-goal-range.col-sm-8 div div.col-sm-10 {
+    padding-left: 0;
+}
+
+input.new-goal-name,
+select.new-goal-type,
+input.new-goal-range,
+input.new-goal-target {
+    background: none;
+    border: 0;
+}
+
+input.new-goal-name,
 input#newgoal-range {
-    width: 290px;
-    padding-left: 4px;
+    width: 100%;
 }
 
-#goal-submit {
-    padding-top: 5px;
+input.new-goal-target {
+    width: 30px;
+    text-align: right;
 }
 
 /* --------------------- GOAL LOG -------------------- */
 
-.goal-log td {
-    background-color: rgba(255,255,255,0.8);
-    font-family: 'Roboto';
-    font-size: 12px;
-    color: #393A4C;
-    height: 40px;
-    margin-bottom: 6px;
-    padding: 14px;
+h1.goal-log {
+    font-family: 'Dosis';
+    text-transform: uppercase;
+    color: white;
+    padding-top: 30px;
 }
 
-td.head {
+div#div-goal-log {
+    margin: 0 32px 0 14px;
+}
+
+div.goal-row {
+    background-color: rgba(255,255,255,0.8);
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: #393A4C;
+    padding: 6px 0;
+}
+
+div.head.goal-row {
     font-family: 'Rubik';
     font-weight: bold;
     font-size: 13px;
     text-transform: uppercase;
     color: #009AC0;
-    padding: 14px;
+    padding: 12px 0 6px 0;
 }
 
-input#newgoal-range, {
-    width: 320px;    
+div.head.goal-expand,
+div.head.goal-archive,
+div.goal-event-head.goal-event-archive {
+    color: rgba(0,0,0,0);
 }
 
-input#newgoal-range,
-.goal-log td input,
-select {
+input.goal-name,
+select.goal-categories,
+select.goal-type,
+input.goal-range,
+input.goal-target {
     border: 0;
     background: none;
 }
 
-td.head.td-goal-expand {
-    color: rgba(0,0,0,0);
-}
-
-td.td-goal-expand,
-td.head.td-goal-expand,
- {
-    width: 44px;
-}
-
 .expand-more,
 .expand-less {
-    margin-top: 7px;
-    font-size: 16px;
+    margin-top: 5px;
+    font-size: 14px;
 }
 
-td.td-goal-name,
-td.head.td-goal-name {
-    width: 218px;
+input.goal-range {
+    width: 100%;
 }
 
-input.td-input-goal-name {
-    width: 190px;
-}
-
-select.td-select-goal-categories {
-    max-width: 100px;
-}
-
-td.td-goal-type,
-td.head.td-goal-type {
-    width: 104px;
-}
-
-input.td-input-goal-type {
-    width: 76px;
-}
-
-td.td-goal-range,
-td.head.td-goal-range {
-    width: 218px;
-}
-
-input.td-input-goal-range {
-    width: 190px;
-}
-
-td.td-goal-duration,
-td.td-goal-total-time,
-td.td-goal-time-left,
-td.head.td-goal-duration,
-td.head.td-goal-total-time,
-td.head.td-goal-time-left {
+div.goal-target,
+div.goal-total-time,
+div.goal-time-left,
+div.head.goal-target,
+div.head.goal-total-time,
+div.head.goal-time-left,
+input.goal-target,
+input.goal-total-time,
+input.goal-time-left {
     text-align: right;
-    width: 100px;
+    width: 100%;
 }
 
-input.td-input-goal-target,
-input.td-input-goal-total-time,
-input.td-input-goal-time-left {
-    text-align: right;
-    width: 80px;
-}
-
-
-td.td-goal-status,
-td.head.td-goal-status {
-    width: 96px;
-}
-
-td.head.td-goal-archive {
-    color: rgba(0,0,0,0) !important;
-    width: 48px;
-}
-
-td.td-goal-archive {
-    width: 40px;
-}
 
 
 /* GOAL CATEGORIES */
@@ -198,6 +144,7 @@ td.td-goal-archive {
 
 .multiselect.btn {
     padding: 0 4px;
+    background: none;
 }
 
 .multiselect-search {
@@ -205,112 +152,60 @@ td.td-goal-archive {
     font-family: 'Roboto';
     padding-left: 4px;
 }
-/*multiselect-filter
-multiselect-all
-multiselect-item
-multiselect-group 
-disabled
-active
-multiselect-filter-hidden
-multiselect-collapsible-hidden
-*/
-
-
-/*
-<ul class="multiselect-container dropdown-menu">
-    <!-- Filter -->
-    <li class="multiselect-item multiselect-filter" value="0">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input class="form-control multiselect-search" type="text" placeholder="Search">
-            <span class="input-group-btn">
-                <button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
-            </span>
-        </div>
-    </li>
-    <!-- Select all -->
-    <li class="multiselect-item multiselect-all" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(234, 234, 234); background: rgb(243, 243, 243);">
-        <a tabindex="0" class="multiselect-all"><label class="checkbox" style="padding: 3px 20px 3px 35px;"><input type="checkbox" value="multiselect-all">  Select all</label></a>
-    </li>
-    <!-- Collapsible and clickable opt group -->
-    <li class="multiselect-item multiselect-group">
-        <a href="javascript:void(0);">
-            <label><input type="checkbox" value="undefined"><b> Group 1</b></label>
-            <span class="caret-container"><b class="caret"></b></span>
-        </a>
-    </li>
-    <!-- Disabled and hidden option (hidden because of collapsible opt groups) -->
-    <li class="disabled hidden">
-        <a tabindex="-1"><label class="checkbox"><input type="checkbox" value="1-1" disabled=""> Option 1.1</label></a>
-    </li>
-    <!-- Hidden but select option -->
-    <li class="active hidden">
-        <a tabindex="0"><label class="checkbox"><input type="checkbox" value="1-2"> Option 1.2</label></a>
-    </li>
-    <!-- ... -->
-    <!-- Another opt group -->
-    <li class="multiselect-item multiselect-group">
-        <a href="javascript:void(0);">
-            <label><input type="checkbox" value="undefined"><b> Group 2</b></label>
-            <span class="caret-container"><b class="caret"></b></span>
-        </a>
-    </li>
-    <!-- Visible but not selected option -->
-    <li>
-        <a tabindex="0"><label class="checkbox"><input type="checkbox" value="2-1"> Option 2.1</label></a>
-    </li>
-</ul>*/
 
 /* --------------------- GOAL EVENTS -------------------- */
 
-.goal-event-log {
-    margin: 4px 0 4px 50px;
-}
-
-.goal-event-log td {
+div.goal-event-log {
+    margin-bottom: 10px;
     background-color: rgba(255,255,255,0.8);
-    padding: 0 12px;
-    font-size: 12px;
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: #393A4C;
 }
 
-td.goal-event-head {
+div.goal-event-head {
     font-family: 'Rubik';
     font-weight: bold;
     font-size: 12px;
     text-transform: uppercase;
     color: #009AC0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 4px 0 2px 0;
+    margin-top: 2px;
 }
 
-.td-goal-event-task {
-    width: 350px;
+div.goal-event-head.goal-event-name {
+    margin-left: -14px;
 }
 
-.td-goal-input-event-task {
-    width: 330px;
+div.goal-event-head.goal-event-category {
+    margin-left: 14px;
+}
+
+div.goal-event-head.goal-event-range {
+    margin-left: -8px;
+}
+
+div.goal-event-head.goal-event-duration {
+    margin-left: 4px;
+}
+
+div.goal-events {
+    padding: 6px 0;
+}
+
+div.goal-events div div div,
+div.goal-event-archive {
+    padding-left: 0;
+}
+
+input.goal-event-name,
+select.goal-event-category {
     background: none;
     border: 0;
+    width: 100%;
 }
 
-.td-goal-event-task-category {
-    width: 200px;
-}
-
-.td-goal-input-event-task-category {
-    width: 180px;
-}
-
-.td-goal-event-times {
-    width: 200px;
+div.goal-event-range:not(.goal-event-head) {
     color: #9b9b9b;
 }
 
-.td-goal-event-duration {
-    width: 80px;
-}
-
-.td-goal-event-task-save,
-.td-goal-event-task-remove {
-    width: 40px;
-}

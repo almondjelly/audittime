@@ -1,7 +1,9 @@
 from model import Category
 
 def goal_generate_html(goal_id, 
-                       goal_name, 
+                       goal_name,
+                       categories,
+                       goal_categories, 
                        goal_type, 
                        start_time, 
                        end_time,
@@ -16,57 +18,79 @@ def goal_generate_html(goal_id,
 
     html = ""
 
-    html += '<table class="goal-log"> \
-            <tr class="tr-goal"> \
-    \
+    html += '<div class="goal-row row">\
+            <div class="col-sm-12">\
+\
                 <!-- Goal id -->\
                 <form class="form-goal-id"><input type="hidden" class="input-goal-id" value="{goal_id}"></form>'.format(goal_id=goal_id)
 
-    html += '           <td class="td-goal-expand">\
-                    <i class="material-icons expand-more">expand_more</i>\
-                </td>\
-    \
-                <!-- Goal name -->\
-                <td class="td-goal-name">\
-                    <input type="text" value="{goal_name}" class="td-input-goal-name">'.format(goal_name=goal_name)
-            
-    html += '</td>\
-    \
-                <!-- Goal type -->\
-                <td class="td-goal-type">\
-                    <select class="select-goal-type">\
-                        <option selected class="option-goal-type-selected">'
+    html += '<div class="row">\
+                    <div class="col-sm-7"><div class="row">\
+\
+                        <div class="col-sm-1 goal-expand">\
+                            <i class="material-icons expand-more">expand_more</i>\
+                        </div>\
+\
+                        <!-- Goal name -->\
+                        <div class="col-sm-3 goal-name">\
+                            <input type="text" value="{goal_name}" class="goal-name">'.format(goal_name=goal_name)
 
+    html += '</div>\
+\
+                        <!-- Goal categories -->\
+                        <div class="col-sm-2 goal-categories">\
+                            <select class="goal-categories" multiple>'
+
+    for category in categories:
+        if category in goal_categories:
+            html += '<option value="{category_name}" selected="selected">{category_name}</option>'.format(category_name=category.name)
+
+        else:
+            html += '<option value="{category_name}">{category_name}</option>'.format(category_name=category.name)
+                                  
+    html += '</select>\
+                        </div>\
+\
+                        <!-- Goal type -->\
+                        <div class="col-sm-2 goal-type">\
+                            <select class="goal-type">\
+                                <option selected class="option-goal-type-selected">'
+                                    
     if goal_type == "at_least":
         html += 'at least'
-
-    elif goal_type == "at_most":
+    
+    else:
         html += 'at most'
 
-    html += '                    </option>\
-                        <option class="option-goal-type-unselected">'
+    html += '</option>\
+                                <option class="option-goal-type-unselected">'
 
     if goal_type == "at_least":
         html += 'at most'
 
     else:
         html += 'at least'
-                            
-    html += '                    </option>\
-                    </select>\
-    \
-                </td>\
-    \
-                <!-- Goal time range -->\
-                <td class="td-goal-range">\
-                    <input hidden value="{start_time}" class="td-goal-range-start">\
-                    <input hidden value="{end_time}" class="td-goal-range-end">'.format(start_time=start_time, end_time=end_time)
 
-    html += '                <input name="datetimes" type="text" class="td-input-goal-range">\
-                </td>\
-    \
-                <!-- Goal duration target -->\
-                <td class="td-goal-duration">'
+    html += '</option>\
+                            </select>\
+\
+                        </div>\
+\
+                        <!-- Goal time range -->\
+                        <div class="col-sm-4 goal-range">\
+                            <input hidden value="{start_time}" class="goal-range-start">'.format(start_time=start_time)
+    html += '<input hidden value="{end_time}" class="goal-range-end">'.format(end_time=end_time)
+    
+    html += '<input name="datetimes" type="text" class="goal-range">\
+                        </div>\
+\
+                    </div></div>\
+\
+                    <div class="col-sm-5"><div class="row">\
+\
+                        <div class="col-sm-11"><div class="row">\
+                            <!-- Goal duration target -->\
+                            <div class="col-sm-3 goal-target">'
 
     if days > 0:
         html += "{days}d ".format(days=days)
@@ -77,24 +101,24 @@ def goal_generate_html(goal_id,
     if minutes > 0:
         html += "{minutes}min ".format(minutes=minutes)
 
-    html += '   <input type="text" class="td-input-goal-target">'
+    html += '<input type="text" class="goal-target">\
+\
+                            </div>\
+\
+                            <!-- Goal total time progress -->\
+                            <div class="col-sm-3 goal-total-time">\
+                                {total_time}'.format(total_time=total_time)
+                            
+    html += '</div>\
+\
+                            <!-- Goal time left -->\
+                            <div class="col-sm-3 goal-time-left">\
+                                {time_left}'.format(time_left=time_left)
 
-    html += '</td>\
+    html += '</div>\
 \
-                <!-- Goal total time progress -->\
-                <td class="td-goal-total-time">\
-                    {total_time}'.format(total_time=total_time)
-    
-    html += '            </td>\
-\
-                <!-- Goal time left -->\
-                <td class="td-goal-time-left">\
-                    {time_left}'.format(time_left=time_left)
-
-    html += '            </td>\
-\
-                <!-- Goal status -->\
-                <td class="td-goal-status">'
+                            <!-- Goal status -->\
+                            <div class="col-sm-3 goal-status">'
 
     if goal_status == 'Success!':
         html += '<span class="success">{goal_status}</span>'.format(goal_status=goal_status)
@@ -104,17 +128,19 @@ def goal_generate_html(goal_id,
 
     elif goal_status == 'In progress':
         html += '{goal_status}'.format(goal_status=goal_status)
-
-    html += '            </td>\
+                                
+    html += '</div>\
+                        </div></div>\
 \
-                <!-- Archive -->\
-                <td class="td-goal-archive">\
-                    <span class="span-goal-archive">\
-                        \
-                    </span>\
-                </td>\
-            </tr>\
-        </table>'
+                        <!-- Archive -->\
+                        <div class="col-sm-1 goal-archive"><div class="row">\
+                            <span class="span-goal-archive">\
+                            </span>\
+                        </div></div>\
+                    </div></div>\
+                </div>\
+            </div>\
+        </div>'
 
     return html
 
