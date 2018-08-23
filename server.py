@@ -667,7 +667,26 @@ def save_toggl_entry():
 def display_settings():
     """Displays account settings for a user."""
 
-    return render_template("settings.html")
+    user = User.query.filter_by(user_id=session['user_id']).one()
+    
+    if user.name:
+        name = user.name
+    else:
+        name = "Name"
+
+    email = user.email
+
+    if user.toggl_token:
+        toggl_token = user.toggl_token
+    else:
+        toggl_token = "Toggl API Token"
+
+    print name, email, toggl_token
+
+    return render_template("settings.html",
+                           name=name,
+                           email=email,
+                           toggl_token=toggl_token)
 
 
 @app.route('/save_settings', methods=['POST'])
