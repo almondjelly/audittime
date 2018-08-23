@@ -1,0 +1,121 @@
+/* ------------------ START A NEW TASK ------------------*/
+
+div.timer-top-spacer {
+    padding-top: 60px;
+}
+
+h1.new-timer {
+    font-family: 'Dosis';
+    text-transform: uppercase;
+    color: white;
+    padding: 0;
+}
+
+div.timer-mode {
+    padding-right: 32px;
+    text-align: right;
+}
+
+button.timer-mode-manual,
+button.timer-mode-stopwatch {
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 10px;
+    background-color: #66C8E0;
+    border: 0;
+    margin-top: 4px;
+}
+
+#timer-new {
+    background-color: rgba(255,255,255,0.8);
+    font-family: 'Rubik';
+    font-size: 13px;
+    color: #393A4C;
+    margin: 0 16px 0 0;
+    padding: 0 14px;
+}
+
+div.currently {
+    padding: 0;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+input.new-timer-name,
+input.new-timer-running,
+input.new-timer-manual {
+    margin-top: 7px;
+}
+
+select.new-timer-category {
+    margin-top: 9px;
+}
+
+input.new-timer-running,
+input.new-timer-manual {
+    text-align: right;
+}
+
+input.new-timer-name,
+select.new-timer-category,
+input.new-timer-running,
+input.new-timer-manual {
+    background: none;
+    border: 0;
+    width: 100%;
+}
+
+div.start-button {
+    margin-top: 5px;
+    padding-right: 4px;
+    text-align: right;
+}
+
+/* --------------------- TIMER LOG -------------------- */
+
+h1.timer-log {
+    font-family: 'Dosis';
+    text-transform: uppercase;
+    color: white;
+    padding-top: 30px;
+}
+
+div#div-timer-log {
+    margin: 0 32px 0 14px;
+    margin-bottom: 60px;
+    padding-bottom: 28px;
+}
+
+div.timer-row {
+    background-color: rgba(255,255,255,0.8);
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: #393A4C;
+    padding: 6px 0;
+}
+
+div.head.timer-row {
+    font-family: 'Rubik';
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #009AC0;
+    padding: 12px 0 6px 0;
+}
+
+input.timer-name,
+select.timer-category,
+input.timer-range {
+    background: none;
+    border: 0;
+    width: 100%;
+}
+
+input.timer-range {
+    color: #9b9b9b;
+}
+
+div.timer-archive {
+    text-align: center;
+}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row timer-top-spacer">
+        <div class="col-sm-12"></div>
+    </div>
+
+    <!-- Start a new time event -->
+    <div class="row">
+        <div class="col-sm-9">
+            <h1 class="new-timer">Start A New Timer</h1>
+        </div>
+        <div class="col-sm-3 timer-mode">
+            <button class="timer-mode-manual btn btn-primary">Switch to Manual Mode</button>
+            <button class="timer-mode-stopwatch btn btn-primary">Switch to Stopwatch Mode</button>
+        </div>
+    </div>
+
+    <div class="row" id="timer-new">
+        <div class="col-sm-6">
+            <div class="row">
+
+                <div class="currently col-sm-2">
+                    I'm currently
+                </div>
+
+                <div class="col-sm-10">
+                    <input type="text" class="new-timer-name" placeholder="watching Better Call Saul" required autofocus>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-4 mid-spacer">
+                </div>
+                <div class="col-sm-4">
+                    <select required class="new-timer-category">
+                        <option value="Category" disabled selected>Pick a category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.name }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-sm-3 running-time">
+                    <input class="new-timer-running" placeholder="00:00:00">
+                    <input name="new-timer-datetimes"class="new-timer-manual">
+                </div>
+                
+                <div class="col-sm-1 start-button">
+                    <i class="start-button material-icons">play_circle_filled</i>
+                    <i class="stop-button material-icons">stop</i>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Timer Log -->
+    <h1 class="timer-log">Your Timers</h1>
+    <div id="div-timer-log">
+
+        <!-- Timer Headers -->
+        <div class="head timer-row row">
+            <div class="head col-sm-4 timer-name">Timer Name
+            </div>
+            <div class="head col-sm-3 timer-category">Category</div>
+            <div class="head col-sm-3 timer-range">Time Range</div>
+            <div class="head col-sm-1 timer-duration">Duration</div>
+            <div class="head col-sm-1 timer-archive"></div>
+        </div>
+
+        <!-- Individual Timer Events -->
+        <div class="individual-timers">
+        {% for event in events %}
+            <div class="timer-row row">
+
+                <!-- Timer IDs -->
+                <input type="hidden" class="event-id" value="{{ event.event_id }}">
+                <input type="hidden" class="timer-id" value="{{ event.timer.timer_id }}">
+
+                <div class="head col-sm-4 timer-name">
+                    <input type="text" value="{{ event.timer.name }}" class="timer-name">
+                </div>
+
+                <div class="head col-sm-3 timer-category">
+                    <select class="timer-category">
+                        <option value="{{ event.timer.category.name }}" selected>{{ event.timer.category.name }}</option>   
+                        {% for category in categories %}
+                            <option value="{{ category.name }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="head col-sm-3 timer-range">
+                    <input type="text" class="timer-range" name="timer-datetimes">  
+                    <input hidden value="{{ event.start_time.strftime('%m/%d %I:%M %p') }}" class="timer-range-start">
+                    <input hidden value="{{ event.stop_time.strftime('%m/%d %I:%M %p') }}" class="timer-range-end">
+                </div>
+                
+                <div class="head col-sm-1 timer-duration">
+                    {{ event.duration_str() }}
+                </div>
+                
+                <div class="head col-sm-1 timer-archive">
+                    <span class="timer-archive">x</span>
+                </div>
+
+
+            </div>
+        {% endfor %}
+        </div>
+
+
+    </div>
+
+
+
+
+</div>
+{% endblock %}

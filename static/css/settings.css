@@ -1,0 +1,67 @@
+/* -------------------------------- SETTINGS -------------------------------- */
+
+h1.your-info,
+h1.integrations {
+    font-family: 'Dosis';
+    text-transform: uppercase;
+    color: white;
+    padding-top: 60px;
+    text-align: center;
+}
+
+div.your-info,
+div.integrations {
+    background-color: rgba(255,255,255,0.5);
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #393A4C;
+    padding-top: 10px;
+}
+
+input.update-fullname,
+input.update-email,
+input.update-password,
+input.retype-password,
+input.update-toggl {
+    border: 0;
+    border-radius: 0;
+    background-color: white;
+    height: 50px;
+    margin: 6px 0;
+    color: #009AC0;
+    font-family: 'Rubik';
+    font-size: 15px;
+}
+
+input.update-fullname::placeholder,
+input.update-email::placeholder,
+input.update-password::placeholder,
+input.retype-password::placeholder,
+input.update-toggl::placeholder {
+    color: #9b9b9b;    
+}
+
+input.update-fullname:focus,
+input.update-email:focus,
+input.update-password:focus,
+input.retype-password:focus,
+input.update-toggl:focus {
+    border: 2px solid #66C8E0;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 40px 0px rgba(184,184,184,0.7);
+    -moz-box-shadow: 0px 0px 40px 0px rgba(184,184,184,0.7);
+    box-shadow: 0px 0px 40px 0px rgba(184,184,184,0.7);
+}
+
+button.update-info,
+button.update-toggl,
+button.update-gcal {
+    width: 100%;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 15px;
+    padding: 10px;
+    background-color: #66C8E0;
+    border: 0;
+    margin: 20px 0;
+}
