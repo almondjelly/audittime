@@ -5,22 +5,22 @@
     <!-- Add new goal -->
     <h1 class="new-goal">Add A New Goal</h1>
 
-    <form id="form-goal" method="post">
-        <div id="goal-new">
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="new-goal-name col-sm-9">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    I want to
-                                </div> 
-                                <div class="col-sm-9">
-                                    <input type="text" class="new-goal-name" placeholder="watch tv" required autofocus>
-                                </div>
+    <div id="goal-new">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="new-goal-name col-sm-9">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                I want to
+                            </div> 
+                            <div class="col-sm-9">
+                                <input type="text" class="new-goal-name" placeholder="watch tv" required autofocus>
                             </div>
                         </div>
-                        <div class="new-goal-type col-sm-3">
+                    </div>
+                    <div class="new-goal-type col-sm-3">
+                        <div class="row">
                             for 
                             <select required class="new-goal-type">
                                 <option value="Type" disabled selected>Type</option>
@@ -30,47 +30,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-7">
-                    <div class="row">
-                        <div class="new-goal-target col-sm-3">
-                            <input class="new-goal-target" id="hours" placeholder="0" required> hours
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="new-goal-target col-sm-4">
+                        <input class="new-goal-target" id="hours" placeholder="0" required> hours
 
-                            <input class="new-goal-target" id="minutes" placeholder="0" required> min
-                        </div>
-                        <div class="new-goal-range col-sm-8">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    during 
-                                </div>
-                                <div class="col-sm-10">
-                                    <input name="new-goal-datetimes" type="text" class="new-goal-range" id="new-goal-range" placeholder="pick a time range">
-                                </div>
+                        <input class="new-goal-target" id="minutes" placeholder="0" required> min
+                    </div>
+                    <div class="new-goal-range col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                during 
+                            </div>
+                            <div class="col-sm-10">
+                                <input name="new-goal-datetimes" type="text" class="new-goal-range" id="new-goal-range" placeholder="pick a time range">
                             </div>
                         </div>
-                        <div class="new-goal-submit col-sm-1">
-                            <i id="goal-submit" class="material-icons">
-                                add_circle
-                            </i>
-                        </div>
+                    </div>
+                    <div class="new-goal-submit col-sm-1">
+                        <i id="goal-submit" class="material-icons">
+                            add_circle
+                        </i>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    Which categories should we count towards this goal?
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 new-goal-categories">
-                    <select multiple class="new-goal-categories">
-                        {% for category in categories %}
-                        <option value="{{ category.name }}">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                Which categories should we count towards this goal?
             </div>
         </div>
-    </form>
+        <div class="row">
+            <div class="col-sm-12 new-goal-categories">
+                <select multiple class="new-goal-categories">
+                    {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Goal Log -->

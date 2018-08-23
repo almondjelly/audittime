@@ -1,8 +1,8 @@
-// --------------- TIMER HELPER FUNCTIONS ------------------
+// TIMER HELPER FUNCTIONS -----------------------------------------------
 
-// NEW TIMER ACTIONS
+	// NEW TIMER ACTIONS ------------------------------------------------
 
-	// >> Switch to manual mode
+	// >> Switch to manual mode -----------------------------------------
 	$("button.timer-mode-manual").click(function() {
         $(this).hide();
         $("button.timer-mode-stopwatch").show();
@@ -13,7 +13,7 @@
         $("div.running-time").removeClass("col-sm-3").addClass("col-sm-6");
     });
 
-	// >> Switch to stopwatch mode
+	// >> Switch to stopwatch mode --------------------------------------
     $("button.timer-mode-stopwatch").click(function() {
         $(this).hide();
         $("button.timer-mode-manual").show();
@@ -24,7 +24,7 @@
         $("div.running-time").removeClass("col-sm-6").addClass("col-sm-3"); 
     });
     
-    // >> Toggle between start and stop timer buttons
+    // >> Toggle between start and stop timer buttons -------------------
     $("i.start-button").click(function() {
         console.log('what')
         $(this).hide();
@@ -37,9 +37,9 @@
     });
 
 
-// UPDATE INFO IN TIMER LOG
+	// UPDATE INFO IN TIMER LOG -------------------------------------------
 
-	// >> Update timer name
+	// >> Update timer name -----------------------------------------------
 	$("input.timer-name").focusout(function() {
 		let formInputs = {
 			"eventId": $(this).parents("div.timer-row").children("input.event-id").val(),
@@ -50,7 +50,7 @@
 		$.post("/edit_timer", formInputs);
 	});
 
-	// >> Update timer category
+	// >> Update timer category -----------------------------------------------
 	$("select.timer-category").change(function() {
 		let formInputs = {
 			"eventId": $(this).parents("div.timer-row").children("input.event-id").val(),
@@ -62,7 +62,7 @@
 	});
 
 
-	// >> Update timer range
+	// >> Update timer range -----------------------------------------------
     $("input[name='timer-datetimes']").on('apply.daterangepicker', function(ev, picker) {
         let formInputs = {
 			"eventId": $(this).parents("div.timer-row").children("input.event-id").val(),
@@ -75,7 +75,7 @@
     });
 
 
-	// >> Show timer archive button
+	// >> Show timer archive button -----------------------------------------
     $("div.timer-row").hover(function() {
         $(this).children("div.timer-archive").children("span.timer-archive").show();
         $(this).mouseleave(function() {
@@ -83,7 +83,7 @@
         });
     });
 
-    // >> Archive timer
+    // >> Archive timer event -------------------------------------------------
     $("span.timer-archive").click(function() {
     	let formInputs = {
 			"eventId": $(this).parents("div.timer-row").children("input.event-id").val(),
@@ -95,55 +95,3 @@
         $(this).parents("div.timer-row").hide();
     	toastr.success("Timer archived");
     });
-
-
-
-
-
-	// // UPDATE TASK (EVENT) NAME AND SAVE
-	//     $(".td-event-start-time").click(function (){
-	//         $(this).parents("tr").children(".td-event-start-time").children("input").show();
-	//         let currentStart = $(this).val();
-	//         $(this).parents("tr").children(".td-event-start-time").children("input").attr("placeholder",
-	//             currentStart);
-	//     });
-	    
-	//     $(".td-event-end-time").click(function (){
-	//         $(this).parents("tr").children(".td-event-end-time").children("input").show();
-	//         $(this).parents("tr").mouseleave(function() {
-	//             $(this).parents("tr").children(".td-event-start-time").children("input").hide();
-	//         });
-	//     });
-
-	//     $(".span-event-task-save").click(function() {
-	//         console.log('saving task');
-
-	//         let formInputs = {
-	//             "eventId": $(this).parents("tr").children(".input-event-id").val(),
-	//             "newTaskName": $(this).parents("tr").children(".td-event-task").children("input").val(),
-	//             "newStartTime": $(this).parents("tr").children(".td-event-start-time").children("input").val(),
-	//             "newStopTime": $(this).parents("tr").children(".td-event-end-time").children("input").val()
-	//         };
-
-	//         $.post("/edit_task", formInputs);
-
-	//         toastr.success("Task Updated");
-	//     });
-
-
-	// // ARCHIVE EVENT
-
-	//     function displayArchiveEventResults(result) {
-	//         console.log(result);
-	//     }
-
-	//     $(".span-event-task-remove").click(function() {
-	//         let formInputs = {
-	//             "eventId": $(this).parents("tr").children(".input-event-id").val()
-	//         };
-
-	//         toastr.success("Task Archived");
-
-	//         $.post("archive_event", formInputs, displayArchiveEventResults);
-	//         $(this).parents("tr").hide();
-	//     });
