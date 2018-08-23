@@ -288,13 +288,13 @@
 
             <!-- Individual Goal Events -->
             {% for event in events %}
-            {% if goal in event.task.category.goal %}
+            {% if goal in event.timer.category.goal %}
             <div class="goal-events row">
 
-                <!-- Event id, task id -->
+                <!-- Event id, timer id -->
                 <form class="form-event-id">
                     <input type="hidden" class="goal-event-id" value="{{ event.event_id }}">
-                    <input type="hidden" class="goal-event-task-id" value="{{ event.task.task_id }}">
+                    <input type="hidden" class="goal-event-timer-id" value="{{ event.timer.timer_id }}">
                 </form>
 
 
@@ -307,13 +307,13 @@
 
                                 <!-- Event name -->
                                 <div class="col-sm-8 goal-event-name">
-                                    <input type="text" value="{{ event.task.name }}" class="goal-event-name">
+                                    <input type="text" value="{{ event.timer.name }}" class="goal-event-name">
                                 </div>
 
                                 <!-- Event category -->
                                 <div class="col-sm-4 goal-event-category">
                                     <select class="goal-event-category">
-                                        <option value="{{ event.task.category.name }}" selected>{{ event.task.category.name }}</option>
+                                        <option value="{{ event.timer.category.name }}" selected>{{ event.timer.category.name }}</option>
 
                                         {% for category in categories %}<option value="{{ category.name }}">{{ category.name }}</option>
                                         {% endfor %}

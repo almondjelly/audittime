@@ -548,7 +548,7 @@ def edit_timer():
 
             new_timer_id = Timer.query.filter_by(name=new_timer_name).one().timer_id
 
-        # Update current event with new timer ID
+        # Reassign current event's timer ID to new timer ID
         current_event.timer_id = new_timer_id
 
 
@@ -560,39 +560,16 @@ def edit_timer():
         current_timer.category_id = new_timer_category.category_id
 
 
-    db.session.commit()
+    # >> UPDATE TIMER TIME RANGE
+    if request.form.get('newStart') and request.form.get('newEnd'):
+        new_start_time = request.form.get('newStart') 
+        new_end_time = request.form.get('newEnd')
 
+        new_start_time = datetime.strptime(new_start_time, "%Y-%m-%d %I:%M %p")
+        new_end_time = datetime.strptime(new_end_time, "%Y-%m-%d %I:%M %p")
 
-
-
-
-
-
-
-
-
-
-    # new_start_time = request.form.get('newStartTime')
-    # new_stop_time = request.form.get('newStopTime')
-
-    # category_id = Event.query.filter_by(event_id=event_id).one(
-    #     ).timer.category_id
-    # user_id = session['user_id']
-
-    
-
-    # # Reassign event's timer id to the new timer id.
-    # event = Event.query.filter_by(event_id=event_id).one()
-    # event.timer_id = new_timer_id
-
-    # # If the start/stop times were edited, save them.
-    # if new_start_time:
-    #     new_start_time = datetime.strptime(new_start_time, "%m/%d at %I:%M %p")
-    #     event.start_time = new_start_time
-
-    # if new_stop_time:
-    #     new_start_time = datetime.strptime(new_stop_time, "%m/%d at %I:%M %p")
-    #     event.stop_time = new_stop_time
+        current_event.start_time = new_start_time
+        current_event.stop_time = new_end_time
 
     db.session.commit()
 

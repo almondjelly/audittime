@@ -79,7 +79,7 @@ class Goal(db.Model):
 
         goal_timers = []
         for category in self.category:
-            goal_timers.extend(timer.query.filter_by(
+            goal_timers.extend(Timer.query.filter_by(
                 category_id=category.category_id))
 
         goal_events = []
