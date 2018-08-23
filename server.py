@@ -693,10 +693,10 @@ def display_settings():
 def save_settings():
     """Update database with new settings information."""
 
-    name = request.form.get('name')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    toggl_token = request.form.get('toggl-token')
+    name = request.form.get('newFullName')
+    email = request.form.get('newEmail')
+    password = request.form.get('newPassword')
+    toggl_token = request.form.get('togglToken')
 
     user = User.query.filter_by(user_id=session['user_id']).one()
 

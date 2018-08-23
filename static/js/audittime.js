@@ -146,18 +146,6 @@ function initialize() {
     
 function addEventListeners(){
 
-    // SETTINGS
-
-        $("#show-password").click(function() {
-            console.log('what on earth')
-            let pass = $("#input-new-password");
-            if (pass.attr("type") === "password") {
-                pass.attr("type", "text");
-            } else {
-                pass.attr("type", "password");
-            }
-        });
-
     // SHOW/HIDE SAVE BUTTONS
 
     // Google Calendar
@@ -474,85 +462,85 @@ $(document).ready(function() {
     });
 
 
-// -------------------------------- CATEGORIES --------------------------------
+// // -------------------------------- CATEGORIES --------------------------------
 
-// ADD NEW CATEGORY
+// // ADD NEW CATEGORY
 
-    function addNewCategory(result) {
-        $("tbody").prepend(result);
-        $("#form-category").trigger('reset');
-        initialize();
+//     function addNewCategory(result) {
+//         $("tbody").prepend(result);
+//         $("#form-category").trigger('reset');
+//         initialize();
 
-        toastr.success("New Category Added");
-    }
+//         toastr.success("New Category Added");
+//     }
 
-    $("#category-submit").on("click", function() {    
+//     $("#category-submit").on("click", function() {    
 
-        let categoryGoals = '';
+//         let categoryGoals = '';
 
-        $("#select-category-goal").change(function() {
-            $(this).children("option:selected").each(function() {
-                categoryGoals += $(this).text() + '|';
-            });
-        }).trigger("change");
-
-
-        let formInputs = {
-            "categoryName": $("#input-category-new").val(),
-            "categoryGoals": categoryGoals
-        };
-
-        $.post("/add_category", formInputs, addNewCategory);
-
-    });
+//         $("#select-category-goal").change(function() {
+//             $(this).children("option:selected").each(function() {
+//                 categoryGoals += $(this).text() + '|';
+//             });
+//         }).trigger("change");
 
 
-// EDIT CATEGORY INFO AND SAVE
+//         let formInputs = {
+//             "categoryName": $("#input-category-new").val(),
+//             "categoryGoals": categoryGoals
+//         };
 
-function displayEditCategoryResults(result) {
-    toastr.success("Category Saved");
-}
+//         $.post("/add_category", formInputs, addNewCategory);
+
+//     });
 
 
-$(".btn-category-save").click(function() {
-        let newCategoryGoals = '';
+// // EDIT CATEGORY INFO AND SAVE
+
+// function displayEditCategoryResults(result) {
+//     toastr.success("Category Saved");
+// }
+
+
+// $(".btn-category-save").click(function() {
+//         let newCategoryGoals = '';
 
         
-        $(this).parents("tr").children(".td-category-goals").children("select").change(function() {
-            $(this).children("option:selected").each(function() {
-                newCategoryGoals += $(this).text() + '|';
-            });
-        }).trigger("change");
+//         $(this).parents("tr").children(".td-category-goals").children("select").change(function() {
+//             $(this).children("option:selected").each(function() {
+//                 newCategoryGoals += $(this).text() + '|';
+//             });
+//         }).trigger("change");
     
-        console.log("saving category");
+//         console.log("saving category");
     
-        let formInputs = {
-            "categoryId": $(this).parents("tr").children(".input-category-id").val(),
-            "newcategoryName": $(this).parents("tr").children(".td-category").children(".td-input-category").val(),
-            "newCategoryGoals": newCategoryGoals
-        };
+//         let formInputs = {
+//             "categoryId": $(this).parents("tr").children(".input-category-id").val(),
+//             "newcategoryName": $(this).parents("tr").children(".td-category").children(".td-input-category").val(),
+//             "newCategoryGoals": newCategoryGoals
+//         };
 
-        $.post("/edit_category_info", formInputs, displayEditCategoryResults);
+//         $.post("/edit_category_info", formInputs, displayEditCategoryResults);
 
-    });
+//     });
 
 
-// ARCHIVE CATEGORY
+// // ARCHIVE CATEGORY
 
-    function displayArchiveCategoryResults(result) {
-        console.log(result);
-    }
+//     function displayArchiveCategoryResults(result) {
+//         console.log(result);
+//     }
 
-    $(".btn-category-archive").click(function() {
-        let formInputs = {
-            "categoryId": $(this).parents("tr").children(".input-category-id").val()
-        };
+//     $(".btn-category-archive").click(function() {
+//         let formInputs = {
+//             "categoryId": $(this).parents("tr").children(".input-category-id").val()
+//         };
 
-        toastr.success("Category Archived");
+//         toastr.success("Category Archived");
 
-        $.post("archive_category", formInputs, displayArchiveCategoryResults);
-        $(this).parents("tr").hide();
-    });
+//         $.post("archive_category", formInputs, displayArchiveCategoryResults);
+//         $(this).parents("tr").hide();
+//     });
 
 
 // ------------------------------ TASKS + EVENTS ------------------------------
@@ -859,5 +847,6 @@ $(".sidenav .row").click(function() {
 
 
 
+// UPDATE SETTINGS PAGE
 
 

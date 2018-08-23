@@ -2,118 +2,114 @@
 {% block body %}
 
 <div id="settings-container" class="container">
-    <form id="form-settings" action="/save_settings" method="post">
+    <!-- Headings -->
+    <div class="row">
 
-        <!-- Headings -->
-        <div class="row">
-
-            <!-- Spacer -->
-            <div class="col-sm-1">
-            </div>
-
-            <!-- Your Info -->
-            <div class="col-sm-4"><h1 class="your-info">Your Info</h1></div>
-
-            <!-- Spacer -->
-            <div class="col-sm-1"></div>
-
-            <!-- Integrations -->
-            <div class="col-sm-4"><h1 class="integrations">Integrations</h1></div>
+        <!-- Spacer -->
+        <div class="col-sm-1">
         </div>
 
+        <!-- Your Info -->
+        <div class="col-sm-4"><h1 class="your-info">Your Info</h1></div>
 
-        <!-- Forms -->
-        <div class="row">
+        <!-- Spacer -->
+        <div class="col-sm-1"></div>
 
-            <!-- Spacer -->
-            <div class="col-sm-1">
+        <!-- Integrations -->
+        <div class="col-sm-4"><h1 class="integrations">Integrations</h1></div>
+    </div>
+
+
+    <!-- Forms -->
+    <div class="row">
+
+        <!-- Spacer -->
+        <div class="col-sm-1">
+        </div>
+
+        <!-- Your Info -->
+        <div class="col-sm-4 your-info">
+            
+            <!-- Update Name -->
+            <div class="row">
+                <div class="update-fullname col-sm-12">
+                    <input type="text" class="form-control update-fullname" placeholder="{{ name }}" name="name">
+                </div>
             </div>
 
-            <!-- Your Info -->
-            <div class="col-sm-4 your-info">
-                
-                <!-- Update Name -->
-                <div class="row">
-                    <div class="update-fullname col-sm-12">
-                        <input type="text" class="form-control update-fullname" placeholder="{{ name }}" name="name">
-                    </div>
+            <!-- Update Email -->
+            <div class="row">
+                <div class="update-email col-sm-12">
+                    <input type="email" class="form-control update-email" placeholder="{{ email }}" name="email">
                 </div>
-
-                <!-- Update Email -->
-                <div class="row">
-                    <div class="update-email col-sm-12">
-                        <input type="email" class="form-control update-email" placeholder="{{ email }}" name="email">
-                    </div>
-                </div>
-
-                <!-- Update Password -->
-                <div class="row">
-                    <div class="update-password col-sm-12">
-                        <input type="password" class="form-control update-password" placeholder="New Password" name="password">
-                    </div>
-                </div>
-
-                <!-- Retype Password -->
-                <div class="row">
-                    <div class="retype-password col-sm-12">
-                        <input type="password" class="form-control retype-password" placeholder="Retype Password" name="retype-password">
-                    </div>
-                </div>
-
-                <!-- Submit -->
-                <div class="row">
-                    <div class="update-info col-sm-12">
-                        <button type="submit" class="btn btn-primary update-info">Update</button>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- Spacer -->
-            <div class="col-sm-1">
+            <!-- Update Password -->
+            <div class="row">
+                <div class="update-password col-sm-12">
+                    <input type="password" class="form-control update-password" placeholder="New Password" name="password">
+                </div>
             </div>
 
-            <!-- Integrations -->
-            <div class="col-sm-4 integrations">
-            <!-- MOVE TO A TOOLTIP -->
-            <!-- You can import Toggl entries and Google Calendar events from the past 7 days. After that, any new Toggl entries and/or calendar events you create will show up in AuditTime automatically going forward.   -->
-                
-                <!-- Toggl -->
-                <div class="row">
-                    <div class="update-toggl col-sm-12">
-                        <input type="text" class="form-control update-toggl" placeholder="{{ toggl_token }}" name="toggl">
-                    </div>
+            <!-- Retype Password -->
+            <div class="row">
+                <div class="retype-password col-sm-12">
+                    <input type="password" class="form-control retype-password" placeholder="Retype Password" name="retype-password">
                 </div>
-
-                <div class="row">
-                    <div class="toggl-text col-sm-12">
-                        Import your Toggl time entries by entering your Toggl API token (found in your Toggl settings) above.
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="update-toggl col-sm-12">
-                        <button type="submit" class="btn btn-primary update-toggl">Save Toggl Info</button>
-                    </div>
-                </div>
-
-                <!-- Google Calendar -->
-                <div class="row">
-                    <div class="toggl-text col-sm-12">
-                        <br>
-                        Import your Google Calendar events by pressing the button below.
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="update-gcal col-sm-12">
-                        <button type="submit" class="btn btn-primary update-gcal">Import Google Calendar</button>
-                    </div>
-                </div>
-
             </div>
 
-    </form>
+            <!-- Submit -->
+            <div class="row">
+                <div class="update-info col-sm-12">
+                    <button class="btn btn-primary update-info">Update</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Spacer -->
+        <div class="col-sm-1">
+        </div>
+
+        <!-- Integrations -->
+        <div class="col-sm-4 integrations">
+        <!-- MOVE TO A TOOLTIP -->
+        <!-- You can import Toggl entries and Google Calendar events from the past 7 days. After that, any new Toggl entries and/or calendar events you create will show up in AuditTime automatically going forward.   -->
+            
+            <!-- Toggl -->
+            <div class="row">
+                <div class="update-toggl col-sm-12">
+                    <input type="text" class="form-control update-toggl" placeholder="{{ toggl_token }}" name="toggl">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="toggl-text col-sm-12">
+                    Import your Toggl time entries by entering your Toggl API token (found in your Toggl settings) above.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="update-toggl col-sm-12">
+                    <button type="submit" class="btn btn-primary update-toggl">Save Toggl Info</button>
+                </div>
+            </div>
+
+            <!-- Google Calendar -->
+            <div class="row">
+                <div class="toggl-text col-sm-12">
+                    <br>
+                    Import your Google Calendar events by pressing the button below.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="update-gcal col-sm-12">
+                    <button type="submit" class="btn btn-primary update-gcal">Import Google Calendar</button>
+                </div>
+            </div>
+
+        </div>
 </div>
 
 {% endblock %}
