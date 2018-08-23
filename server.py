@@ -571,26 +571,14 @@ def edit_timer():
         current_event.start_time = new_start_time
         current_event.stop_time = new_end_time
 
+
+    # >> ARCHIVE TIMER EVENT
+    if request.form.get('archiveTimer'):
+        current_event.status = 'archived'
+
     db.session.commit()
 
     return redirect('/timers')
-
-
-@app.route('/archive_event', methods=['POST'])
-def archive_event():
-    """Archive an event."""
-
-    # Grab data from form via JavaScript
-    event_id = request.form.get('eventId')
-
-    # Find the existing event
-    event = Event.query.filter_by(event_id=event_id).one()
-
-    # Set status to 'archived'
-    event.status = 'archived'
-    db.session.commit()
-
-    return "event archived"
 
 
 @app.route('/toggl')

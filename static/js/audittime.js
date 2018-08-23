@@ -46,45 +46,7 @@ function initializeTimers() {
 }
 
 function addTimerEventListeners() {
-    $("button.timer-mode-manual").click(function() {
-        $(this).hide();
-        $("button.timer-mode-stopwatch").show();
-        $("input.new-timer-running").hide();
-        $("input.new-timer-manual").show();
-        $("div.start-button").hide();
-        $("div.mid-spacer").removeClass("col-sm-4").addClass("col-sm-2");
-        $("div.running-time").removeClass("col-sm-3").addClass("col-sm-6");
-    });
-
-    $("button.timer-mode-stopwatch").click(function() {
-        $(this).hide();
-        $("button.timer-mode-manual").show();
-        $("input.new-timer-manual").hide();
-        $("input.new-timer-running").show();
-        $("div.start-button").show();
-        $("div.mid-spacer").removeClass("col-sm-2").addClass("col-sm-4");
-        $("div.running-time").removeClass("col-sm-6").addClass("col-sm-3"); 
-    });
-
-    $("div.timer-row").hover(function() {
-        $(this).children("div.timer-archive").children("span.timer-archive").show();
-        $(this).mouseleave(function() {
-            $(this).children("div.timer-archive").children("span.timer-archive").hide();
-        });
-    });
     
-    $("i.start-button").click(function() {
-        console.log('what')
-        $(this).hide();
-        $("i.stop-button").show();
-    });
-
-    $("i.stop-button").click(function() {
-        $(this).hide();
-        $("i.start-button").show();
-    });
-
-
 
 }
 
@@ -626,25 +588,6 @@ $(document).ready(function() {
 
 
 // ------------------------------ TASKS + EVENTS ------------------------------
-
-// ENABLE TOGGLING BETWEEN STOPWATCH / MANUAL MODES
-    // $("#mode-stopwatch").click(function() {
-    //     $("#startStop").show();
-    //     $("#datePickers").hide();
-    //     $(this).hide();
-    //     $('#mode-manual').show();
-    // });
-
-    // $("#mode-manual").click(function() {
-    //     $("#startStop").hide();
-    //     $("#datePickers").show();
-    //     $(this).hide();
-    //     $('#mode-stopwatch').show();
-    // });
-
-    $("#running-time").click(function() {
-        $("#manual-dates").toggle();
-    })
 
 
 // ADD NEW EVENT
