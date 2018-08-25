@@ -416,17 +416,39 @@ def archive_category():
 def display_timers():
     """Display timers page."""
 
+    user_id = session['user_id']
+
     categories = db.session.query(Category).filter_by(
-        user_id=session['user_id']).order_by('name').all()
+        user_id=user_id).order_by('name').all()
 
     events = db.session.query(Event).filter_by(
-        user_id=session['user_id'], status='active').order_by('stop_time').all()
+        user_id=user_id, status='active').order_by('stop_time').all()
 
     # Display log in reverse chronological order.
     events.reverse()
 
-    return render_template("timers.html", events=events,
-                           categories=categories)
+    user = User.query.filter_by(user_id=user_id).one()
+
+    if user.gcal:
+
+        # Grab last 7 days of gCal events and update the database.
+        gcal_update_db(user_id)
+
+        goals = db.session.query(Goal).filter_by(user_id=user_id) \
+                .order_by('end_time').all()
+
+        gcal_events = GoogleCalendar.query.filter_by(status='pending').all()
+
+        return render_template("gcal-timers.html", 
+                               gcal_events=gcal_events,
+                               categories=categories,
+                               goals=goals,
+                               events=events)
+
+    else:
+        return render_template("timers.html",
+                               categories=categories,
+                               events=events)
 
 
 @app.route('/add_event', methods=['POST'])

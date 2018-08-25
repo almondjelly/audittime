@@ -2,7 +2,7 @@ from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
-from model import GoogleCalendar, db, connect_to_db
+from model import GoogleCalendar, db, connect_to_db, User
 import datetime
 
 def gcal_get_last_7_days():
@@ -69,6 +69,9 @@ def gcal_update_db(user_id):
                                    title=event['title'],
                                    status='pending')
         db.session.add(new_event)
+
+    user = User.query.filter_by(user_id=user_id).one()
+    user.gcal = 'yes'
 
     db.session.commit()
 
